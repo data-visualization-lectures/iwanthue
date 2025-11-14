@@ -27,6 +27,6 @@
   "config": {
     "matomo": "20",
     "tweet": "iWantHue: make clever color palettes",
-    "prefix": "/iwanthue/"
+    "prefix": "/"
   }
 }
