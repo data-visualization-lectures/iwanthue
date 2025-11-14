@@ -1,5 +1,18 @@
 # iWantHue
 
+## Local build
+1. Install Node 16.20.2 (for example via Volta: `volta install node@16.20.2`).
+2. Ensure Volta’s shims are on your `PATH` and install dependencies:
+   ```bash
+   export PATH=$HOME/.volta/bin:$PATH
+   npm ci
+   ```
+3. Build the static site:
+   ```bash
+   npm run build
+   ```
+   The generated files live in `build/` and can be deployed directly (Netlify uses `netlify.toml` to serve this directory without rebuilding).
+
 **Colors for data scientists.** *Generate and refine palettes of optimally distinct colors.*
 
 *[iWantHue](http://tools.medialab.sciences-po.fr/iwanthue/)* allows you to generate palettes of colors. It is about mastering the properties of a palette by setting a range of Hue, Chroma (unbiased saturation) and Lightness. You can generate palettes of any size or just get the generator for a javascript project. The algorithm optimizes the perceptive distance in the color subspace, ensuring an optimal readability.
