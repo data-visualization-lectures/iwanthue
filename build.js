@@ -6,7 +6,7 @@ const fs = require('fs-extra');
 const INCLUDES_RE = /<\?php\s+include\(['"]([^'"]+\.php)['"]\);?\s*\?>/gi;
 const ASSET_URL_RE = /(["'])((?:css|img|js|res)\/[^"']+)["']/g;
 
-const BUILD_FOR_JEKYLL = true;
+const BUILD_FOR_JEKYLL = false;
 
 const MATOMO_ANALYTICS = process.env.MATOMO_ANALYTICS,
       TWEET = process.env.TWEET,
@@ -56,9 +56,6 @@ phpFiles.forEach(file => {
 
   code = solveIncludes(code, phpFiles);
 
-  if (BUILD_FOR_JEKYLL)
-    code = `---\nredirect_from: /${file}.html\n---\n` + code;
-
   if (file.endsWith('index.php')) {
     fs.writeFileSync(path.join('./build', 'index.html'), code, 'utf-8');
   }
@@ -89,8 +86,5 @@ GLOB_ASSETS.forEach(g => {
     fs.copyFileSync(p, path.join('./build', p));
   });
 });
-
-if (BUILD_FOR_JEKYLL)
-  fs.writeFileSync(path.join('./build', '_config.yml'), 'plugins:\n  - jekyll-redirect-from\n', 'utf-8');
 
 console.log('Success!');
