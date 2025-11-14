@@ -154,30 +154,30 @@
                             <h3>JSON</h3>
                             <h5>HEX json</h5>
                             <div id="resultColors_hexjson">
-                                <span class="muted">You must make a palette</span>
+                                <span class="muted">パレットを作成してください</span>
                             </div>
                             <h5>RGB json</h5>
                             <div id="resultColors_rgbjson">
-                                <span class="muted">You must make a palette</span>
+                                <span class="muted">パレットを作成してください</span>
                             </div>
                             <h5>HCL json</h5>
                             <div id="resultColors_hcljson">
-                                <span class="muted">You must make a palette</span>
+                                <span class="muted">パレットを作成してください</span>
                             </div>
                             <h5>LAB json</h5>
                             <div id="resultColors_labjson">
-                                <span class="muted">You must make a palette</span>
+                                <span class="muted">パレットを作成してください</span>
                             </div>
                         </div>
                         <div class="span3">
                             <h3>CSS</h3>
                             <h5>HEX list for CSS</h5>
                             <div id="resultColors_hexlist">
-                                <span class="muted">You must make a palette</span>
+                                <span class="muted">パレットを作成してください</span>
                             </div>
                             <h5>RGB list for CSS</h5>
                             <div id="resultColors_rgblist">
-                                <span class="muted">You must make a palette</span>
+                                <span class="muted">パレットを作成してください</span>
                             </div>
                         </div>
                     </div>
@@ -185,7 +185,7 @@
                     <h3>Javascript</h3>
                     <h5>Generate a palette with these settings</h5>
                     <div id="resultColors_jsGeneration">
-                        <span class="muted">You must make a palette</span>
+                        <span class="muted">パレットを作成してください</span>
                     </div>
                 </div>
             </div>
@@ -199,7 +199,7 @@
         <div id="colorPicker_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">Color picker</h3>
+                <h3 id="myModalLabel">カラー・ピッカー</h3>
             </div>
             <div class="modal-body">
                 <table>
