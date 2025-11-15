@@ -335,7 +335,7 @@ var updateAdditionalInfo = function (colors) {
 	$('#additionalInfo').html('')
 	if (colors.length > 10) {
 		$('#additionalInfo').append(
-			$('<br><br><h3>Differenciation report only available for 10 colors or less</h3>')
+			$('<br><br><h3>差異レポートは10色以下の場合のみ利用可能です</h3>')
 		)
 	} else {
 		var logMessage = ''
@@ -384,7 +384,7 @@ var updateAdditionalInfo = function (colors) {
 		})
 		average = Math.round( 10 * average / count ) / 10
 		$('#additionalInfo').append(
-			$('<h5>Color pairs by distance (average '+average+')</h5>')
+			$('<h5>距離による色のペア（平均 '+average+'）</h5>')
 				.after(pairDistances)
 		)
 		logMessage += average+','
@@ -403,7 +403,7 @@ var updateAdditionalInfo = function (colors) {
 		})
 		average = Math.round( 10 * average / count ) / 10
 		$('#additionalInfo').append(
-			$('<h5>Color pairs by <em>Protanope</em> distance (average '+average+')</h5>')
+			$('<h5><em>第一色覚特性</em>による距離での色のペア（平均 '+average+'）</h5>')
 				.after(pairDistances)
 		)
 		logMessage += average+','
@@ -422,7 +422,7 @@ var updateAdditionalInfo = function (colors) {
 		})
 		average = Math.round( 10 * average / count ) / 10
 		$('#additionalInfo').append(
-			$('<h5>Color pairs by <em>Deuteranope</em> distance (average '+average+')</h5>')
+			$('<h5><em>第二色覚特性</em>による距離での色のペア（平均 '+average+'）</h5>')
 				.after(pairDistances)
 		)
 		logMessage += average+','
@@ -441,12 +441,12 @@ var updateAdditionalInfo = function (colors) {
 		})
 		average = Math.round( 10 * average / count ) / 10
 		$('#additionalInfo').append(
-			$('<h5>Color pairs by <em>Tritanope</em> distance (average '+average+')</h5>')
+			$('<h5><em>第三色覚特性</em>による距離での色のペア（平均 '+average+'）</h5>')
 				.after(pairDistances)
 		)
 		logMessage += average
 
-		console.log('Average distances for different cases\n'+logMessage)
+		console.log('各ケースにおける平均距離\n'+logMessage)
 	}
 
 	function displayPair(el, pair, distance) {
