@@ -986,49 +986,46 @@ function labFancyKMeans(){
             </div>
             <div class="row">
                 <div class="span6">
-                    <h3 class="infotitle">Properties of color spaces</h3>
+                    <h3 class="infotitle">色空間の性質</h3>
                     <div class="info">
                         <p>
-                            <b>RGB</b> or "Red Green Blue": the most easy to compute since it fits to how computer screens and TV work. Actually it fits quite well to our perception.
+                            <b>RGB</b>（Red / Green / Blue）: ディスプレイやテレビの仕組みに一致するため計算しやすく、知覚とも比較的相性の良い空間です。
                         </p>
                         <p>
-                            <b>HSV</b> or "Hue Saturation Value": used in softwares like Photoshop, since it allows to separate the hue (the color itself) for other parameters. It allows strong perceptual biases since the hues are not perceived with the same lightness (yellow is light, blue is dark...).
+                            <b>HSV</b>（Hue / Saturation / Value）: Photoshop などで使われ、色相を他パラメータと分離できます。ただし色相によって明るさが異なるため（黄は明るく、青は暗い等）、知覚バイアスが大きくなります。
                         </p>
                         <p>
-                            <b>HSL</b> or "Hue Saturation Lightness" is a variant of this space, and is biased as well.
+                            <b>HSL</b>（Hue / Saturation / Lightness）は HSV の変種で、同じくバイアスを含みます。
                         </p>
                         <p>
-                            <b>L*a*b*</b> or "Lightness* a* b*" is a space designed to fit to our perception. Lightness* is the unbiased version of lightness (a scale from black to color to white) and the a* and b* dimensions describe the colors (and grays).
-                            It is not easy to deal with it, since every color does not exist, but it gives the most appropriate results.
+                            <b>L*a*b*</b>（Lightness* / a* / b*）は知覚に合わせて設計された空間です。Lightness* は黒→色→白のバイアスのない明度軸、a*・b* は色（およびグレー）を表します。存在しない色座標もあるため扱いは難しいものの、もっとも適切な結果を与えます。
                         </p>
                         <p>
-                            <b>HCL</b> or "Hue Chroma Lightness*" is a transformation of L*a*b* where the Hue has been separated. It can be considered as the unbiased version of HSL, where saturation is named Chroma and the unbiased version of Lightness is Lightness* (the star indicates the difference).
-                            Like with L*a*b*, every color does not exist. What's more, it is not a convex space, and this is an issue for computing colors. That's why I prefer L*a*b* to compute, but HCL is the best space to monitor results.
+                            <b>HCL</b>（Hue / Chroma / Lightness*）は L*a*b* から色相を独立させた変換で、HSL のバイアスを取り除いた形と見なせます。ただし L*a*b* 同様に存在しない色座標があり、凸ではないので計算上の扱いは難しいものの、結果を観察するには最適です。
                         </p>
                     </div>
                 </div>
                 <div class="span6">
-                    <h3 class="infotitle">Reading the color spaces</h3>
+                    <h3 class="infotitle">色空間の読み方</h3>
                     <div class="info">
                         <p>
-                            The squares above are projections of different color spaces. Example: the RGB space is represented with R x G, G x B and R x B.
-                            They allow you to determine where the colors accumulate and where they are sparse.
-                            For instance you will observe that an even distribution in a given space (say, HSV) can be uneven in another space (RGB).
+                            上部の四角は各色空間の投影図です（例: RGB は R×G、G×B、R×B の3投影）。どこに色が集まり、どこが疎かを把握できます。
+                            例えば HSV では均等でも、RGB では偏るといった現象が観察できます。
                         </p>
                         <p>
-                            We assume that our goal is to generate varied colors. So we want to avoid accumulation, since it means that some colors are too similar, thus the palette is confusing.
+                            目的が「多様な色を生成すること」であるなら、色の偏りは似た色が多いことを意味し、パレットが紛らわしくなるので避けたいポイントです。
                         </p>
                         <p>
-                            The most suitable palettes are probably the ones that are evenly distributed in the L*a*b* color space.
+                            L*a*b* 空間で均等に分布しているパレットが、もっとも適した仕上がりになりやすいでしょう。
                         </p>
                     </div>
-                    <h3 class="infotitle">Reading sorted palettes</h3>
+                    <h3 class="infotitle">ソート済みパレットの読み方</h3>
                     <div class="info">
                         <p>
-                            The sorted palette contain the exact same colors (the ones that were generated) but sorted different ways.
+                            ソート済みパレットは生成された色そのものを並べ替えただけで、色自体は同じです。
                         </p>
                         <p>
-                            The goal is just to check if there are similar colors. Sorting the colors allows to put similar colors together. For instance if two shades of blue are very similar, they will be put together in the "Hue" palette.
+                            似た色が無いかを確認するためのもので、並べ替えることで類似色が隣り合います。たとえば青系が似ていれば「Hue」ソートのパレットで隣りに並びます。
                         </p>
                     </div>
                 </div>
