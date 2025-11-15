@@ -21,15 +21,8 @@
                                     <li><a href="completion.php">Complete</a></li>
                                 </ul>
                             </li>
-                            <li><a href="https://github.com/medialab/iwanthue">GitHub</a></li>
-                            <li><a href="https://github.com/medialab/iwanthue/issues">Issues</a></li>
-                            <li><a href="https://www.npmjs.com/package/iwanthue">npm</a></li>
                         </ul>
-
                         <div class="pull-right">
-                            <ul class="nav">
-                                <li><a href="http://tools.medialab.sciences-po.fr"><i class="icon icon-plus icon-white"></i> <span style="color: #FFF">Médialab Tools</span></a></li>
-                            </ul>
                         </div>
 
                     </div><!--/.nav-collapse -->
