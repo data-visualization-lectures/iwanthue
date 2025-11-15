@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>iWantHue - Experiment</title>
+        <title>iWantHue - 実験</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
@@ -67,7 +67,7 @@
     </head>
     <body>
         <!--[if lt IE 7]>
-            <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+            <p class="chromeframe">ご利用のブラウザは古いため、このサイトを正しく表示できません。<a href="http://browsehappy.com/">最新ブラウザへ更新する</a>か、<a href="http://www.google.com/chromeframe/?redirect=true">Google Chrome Frame をインストール</a>してください。</p>
         <![endif]-->
 
         <div class="navbar navbar-inverse navbar-fixed-top">
@@ -117,7 +117,7 @@
                 </div>
                 <div class="span5">
                     <div class="abstract">
-                        <p><strong>Colors for data scientists.</strong> Generate and refine palettes of optimally distinct colors.</p>
+                        <p><strong>データサイエンティストのための色。</strong> 最適に区別できる色のパレットを生成し、調整します。</p>
                     </div>
                 </div>
             </div>
@@ -127,42 +127,42 @@
         <div class="container">
             <div class="row">
                 <div class="span12">
-                    <h1>Random Colors: Experiment</h1>
+                    <h1>ランダムカラー: 実験</h1>
                 </div>
             </div>
 
             <div class="row">
                 <div class="span3">
-                    <h3>How it works</h3>
+                    <h3>使い方</h3>
                     <p>
-                        Choose a generator and look at how the random colors are distributed.
+                        ジェネレーターを選んで、乱数で生成された色の分布を観察します。
                     </p>
                     <p>
-                        The purpose here is to observe the properties of different generators of colors.
-                    </p>
-                </div>
-                <div class="span3">
-                    <h3>Settings</h3>
-                    <p>
-                        <input id="nodescount" type="text" value="20" style="width:35px;"/> Colors
-                    </p>
-                    <p>
-                        <input id="scatterplot" type="checkbox"/> Scatterplot style
+                        ここでは各種ジェネレーターの特徴を見極めることが目的です。
                     </p>
                 </div>
                 <div class="span3">
-                    <h3 class="infotitle">Use case A</h3>
+                    <h3>設定</h3>
+                    <p>
+                        <input id="nodescount" type="text" value="20" style="width:35px;"/> 色数
+                    </p>
+                    <p>
+                        <input id="scatterplot" type="checkbox"/> 散布図スタイルで表示
+                    </p>
+                </div>
+                <div class="span3">
+                    <h3 class="infotitle">ユースケース A</h3>
                     <div class="info">
                         <p>
-                            Set a small number of colors (10 to 50), generate several times to look if it fits your expectations.
+                            色数を 10〜50 に設定し、何度か生成して期待どおりか確認します。
                         </p>
                     </div>
                 </div>
                 <div class="span3">
-                    <h3 class="infotitle">Use case B</h3>
+                    <h3 class="infotitle">ユースケース B</h3>
                     <div class="info">
                         <p>
-                            Set a large number of colors (1000 or more), check "scatterplot style", generate and you will observe how the probabilities are distributed (takes more time).
+                            色数を 1000 以上に設定し「散布図スタイル」にチェックを入れて生成すると、確率分布の偏りが可視化されます（時間はかかります）。
                         </p>
                     </div>
                 </div>
@@ -171,7 +171,7 @@
                 <div class="row">
                     <div class="span2 generator">
                         <h3>RGB Naïve</h3>
-                        <button class="go" onclick='rgbNaive()'>Go</button>
+                        <button class="go" onclick='rgbNaive()'>実行</button>
                         <script>
 function rgbNaive(){
     var colors = [];
@@ -184,12 +184,12 @@ function rgbNaive(){
 }
                         </script>
                         <p>
-                            A random value in each red/green/blue channel.
+                            赤・緑・青の各チャネルを乱数で選ぶだけの方法です。
                         </p>
                     </div>
                     <div class="span2 generator">
                         <h3>HSL Naïve</h3>
-                        <button class="go" onclick='hslNaive()'>Go</button>
+                        <button class="go" onclick='hslNaive()'>実行</button>
                         <script>
 function hslNaive(){
     var colors = [];
@@ -202,12 +202,12 @@ function hslNaive(){
 }
                         </script>
                         <p>
-                            A random value in each hue/saturation/lightness channel.
+                            色相・彩度・明度それぞれを乱数で選びます。
                         </p>
                     </div>
                     <div class="span2 generator">
                         <h3>HSV Naïve</h3>
-                        <button class="go" onclick='hsvNaive()'>Go</button>
+                        <button class="go" onclick='hsvNaive()'>実行</button>
                         <script>
 function hsvNaive(){
     var colors = [];
@@ -220,17 +220,17 @@ function hsvNaive(){
 }
                         </script>
                         <p>
-                            A random value in each hue/saturation/value channel.
+                            H/S/V の各チャネルを乱数で選びます。
                         </p>
                     </div>
                     <div class="span6">
-                        <h3 class="infotitle">Naïve generators:</h3>
+                        <h3 class="infotitle">単純なジェネレーター</h3>
                         <div class="info">
                             <p>
-                                Random numbers do not necessary make nice swatches. You may read sometimes that HSV random colors are better than RGB. I think that it is clearly not the case.
+                                ただ乱数を使うだけでは魅力的な配色になりません。HSV の方が RGB より優れているという意見もありますが、必ずしもそうとは限りません。
                             </p>
                             <p>
-                                These basic generators allow to see that the "randomness" strongly depends on the color space that is randomized.
+                                これらの基本ジェネレーターからも、乱数の分布はどの色空間を対象にするかで大きく左右されることが分かります。
                             </p>
                         </div>
                     </div>
@@ -238,7 +238,7 @@ function hsvNaive(){
                 <div class="row">
                     <div class="span2 generator">
                         <h3>Lab Naïve</h3>
-                        <button class="go" onclick='labNaive()'>Go</button>
+                        <button class="go" onclick='labNaive()'>実行</button>
                         <script>
 function labNaive(){
     var colors = [];
@@ -254,12 +254,12 @@ function labNaive(){
 }
                         </script>
                         <p>
-                            A random value in each L*/a*/b* color coordinates (fits to how we perceive colors).
+                            L*/a*/b* の各座標を乱数で選ぶ方法です（人の知覚に近い空間）。
                         </p>
                     </div>
                     <div class="span2 generator">
                         <h3>Lab Pastel</h3>
-                        <button class="go" onclick='labPastel()'>Go</button>
+                        <button class="go" onclick='labPastel()'>実行</button>
                         <script>
 function labPastel(){
     var colors = [];
@@ -281,12 +281,12 @@ function labPastel(){
 }
                         </script>
                         <p>
-                            A random value in each L*/a*/b* color coordinates, filtered to keep only pastel colors.
+                            L*/a*/b* を乱数で生成し、パステル調だけが残るよう条件でフィルタします。
                         </p>
                     </div>
                     <div class="span2 generator">
                         <h3>Lab Pimp</h3>
-                        <button class="go" onclick='labPimp()'>Go</button>
+                        <button class="go" onclick='labPimp()'>実行</button>
                         <script>
 function labPimp(){
     var colors = [];
@@ -309,17 +309,17 @@ function labPimp(){
 }
                         </script>
                         <p>
-                            A random value in each L*/a*/b* color coordinates, filtered to keep only flashy colors.
+                            L*/a*/b* を乱数で生成し、派手な彩度の高い色だけを残すフィルタを適用します。
                         </p>
                     </div>
                     <div class="span6">
-                        <h3 class="infotitle">Lab generators:</h3>
+                        <h3 class="infotitle">Lab 系ジェネレーター</h3>
                         <div class="info">
                             <p>
-                                The L*a*b* color space is the more natural to the eye. Randomizing in this space gives more natural results.
+                                L*a*b* 色空間は目にとって自然な空間で、この空間で乱数を振ると自然な結果になりやすいです。
                             </p>
                             <p>
-                                Adding constraints helps to set some properties of the produced palette ('Pimp', 'Pastel'), and keeps the natural distribution of the colors.
+                                制約を加えることで「Pimp」「Pastel」のようにパレットの性質を調節しつつ、自然な分布を維持できます。
                             </p>
                         </div>
                     </div>
@@ -327,7 +327,7 @@ function labPimp(){
                 <div class="row">
                     <div class="span2 generator">
                         <h3>RGB Force Vector</h3>
-                        <button class="go" onclick='rgbForceVector()'>Go</button>
+                        <button class="go" onclick='rgbForceVector()'>実行</button>
                         <script>
 function rgbForceVector(){
     drawBackground();
@@ -394,12 +394,12 @@ function rgbForceVector(){
 }
                         </script>
                         <p>
-                            A Force Vector algorithm optimizes the distribution of colors inthe RGB color space.
+                            Force Vector（反発）アルゴリズムで RGB 空間上の色配置を最適化します。
                         </p>
                     </div>
                     <div class="span2 generator">
                         <h3>Lab Force Vector</h3>
-                        <button class="go" onclick='labForceVector()'>Go</button>
+                        <button class="go" onclick='labForceVector()'>実行</button>
                         <script>
 function labForceVector(){
     drawBackground();
@@ -478,12 +478,12 @@ function labForceVector(){
 }
                         </script>
                         <p>
-                            A Force Vector algorithm optimizes the distribution of colors inthe L*a*b* color space.
+                            L*a*b* 空間における Force Vector 版で、知覚空間そのものを均等に埋めます。
                         </p>
                     </div>
                     <div class="span2 generator">
                         <h3>Lab Fancy Force Vector</h3>
-                        <button class="go" onclick='labFancyForceVector()'>Go</button>
+                        <button class="go" onclick='labFancyForceVector()'>実行</button>
                         <script>
 function labFancyForceVector(){
     drawBackground();
@@ -563,7 +563,7 @@ function labFancyForceVector(){
 }
                         </script>
                         <p>
-                            A Force Vector algorithm optimizes the distribution of colors inthe L*a*b* color space. Additional conditions apply to restrain the color space to flashy colors.
+                            L*a*b* 空間の Force Vector に、派手な色だけを許可する条件を加えたバリエーションです。
                         </p>
                     </div>
                     <div class="span6 last">
@@ -581,7 +581,7 @@ function labFancyForceVector(){
                 <div class="row">
                     <div class="span2 generator">
                         <h3>RGB kMeans</h3>
-                        <button class="go" onclick='rgbKMeans()'>Go</button>
+                        <button class="go" onclick='rgbKMeans()'>実行</button>
                         <script>
 function rgbKMeans(){
     drawBackground();
@@ -647,7 +647,7 @@ function rgbKMeans(){
                     </div>
                     <div class="span2 generator">
                         <h3>Lab kMeans</h3>
-                        <button class="go" onclick='labKMeans()'>Go</button>
+                        <button class="go" onclick='labKMeans()'>実行</button>
                         <script>
 function labKMeans(){
     drawBackground();
@@ -742,7 +742,7 @@ function labKMeans(){
                     </div>
                     <div class="span2 generator">
                         <h3>Lab Fancy kMeans</h3>
-                        <button class="go" onclick='labFancyKMeans()'>Go</button>
+                        <button class="go" onclick='labFancyKMeans()'>実行</button>
                         <script>
 function labFancyKMeans(){
     drawBackground();
