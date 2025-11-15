@@ -255,9 +255,9 @@ var drawPalette = function(colors, _matchings){
 			+"\n// Sort colors by differenciation first"
 			+"\ncolors = paletteGenerator.diffSort(colors, '"+(dType.toString())+"');"
 		).after(
-			$('<div/>').html('<strong>Requirements:</strong> This code snippet needs <a href="https://github.com/gka/chroma.js">Chroma.js</a> and our own <a href="js/libs/chroma.palette-gen.js">Palette-Gen</a> lib.')
+			$('<div/>').html('<strong>必要なもの:</strong> このコードスニペットには<a href="https://github.com/gka/chroma.js">Chroma.js</a>と当サイト独自の<a href="js/libs/chroma.palette-gen.js">Palette-Gen</a>ライブラリが必要です。')
 		).after(
-			$('<div/>').html('<br><strong>Note:</strong> You can also install the <a href="https://www.npmjs.com/package/iwanthue#how-to-use-it-in-your-own-code" target="_blank">npm package</a> by running <code>npm install iwanthue</code>')
+			$('<div/>').html('<br><strong>注意:</strong> <code>npm install iwanthue</code>を実行して<a href="https://www.npmjs.com/package/iwanthue#how-to-use-it-in-your-own-code" target="_blank">npmパッケージ</a>をインストールすることもできます')
 		)
 	)
 	prettyPrint()
@@ -272,7 +272,7 @@ var resetPaletteColors = function(){
 }
 
 var reduceToPalette = function(){
-	$('#reduceToPalette').html('<i class="icon-refresh"></i> Reroll palette');
+	$('#reduceToPalette').html('<i class="icon-refresh"></i> パレットを再生成');
 
 	initVisualPalette();
 
