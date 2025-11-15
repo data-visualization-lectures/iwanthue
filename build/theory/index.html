@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>iWantHue - Theory</title>
+        <title>iWantHue - 理論</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
@@ -43,7 +43,7 @@
     </head>
     <body>
         <!--[if lt IE 7]>
-            <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+            <p class="chromeframe">ご利用のブラウザは古いため、このサイトを正しく表示できません。<a href="http://browsehappy.com/">最新ブラウザへ更新する</a>か、<a href="http://www.google.com/chromeframe/?redirect=true">Google Chrome Frame をインストール</a>してください。</p>
         <![endif]-->
 
         <div class="navbar navbar-inverse navbar-fixed-top">
@@ -69,15 +69,8 @@
                                     <li><a href="/completion/">Complete</a></li>
                                 </ul>
                             </li>
-                            <li><a href="https://github.com/medialab/iwanthue">GitHub</a></li>
-                            <li><a href="https://github.com/medialab/iwanthue/issues">Issues</a></li>
-                            <li><a href="https://www.npmjs.com/package/iwanthue">npm</a></li>
                         </ul>
-
                         <div class="pull-right">
-                            <ul class="nav">
-                                <li><a href="http://tools.medialab.sciences-po.fr"><i class="icon icon-plus icon-white"></i> <span style="color: #FFF">Médialab Tools</span></a></li>
-                            </ul>
                         </div>
 
                     </div><!--/.nav-collapse -->
@@ -100,7 +93,7 @@
                 </div>
                 <div class="span5">
                     <div class="abstract">
-                        <p><strong>Colors for data scientists.</strong> Generate and refine palettes of optimally distinct colors.</p>
+                        <p><strong>データサイエンティストのための色。</strong> 最適に区別できる色のパレットを生成し、調整します。</p>
                     </div>
                 </div>
             </div>
@@ -110,11 +103,11 @@
         <div class="container">
             <div class="hero-unit">
                 <div class="row">
-                    <div class="span2"><h1>Idea:</h1></div>
+                    <div class="span2"><h1>コンセプト:</h1></div>
                     <div class="span8" style="padding-top: 14px;">
                         <p>
-                            Distributing colors <strong>evenly</strong>, in a <strong>perceptively coherent</strong> space,
-                            <br/>constrained by <strong>user-friendly</strong> settings, to generate <strong>high quality custom palettes</strong>.
+                            色を<strong>知覚的に一貫した</strong>空間で<strong>均等に</strong>分配し、
+                            <br/><strong>扱いやすい</strong>設定で制約をかけながら、<strong>高品質なカスタムパレット</strong>を生成する。
                         </p>
                     </div>
                 </div>
@@ -123,34 +116,32 @@
             <div class="row textblock">
                 <div class="span12">
                     <p class="lead">
-                            Which is the best way to generate random colors? This was my starting point.
+                            ランダムな色を作る最良の方法は何か？──ここからすべてが始まりました。
                     </p>
                 </div>
             </div>
             <div class="row textblock">
                 <div class="span6">
                     <p>
-                        There are few common ways to write colors:
+                        色を表記する一般的な方法はいくつかあります。
                         <ul>
-                            <li>The <strong>hex</strong> writing (#FF0000) widely used for CSS. It is the hexadecimal writing of the RGB format.</li>
+                            <li>CSS で広く使われている<strong>16進数表記</strong>（例: #FF0000）。RGB の各値を16進数にしたものです。</li>
                             <li>
-                                The <strong>RGB</strong> format stands for 'Red, Green, Blue'.
-                                It is a "color space", since it is a certain way to classify colors.
-                                The three channels correspond to how screens emit colored light.
-                                Each channel ranges from 0 to 255. The RBG array [0,&nbsp;0,&nbsp;0] is black while [255,&nbsp;255,&nbsp;255] is white. 
+                                <strong>RGB</strong> は Red / Green / Blue の略で、色を分類するひとつの「色空間」です。
+                                モニターが色光を出す 3 つのチャネルに対応し、0〜255 の数値で表されます。
+                                [0,&nbsp;0,&nbsp;0] は黒、[255,&nbsp;255,&nbsp;255] は白になります。 
                             </li>
                             <li>
-                                The <strong>HSV</strong> format is another color space. It stands for "Hue, Saturation, Value".
-                                With its variant the <b>HSL</b> space, they are a more user-friendly way to "think" the colors.
-                                What we call "colors" (blue, red, yellow...) is essentially the Hue, and it is useful to have this parameter by itself, contrary to the RGB format.
+                                <strong>HSV</strong>（Hue, Saturation, Value）やその変種である <b>HSL</b> は、色を人間の感覚に近い形で扱える色空間です。
+                                私たちが「青」「赤」などと呼ぶのは主に Hue（色相）で、RGB と違いこの要素だけを直接扱える利点があります。
                             </li>
                         </ul>
                     </p>
                     <p>
-                        <strong>Many libraries allow the conversion of any color in these four writings</strong> (<em>d3.js</em> for instance).
-                        So a random colors generator may use the RGB space as well as the HSV space.
-                        HSV or HSL seem to make more sense, since they fit to how we think colors. I also read this opinion on the web. But I had to test it.
-                        So I developed <strong>a tool for monitoring</strong> what happens when you generate random colors. Here are some observations I made.
+                        <strong>多くのライブラリ（たとえば <em>d3.js</em>）は、これらの表記を相互に変換できます。</strong>
+                        したがって乱数で色を生成するとき、RGB でも HSV でも構いません。
+                        直感的には HSV/HSL の方が人間の感覚に近いので良さそうに思えますし、ネットでもそういう意見を見かけます。
+                        しかし本当にそうかを確かめるため、<strong>乱数生成を観察できるツール</strong>を作りました。以下がその結果です。
                     </p>
                 </div>
                 <div class="span6">
@@ -164,17 +155,17 @@
 
             <div class="row textblock">
                 <div class="span12">
-                    <h1>HSL random colors</h1>
+                    <h1>HSL でのランダムカラー</h1>
                 </div>
             </div>
             <div class="row textblock">
                 <div class="span6">
                     <p>
-                        Here is a palette of 12 HSL random colors. <i class="icon-hand-right"></i>
+                        下図は HSL でランダムに生成した 12 色のパレットです。<i class="icon-hand-right"></i>
                     </p>
                     <p>
-                        Some colors look very similar, for instance the dark colors. Despite generating only 12 colors, several colors might be mistaken and it is a problem.
-                        We want to use the generator for data visualization, so our primary goal is to get very distinct colors.
+                        特に暗い色など、明らかに似た色が含まれています。12 色しか生成していないのに取り違えが起きかねず、可視化には不向きです。
+                        データ可視化では色を明確に区別できることが最優先になります。
                     </p>
                 </div>
                 <div class="span6">
@@ -199,13 +190,12 @@
                 <div class="span6">
                     <br/>
                     <p>
-                        This is how these 12 colors are distributed in the HSL space. <i class="icon-hand-right"></i>
+                        これら 12 色を HSL 空間に配置するとこうなります。<i class="icon-hand-right"></i>
                     </p>
                     <p>
-                        The distribution is right, and the similarity of some colors is not an effect of randomness. It is just that the HSL color space has bad properties.
-                        Look at the <em>Hue x Lightness</em> projection. The upper-left corner and the the upper-right corner have the same color (black).
-                        Despite being distant, they look the same. The random colors <em>are</em> distant in the space but not for our perception.
-                        Colors with a low lightness will all look the same, whatever their hue. The same with high lightness colors, and low saturation colors.
+                        分布自体は均等に見えますが、似た色が出るのは偶然ではなく HSL 空間の性質に起因します。
+                        <em>Hue×Lightness</em> の投影をみると、左上と右上がどちらも黒になっています。
+                        空間上では離れているのに、知覚上は同じに見えてしまうのです。明度が低い色は色相に関わらず同じに見えますし、明度が高い場合や彩度が低い場合も同様です。
                     </p>
                 </div>
                 <div class="span6">
@@ -215,16 +205,16 @@
 
             <div class="row textblock">
                 <div class="span12">
-                    <h1>RGB random colors</h1>
+                    <h1>RGB でのランダムカラー</h1>
                 </div>
             </div>
             <div class="row textblock">
                 <div class="span6">
                     <p>
-                        Here is now a palette of 12 RGB random colors. <i class="icon-hand-right"></i>
+                        こちらは RGB でランダムに生成した 12 色のパレットです。<i class="icon-hand-right"></i>
                     </p>
                     <p>
-                        This palette is visibly better. We have less similar colors. The RGB space has better properties.
+                        先ほどより明らかに良く、似た色も少ないのが分かります。RGB 空間の方が性質が良いのです。
                     </p>
                 </div>
                 <div class="span6">
@@ -249,15 +239,15 @@
                 <div class="span6">
                     <br/>
                     <p>
-                        Here is the projection of this palette in the HSL space. <i class="icon-hand-right"></i>
+                        このパレットを HSL 空間に投影するとこうなります。<i class="icon-hand-right"></i>
                     </p>
                     <p>
-                        The colors are not located in the dark area, in the light area, or the grey area.
-                        They tend to occupy the areas where we <em>see</em> more varied colors.
-                        Intuitively, this is what we expect in order to get perceptively varied colors.
+                        色は暗い領域や極端に明るい領域、グレー領域には偏っていません。
+                        それらは私たちが色の違いを<em>見分けやすい</em>領域に集まる傾向があります。
+                        直感的にも、知覚的に多様な色を得るにはこうなってほしいと感じるはずです。
                     </p>
                     <p>
-                        <strong>The randomness is not the same depending on the color space used.</strong>
+                        <strong>どの色空間を使うかで、乱数の分布は大きく変わります。</strong>
                     </p>
                 </div>
                 <div class="span6">
@@ -268,35 +258,33 @@
             <div class="row textblock">
                 <div class="span12">
                     <p class="lead">
-                        Then, which is the best color space for generating random colors?
+                        では、ランダムな色を生成するのに最適な色空間はどれでしょうか？
                     </p>
                 </div>
             </div>
 
             <div class="row textblock">
                 <div class="span12">
-                    <h1>The L*a*b* color space</h1>
+                    <h1>L*a*b* 色空間</h1>
                 </div>
             </div>
             <div class="row textblock">
                 <div class="span6">
                     <p>
-                        The <a href="http://en.wikipedia.org/wiki/Lab_color_space">CIE L*a*b*</a> color space includes all perceivable colors and is intended to be perceptually uniform.
-                        That is, we can interpret the distance in this space as a perceptive distance. If two colors are close, then they will look similar.
-                        On the contrary, distant colors will be perceived as distinct. <strong>This is the property we need</strong>.
+                        <a href="http://en.wikipedia.org/wiki/Lab_color_space">CIE L*a*b*</a> 色空間は人が知覚できる色をほぼ網羅し、知覚的に一様になるよう設計されています。
+                        つまり、この空間での距離は知覚上の距離として扱え、近ければ見た目も似て、離れていれば違って見えるのです。<strong>求めていた特性がここにあります。</strong>
                     </p>
                     <p>
-                        But there is something special with this color space: it has holes. Only certain coordinates correspond to actual colors.
-                        This makes things a little bit more complicated, but we can get over it.
+                        ただしこの色空間には「穴」があります。実在する色に対応する座標は一部で、その他は空白です。
+                        少し扱いが難しくなりますが、十分対処できます。
                     </p>
                     <p>
-                        You can see here what it looks like. <i class="icon-hand-right"></i>
+                        形状は右図の通りです。<i class="icon-hand-right"></i>
                     </p>
                     <p>
-                        What does this color space change? It takes in account that the yellow is perceived very light, and that the purple looks dark on the contrary.
-                        That is why the L*a*b* version of the lightness has a star: <i>lightness*</i>. In a data visualization perspective, it stands for the <i>unbiased</i> lightness.
-                        This color space also gives more room to saturated colors compared to dark, clear or grey colors. All the colors look the same when they are very dark.
-                        That is why the dark colors occupy a lesser area than the fully saturated colors.
+                        この色空間の優れている点は、黄色が明るく見え、紫が暗く見えるといった人の感覚を反映していることです。
+                        明度を示す値に * が付いているのはそのためで、バイアスのない明るさを意味します。
+                        また、暗色やグレーよりも彩度の高い色に広い領域を割り当てています。とても暗い色はすべて似た見た目になるので、暗色の領域は狭くなっています。
                     </p>
                 </div>
                 <div class="span6">
@@ -309,13 +297,13 @@
                 <div class="span6">
                     <br/>
                     <p>
-                        <strong>We will use the CIE L*a*b* color space as the reference for the evaluation of colors distribution.</strong>
+                        <strong>以降の分布評価では、この CIE L*a*b* 色空間を基準として使用します。</strong>
                     </p>
                     <p>
-                        If we generate 10000 random colors in this color space, we obtain this distribution.&nbsp;<i class="icon-hand-right"></i>
+                        この空間で 1 万色をランダム生成すると、右図のような分布になります。&nbsp;<i class="icon-hand-right"></i>
                     </p>
                     <p>
-                        We can now compare the random distributions of other generators.
+                        これを基準に、他の色空間でのランダム分布と比較してみましょう。
                     </p>
                 </div>
                 <div class="span6">
@@ -327,12 +315,11 @@
                 <div class="span6">
                     <br/>
                     <p>
-                        <strong>HSL random colors represented in CIE L*a*b*</strong>&nbsp;<i class="icon-hand-right"></i>
+                        <strong>HSL のランダム色を CIE L*a*b* で表示</strong>&nbsp;<i class="icon-hand-right"></i>
                     </p>
                     <p>
-                        We clearly see how the random HSL colors concentrate in the central area.
-                        This area corresponds to the dark, grey and light colors (desaturated colors).
-                        It visualizes the many similar desaturated colors found in our first random example.
+                        HSL のランダム色が中央に集中している様子がよく分かります。
+                        この領域は暗色・グレー・非常に明るい色、すなわち彩度が低い色に対応しており、最初の例で似た色ばかりになった理由が視覚化されています。
                     </p>
                 </div>
                 <div class="span6">
@@ -344,14 +331,13 @@
                 <div class="span6">
                     <br/>
                     <p>
-                        <strong>RGB random colors represented in CIE L*a*b*</strong>&nbsp;<i class="icon-hand-right"></i>
+                        <strong>RGB のランダム色を CIE L*a*b* で表示</strong>&nbsp;<i class="icon-hand-right"></i>
                     </p>
                     <p>
-                        The distribution is very close to the reference.
-                        We can see here that RGB random colors are very satisfying, even if CIE L*a*b* random colors are even better.
+                        分布は基準に非常に近く、CIE L*a*b* で直接生成した場合ほどではないにせよ、RGB のランダム色も十分満足できる結果になります。
                     </p>
                     <p>
-                        <strong>If you have to use simple generator, use RGB random colors, they are not much different from the best you can expect!</strong>
+                        <strong>手軽なジェネレーターが必要なら、RGB のランダム色を選びましょう。期待できる最良の結果と大差ありません。</strong>
                     </p>
                 </div>
                 <div class="span6">
@@ -361,26 +347,26 @@
 
             <div class="row textblock">
                 <div class="span12">
-                    <h1>Distributing the colors evenly</h1>
+                    <h1>色を均等に配置する</h1>
                     <p class="lead">
-                        The next idea is to prevent similar colors. We place each color depending on the others.
-                        We can achieve this goal with two different algorithms: <strong>k-Means</strong> and <strong>Force Vector</strong>.
+                        次のステップは、似た色が生まれないよう互いの位置関係で色を配置することです。
+                        ここでは <strong>k-Means</strong> と <strong>Force Vector</strong>（反発ベクトル）の 2 つのアルゴリズムを使います。
                     </p>
                 </div>
             </div>
 
             <div class="row textblock">
                 <div class="span5">
-                    <h3>Force vector: repulsion</h3>
+                    <h3>Force Vector：反発による配置</h3>
                     <p>
-                        Force Vector is the simplest. It makes all the colors repulse, so that they tend to separate at the maximum in the color space.
-                        If we generate 8 colors and make them repulse in the RGB color space, which is basically a cube, they tend to go in the corners.
+                        Force Vector はもっとも単純で、すべての色がお互いを押しのけ合い、可能な限り離れるようにします。
+                        RGB 空間（立方体）で 8 色を生成して反発させると、各色は自然と角に移動していきます。
                     </p>
                     <p>
-                        <em>8 colors RGB Force Vector palette</em>&nbsp;<i class="icon-hand-right"></i>
+                        <em>RGB Force Vector による 8 色パレット</em>&nbsp;<i class="icon-hand-right"></i>
                     </p>
                     <p>
-                        So we obtain black, white, the 3 primary colors, and the 3 secondary colors!
+                        結果として黒と白、3 原色、3 補色が得られます。
                     </p>
                 </div>
                 <div class="span3">
@@ -405,11 +391,10 @@
                 <div class="span5">
                     <br/>
                     <p>
-                        The same algorithm in the CIE L*a*b* space gives different results, since the space itself has a twisted shape.
-                        The colors are nevertheless very distinct as well.
+                        同じアルゴリズムを CIE L*a*b* 空間で使うと、空間の形状がゆがんでいるため異なる結果になりますが、それでも互いによく離れた色が得られます。
                     </p>
                     <p>
-                        <em>8 colors L*a*b* Force Vector palette</em>&nbsp;<i class="icon-hand-right"></i>
+                        <em>L*a*b* Force Vector による 8 色パレット</em>&nbsp;<i class="icon-hand-right"></i>
                     </p>
                 </div>
                 <div class="span3">
@@ -432,18 +417,17 @@
 
             <div class="row textblock">
                 <div class="span5">
-                    <h3>k-Means clustering</h3>
+                    <h3>k-Means クラスタリング</h3>
                     <p>
-                        Another way to generate evenly distributed colors is to clusterize the color space.
-                        We use the <a href="http://en.wikipedia.org/wiki/Kmeans">k-Means</a> algorithm to do so.
-                        It aims at finding <em>k</em> distinct areas in the color space, and the palette is made of all the centers of these areas.
+                        色を均等に配置する別の方法は、色空間をクラスタリングすることです。
+                        ここでは <a href="http://en.wikipedia.org/wiki/Kmeans">k-Means</a> アルゴリズムを用い、色空間を <em>k</em> 個の領域に分割し、それぞれの中心点をパレットとして採用します。
                     </p>
                     <p>
-                        <em>8 colors RGB k-Means palette</em>&nbsp;<i class="icon-hand-right"></i>
+                        <em>RGB k-Means による 8 色パレット</em>&nbsp;<i class="icon-hand-right"></i>
                     </p>
                     <p>
-                        Clustering the RGB cube in 8 will also give 8 colors, but they will not be on the edge of the cube.
-                        This is the biggest difference between k-Means and Force Vector: <strong>k-Means produces less distant colors</strong>.
+                        RGB キューブを 8 分割すると 8 色が得られますが、色は必ずしも頂点には配置されません。
+                        これが Force Vector との大きな違いで、<strong>k-Means は Force Vector ほど色同士を離しません。</strong>
                     </p>
                 </div>
                 <div class="span3">
@@ -468,10 +452,10 @@
                 <div class="span5">
                     <br/>
                     <p>
-                        Like before, the CIE L*a*b* space gives different results since it has a different shape.
+                        こちらも CIE L*a*b* 空間では形状が異なるため、別の結果になります。
                     </p>
                     <p>
-                        <em>8 colors L*a*b* k-Means palette</em>&nbsp;<i class="icon-hand-right"></i>
+                        <em>L*a*b* k-Means による 8 色パレット</em>&nbsp;<i class="icon-hand-right"></i>
                     </p>
                 </div>
                 <div class="span3">
@@ -494,33 +478,32 @@
 
             <div class="row textblock">
                 <div class="span12">
-                    <h1>Mastering the palettes</h1>
+                    <h1>パレットを意図的に操る</h1>
                     <p class="lead">
-                        Next step: we want to apply constraints to the color generation.
-                        The goal is to get control over the type of colors obtained.
-                        For instance, we want to limit the saturation in order to avoid a distracting effect.
+                        次のステップは、生成される色に制約をかけて種類をコントロールすることです。
+                        たとえば彩度を抑え、派手すぎる色を避けたい場合などが典型です。
                     </p>
                 </div>
             </div>
 
             <div class="row textblock">
                 <div class="span6">
-                    <h3>The HCL color space</h3>
+                    <h3>HCL 色空間</h3>
                     <p>
-                        If RGB fits to how screens <em>produce</em> colors, if CIE L*a*b* fits to how we <em>perceive</em> colors, HCL fits to how we <em>think</em> colors.
-                        It is like HSL, but perceptively unbiased. The idea behind this color space is to use the CIE L*a*b* but with a separate Hue dimension.
-                        So HCL has the regular <u>H</u>ue, an unbiased saturation called <u>C</u>hroma, and the (unbiased) <u>L</u>ightness* from L*a*b*.
+                        RGB が画面が色を<em>生成する</em>仕組みに、CIE L*a*b* が私たちが色を<em>知覚する</em>仕組みに対応しているなら、HCL は色をどう<em>考える</em>かに対応しています。
+                        HSL に似ていますが、知覚バイアスを除いています。CIE L*a*b* をベースにしつつ、色相を独立した次元として扱う発想です。
+                        そのため HCL では通常の <u>H</u>ue、バイアスのない彩度である <u>C</u>hroma、そして L*a*b* の（バイアスのない）<u>L</u>ightness* を使います。
                     </p>
                 </div>
                 <div class="span6">
                     <div class="alert alert-info">
                         <p>
-                            This clever process has been (re-)discovered by Gregor Aisch. <a href="http://vis4.net/blog/posts/avoid-equidistant-hsv-colors/">This post explains the whole process</a>.
-                            Seriously, take a look at this work. Also, Gregor Aisch coded the <a href="https://github.com/gka/chroma.js">Chroma.js library</a> that I used so much to build this tool.
+                            この巧妙な手法は Gregor Aisch によって（再）発見されました。<a href="http://vis4.net/blog/posts/avoid-equidistant-hsv-colors/">このブログ記事</a>で詳しく説明されています。
+                            ぜひ一読してください。なお、私がこのツールで多用した <a href="https://github.com/gka/chroma.js">Chroma.js</a> も彼が開発したものです。
                         </p>
                         <p>
-                            <strong>Important note about the <em>HCL</em> terminology</strong>: the HCL color space was initially called CSL for "chroma / saturation / lightness".
-                            The post above is about "CSL": this is actually what we call <strong>HCL</strong> (like the present Chroma.js lib).
+                            <strong><em>HCL</em> という用語についての注意</strong>: この色空間は当初、CSL（chroma / saturation / lightness）と呼ばれていました。
+                            上記の記事では「CSL」と表現されていますが、現在の Chroma.js と同様に、ここで言う <strong>HCL</strong> を指しています。
                         </p>
                     </div>
                 </div>
@@ -530,20 +513,18 @@
                 <div class="span6">
                     <br/>
                     <p>
-                        The HCL color space is more twisted than CIE L*a*b* and still distorted (the desaturated colors are not in a single area), but it is the best way to set the conditions limiting the color space.
+                        HCL 色空間は CIE L*a*b* よりもさらにねじれており、彩度の低い色が一か所にまとまっているわけではありませんが、色空間に制約をかけるには最適です。
                     </p>
                     <p>
-                        We see very well the effect of the unbiased lightness: yellow is not too light and indigo not too dark. The whole looks so smooth!
+                        バイアスのない明度の効果がよく分かります。黄色は明るすぎず、藍は暗すぎません。全体がとても滑らかに見えるはずです。
                     </p>
                     <p>
-                        Just by setting a range for Hue, a range for Chroma and a range for Lightness*, we can <strong>restrain</strong> the L*a*b* color space.
-                        We just test if a given L*a*b* color, once converted in HCL, is in the specified ranges.
-                        The force vector will just prevent a color from being pushed out of these boundaries.
-                        The k-Means will restrain its sampling of colors to be clusterized (so it is even quicker).
+                        Hue・Chroma・Lightness* の範囲を指定するだけで、L*a*b* 色空間を<strong>限定</strong>できます。
+                        任意の L*a*b* の色を HCL に変換し、指定範囲に収まっているかテストするだけです。
+                        Force Vector は色が境界外へ押し出されるのを防ぎ、k-Means はクラスタリング対象となるサンプリングをその範囲に絞り込むため、処理も速くなります。
                     </p>
                     <p>
-                        So, just to be clear:
-                        <br/><strong>L*a*b* is used for computations, while HCL is used by the user to filter colors</strong>.
+                        つまり、計算処理では L*a*b* を用い、ユーザーが色域を絞るために HCL を扱う、という役割分担です。
                     </p>
                 </div>
                 <div class="span6">
@@ -553,10 +534,10 @@
 
             <div class="row textblock">
                 <div class="span6">
-                    <h3>Setting a range of Hue, Chroma or Lightness</h3>
+                    <h3>Hue・Chroma・Lightness の範囲指定</h3>
                     <p>
-                        Here are some examples of color subspaces that you can use to build palettes.
-                        You will see that because the color space is twisted, the Chroma affects the Hue and the Lightness*, and vice-versa.
+                        以下はパレット作成に使える色サブスペースの例です。
+                        色空間がねじれているため、Chroma を変えると Hue や Lightness* にも影響が出る点に注意してください。
                     </p>
                 </div>
             </div>
@@ -564,13 +545,13 @@
             <div class="row textblock">
                 <div class="span5">
                     <p>
-                        <strong>Hue from 200° to 250°</strong>&nbsp;<i class="icon-hand-right"></i>
+                        <strong>Hue 200°〜250°</strong>&nbsp;<i class="icon-hand-right"></i>
                     </p>
                     <p>
-                        170 blue colors. Since there is no constraint on chroma or lighness, we have some black, grey and white.
+                        やや青寄りの 170 色が得られます。Chroma や Lightness* を制限していないため、黒・灰・白も混ざります。
                     </p>
                     <p>
-                        Selecting a range of hues cuts the L*a*b* space like a slice of pie.
+                        色相を限定すると、L*a*b* 空間をパイの一切れのように切り取るイメージになります。
                     </p>
                     <img src="/res/hue-200-250.png"/>
                 </div>
@@ -582,17 +563,16 @@
             <div class="row textblock">
                 <div class="span5">
                     <p>
-                        <strong>Hue from 100° to 250°</strong>&nbsp;<i class="icon-hand-right"></i>
+                        <strong>Hue 100°〜250°</strong>&nbsp;<i class="icon-hand-right"></i>
                     </p>
                     <p>
-                        577 blue-green colors. Of course, a wider range has more color samples.
+                        青〜緑系の 577 色が抽出されます。範囲を広げれば色数も増えます。
                     </p>
                     <p>
-                        It is like a big slice of color space.
-                        The bottom of the space is dark while the top is light, and the center is grey while the border is colorful.
+                        色空間を大きく切り出したような形で、下部は暗く、上部は明るく、中心はグレー、外周は高彩度です。
                     </p>
                     <p>
-                        We sample the full CIE L*a*b* color space in 1782 colors.
+                        ちなみに CIE L*a*b* 全体をサンプリングすると 1,782 色になります。
                     </p>
                     <img src="/res/hue-100-250.png"/>
                 </div>
@@ -604,13 +584,13 @@
             <div class="row textblock">
                 <div class="span5">
                     <p>
-                        <strong>Chroma from 0 to 0.3</strong>&nbsp;<i class="icon-hand-right"></i>
+                        <strong>Chroma 0〜0.3</strong>&nbsp;<i class="icon-hand-right"></i>
                     </p>
                     <p>
-                        66 desaturated colors. These colors may be slightly green or orange. This is due do the fact that these hues are perceived less saturated.
+                        低彩度の 66 色です。わずかに緑やオレンジ寄りになりますが、これはそれらの色相が低彩度に見えやすいためです。
                     </p>
                     <p>
-                        Selecting a low chromas keeps only the very center of the color space.
+                        Chroma を低く限定すると、色空間の中心付近だけを残す形になります。
                     </p>
                     <img src="/res/chroma-0-0.3.png"/>
                 </div>
@@ -622,13 +602,13 @@
             <div class="row textblock">
                 <div class="span5">
                     <p>
-                        <strong>Chroma from 1 to 1.2</strong>&nbsp;<i class="icon-hand-right"></i>
+                        <strong>Chroma 1〜1.2</strong>&nbsp;<i class="icon-hand-right"></i>
                     </p>
                     <p>
-                        215 well saturated colors.
+                        彩度の高い 215 色です。
                     </p>
                     <p>
-                        Selecting a close range of chromas makes the shape of a bowl. The bowl is small if the chromas are low, the bowl is large if the chromas are high.
+                        Chroma の幅を狭くするとボウル状の形になります。Chroma が低いほど小さく、高いほど大きいボウルになります。
                     </p>
                     <img src="/res/chroma-1-1.2.png"/>
                 </div>
@@ -640,14 +620,13 @@
             <div class="row textblock">
                 <div class="span5">
                     <p>
-                        <strong>Chroma above 2</strong>&nbsp;<i class="icon-hand-right"></i>
+                        <strong>Chroma 2 以上</strong>&nbsp;<i class="icon-hand-right"></i>
                     </p>
                     <p>
-                        363 over-saturated colors.
-                        These colors are blue to purple, with a touch of green. Only these colors are perceived with such a high saturation.
+                        非常に高彩度な 363 色です。ごく一部の緑を除き、青から紫にかけての色のみがこの彩度で知覚されます。
                     </p>
                     <p>
-                        Selecting high chromas digs a big hole in the color space. But because its shape is not even, only certain hues remain.
+                        高い Chroma を選ぶと、色空間に大きな穴を開けたような形になりますが、空間の形が均一でないため特定の色相だけが残ります。
                     </p>
                     <img src="/res/chroma-2-10.png"/>
                 </div>
@@ -659,14 +638,13 @@
             <div class="row textblock">
                 <div class="span5">
                     <p>
-                        <strong>Lightness* above 1.2</strong>&nbsp;<i class="icon-hand-right"></i>
+                        <strong>Lightness* 1.2 以上</strong>&nbsp;<i class="icon-hand-right"></i>
                     </p>
                     <p>
-                        196 very light colors.
-                        These colors include a lot of yellow, since this color is perceived lighter.
+                        ごく明るい 196 色です。黄色系が多いのは、この色相が特に明るく知覚されるからです。
                     </p>
                     <p>
-                        Selecting a certain lightness selects a horizontal plan of the space.
+                        Lightness* を指定すると、色空間を水平にスライスするイメージになります。
                     </p>
                     <img src="/res/lightness-1.2-10.png"/>
                 </div>
@@ -677,24 +655,24 @@
 
             <div class="row textblock">
                 <div class="span12">
-                    <h1>Taking benefits from custom color spaces</h1>
+                    <h1>カスタム色空間を活用する</h1>
                     <p>
-                        As a data scientist I want:
+                        データサイエンティストとして次のような要件があります。
                         <ul>
-                            <li>To <strong>avoid distracting colors</strong></li>
-                            <li>To keep <strong>homogeneity</strong></li>
-                            <li>To control attention (ability to <strong>mute</strong> certain elements, or to <strong>put focus</strong> somewhere)</li>
+                            <li><strong>注意をそらす派手な色を避ける</strong></li>
+                            <li><strong>全体の一貫性を保つ</strong></li>
+                            <li>必要に応じて特定要素を<strong>目立たせたり抑制</strong>したりできること</li>
                         </ul>
-                        ...and of course to have <strong>distinct colors</strong>.
+                        そして当然ながら、<strong>互いに区別しやすい色</strong>が必要です。
                     </p>
                     <br/>
                     <p>
-                        Mastering palettes allows some solutions:
+                        パレットを制御できれば、次のような工夫が可能です。
                         <ul>
-                            <li>In order to avoid distracting colors, one may just put a <b>maximum Chroma</b>.</li>
-                            <li>Keeping homogeneity is primarily achieved by a <b>limited range of Lightness*</b>.</li>
-                            <li><b>Limiting the hue</b> is also efficient, but it depends on how much colors you want.</li>
-                            <li>Muting will be achieved by choosing a low Chroma and a <b>Lightness* close to the background.</b></li>
+                            <li>派手さを抑えるには <b>Chroma の上限</b>を設定します。</li>
+                            <li>一貫性を保つには <b>Lightness* の範囲を狭く</b>するのが効果的です。</li>
+                            <li><b>Hue を限定</b>する手法も有効ですが、必要な色数に依存します。</li>
+                            <li>目立たせたくない場合は Chroma を下げ、<b>背景に近い Lightness*</b> を選びます。</li>
                         </ul>
                     </p>
                 </div>
@@ -703,10 +681,10 @@
             <div class="row textblock">
                 <div class="span5">
                     <p>
-                        Here is an example of satisfying settings for a small amount of colors.&nbsp;<i class="icon-hand-right"></i>
+                        少数の色を扱うときのおすすめ設定例です。&nbsp;<i class="icon-hand-right"></i>
                     </p>
                     <p>
-                        <strong>Chroma &lt; 0.3</strong> and <strong>Lightness* &gt; 1.2</strong>: 19 very soft colors.
+                        <strong>Chroma &lt; 0.3</strong> かつ <strong>Lightness* &gt; 1.2</strong>：ごく柔らかな 19 色。
                         <br/>
                         <img src="/res/custom19.png"/>
                     </p>
@@ -724,10 +702,10 @@
                     </div>
                     <br/>
                     <p>
-                        <button class="btn" onclick="example1()">Reroll colors</button>
+                        <button class="btn" onclick="example1()">色を再生成</button>
                     </p>
                     <p class="text-info">
-                        You will never have 2 similar colors at the same time.
+                        同じ色が同時に現れることはありません。
                     </p>
                 </div>
             </div>
@@ -735,13 +713,13 @@
             <div class="row textblock">
                 <div class="span5">
                     <p>
-                        Here is another example, where you want to put an element in exergue.&nbsp;<i class="icon-hand-right"></i>
+                        要素の一部だけを強調したい場合の例です。&nbsp;<i class="icon-hand-right"></i>
                     </p>
                     <p>
-                        The same color space is used for all items but one, that is found in the following:
+                        基本は同じ色空間を使い、強調したい要素だけ次の条件にします。
                     </p>
                     <p>
-                        <strong>0.4 &lt; Chroma &lt; 0.6</strong> and <strong>0.8 &lt; Lightness* &lt; 1</strong>: 32 colors.
+                        <strong>0.4 &lt; Chroma &lt; 0.6</strong> かつ <strong>0.8 &lt; Lightness* &lt; 1</strong>：32 色。
                         <br/>
                         <img src="/res/custom32.png"/>
                     </p>
@@ -757,7 +735,7 @@
                     </div>
                     <br/>
                     <p>
-                        <button class="btn" onclick="example2()">Reroll colors</button>
+                        <button class="btn" onclick="example2()">色を再生成</button>
                     </p>
                 </div>
             </div>
@@ -765,15 +743,15 @@
             <div class="row textblock">
                 <div class="span5">
                     <p>
-                        If we had a dark background, we would have to find other color spaces, respectively:
+                        背景が暗い場合は次のような色空間を用います。
                     </p>
                     <p>
-                        <strong>Chroma &lt; 0.4</strong> and <strong>0.6 &lt; Lightness* &lt; 0.8</strong>: 14 colors.
+                        <strong>Chroma &lt; 0.4</strong> かつ <strong>0.6 &lt; Lightness* &lt; 0.8</strong>：14 色。
                         <br/>
                         <img src="/res/custom14.png"/>
                     </p>
                     <p>
-                        <strong>0.4 &lt; Chroma &lt; 0.8</strong> and <strong>1 &lt; Lightness* &lt; 1.2</strong>: 76 colors.
+                        <strong>0.4 &lt; Chroma &lt; 0.8</strong> かつ <strong>1 &lt; Lightness* &lt; 1.2</strong>：76 色。
                         <br/>
                         <img src="/res/custom76.png"/>
                     </p>
@@ -789,7 +767,7 @@
                     </div>
                     <br/>
                     <p>
-                        <button class="btn" onclick="example3()">Reroll colors</button>
+                        <button class="btn" onclick="example3()">色を再生成</button>
                     </p>
                 </div>
             </div>
@@ -802,7 +780,7 @@
                     <div class="span4">
                         <p>
                             <a href="https://twitter.com/share" class="twitter-share-button" data-text="iWantHue: make clever color palettes">Tweet</a>
-                            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
                         </p>
 
                         <p>
@@ -854,7 +832,7 @@
 
         </div>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="/js/libs/jquery-1.8.0.min.js"><\/script>')</script>
 
 <script src="/js/libs/bootstrap.min.js"></script>
