@@ -56,8 +56,8 @@
         <div class="container">
             <div class="hero-unit">
                 <div class="row">
-                    <div class="span2"><h1>コンセプト:</h1></div>
-                    <div class="span8" style="padding-top: 14px;">
+                    <div class="span4"><h1>コンセプト:</h1></div>
+                    <div class="span6" style="padding-top: 14px;">
                         <p>
                             色を<strong>知覚的に一貫した</strong>空間で<strong>均等に</strong>分配し、
                             <br/><strong>扱いやすい</strong>設定で制約をかけながら、<strong>高品質なカスタムパレット</strong>を生成する。
