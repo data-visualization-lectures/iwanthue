@@ -9,10 +9,10 @@
                     <a class="brand" href="index.php">I want hue</a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
-                            <li><a href="tutorial.php">Tutorials</a></li>
-                            <li><a href="examples.php">Examples</a></li>
-                            <li><a href="theory.php">Theory</a></li>
-                            <li><a href="experiment.php">Experiment</a></li>
+                            <li><a href="tutorial.php">チュートリアル</a></li>
+                            <li><a href="examples.php">例</a></li>
+                            <li><a href="theory.php">理論</a></li>
+                            <li><a href="experiment.php">実験</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Old version <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
