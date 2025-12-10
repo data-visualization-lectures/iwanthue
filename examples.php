@@ -2,955 +2,1006 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>iWantHue - 例</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
+<!--[if gt IE 8]><!-->
+<html class="no-js"> <!--<![endif]-->
 
-<?php include('includes/codetop.php') ?>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>iWantHue - 例</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
 
-        <style>
-            body {
-                padding-top: 60px;
-                padding-bottom: 40px;
-            }
+    <?php include('includes/codetop.php') ?>
 
-            .node {
-              border: solid 1px white;
-              font: 9px sans-serif;
-              line-height: 12px;
-              overflow: hidden;
-              position: absolute;
-              text-indent: 2px;
-              color: #333;
-            }
+    <style>
+        body {
+            padding-bottom: 40px;
+        }
 
-            .arc path {
-                stroke: #fff;
-            }
+        .node {
+            border: solid 1px white;
+            font: 9px sans-serif;
+            line-height: 12px;
+            overflow: hidden;
+            position: absolute;
+            text-indent: 2px;
+            color: #333;
+        }
 
-            .dark .arc path{
-                stroke: #000;
-            }
+        .arc path {
+            stroke: #fff;
+        }
 
-            .intense .arc path{
-                stroke: #FFF;
-            }
+        .dark .arc path {
+            stroke: #000;
+        }
 
-            .dark{
-                background-color: #000;
-            }
+        .intense .arc path {
+            stroke: #FFF;
+        }
 
-            h3{
-                margin-top: 80px;
-            }
+        .dark {
+            background-color: #000;
+        }
 
-            .axis path,
-            .axis line {
-              fill: none;
-              stroke: #666;
-              shape-rendering: crispEdges;
-            }
+        h3 {
+            margin-top: 80px;
+        }
 
-            .dot {
-              stroke: #fff;
-            }
+        .axis path,
+        .axis line {
+            fill: none;
+            stroke: #666;
+            shape-rendering: crispEdges;
+        }
 
-        </style>
-        
-    </head>
-    <body>
-        <!--[if lt IE 7]>
+        .dot {
+            stroke: #fff;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!--[if lt IE 7]>
             <p class="chromeframe">ご利用のブラウザは古いため、このサイトを正しく表示できません。<a href="http://browsehappy.com/">最新ブラウザへ更新する</a>か、<a href="http://www.google.com/chromeframe/?redirect=true">Google Chrome Frame をインストール</a>してください。</p>
         <![endif]-->
 
-<?php include('includes/header.php') ?>
+    <?php include('includes/header.php') ?>
 
-        <div class="container">
+    <div class="container">
 
-            <!-- Main hero unit for a primary marketing message or call to action -->
-            <div class="splash-unit row">
-                <div class="span7">
-                    <div class="image">
-                        <a href="index.php"><img src="res/header.png"/></a>
-                    </div>
-                    <div class="title">
-                        i want hue
-                    </div>
+        <!-- Main hero unit for a primary marketing message or call to action -->
+        <div class="splash-unit row">
+            <div class="span7">
+                <div class="image">
+                    <a href="index.php"><img src="res/header.png" /></a>
                 </div>
-                <div class="span5">
-                    <div class="abstract">
-                        <p><strong>データサイエンティストのための色。</strong> 最適に区別できる色のパレットを生成し、調整します。</p>
-                    </div>
+                <div class="title">
+                    i want hue
                 </div>
             </div>
-        </div>
-
-        
-
-        <div class="container">
-            
-
-            <div class="row">
-                <div class="span12">
-                    <h1>仕組み</h1>
+            <div class="span5">
+                <div class="abstract">
+                    <p><strong>データサイエンティストのための色。</strong> 最適に区別できる色のパレットを生成し、調整します。</p>
                 </div>
             </div>
-            
-            
-            <div class="row">
-                <div class="span4">
-                    <p>
-                        <ol>
-                            <li><strong>K-means</strong> または <strong>Force Vector</strong>（反発）アルゴリズムで色を均等に配置します<br/><br/></li>
-                            <li>計算には人間の知覚に沿う <strong>CIE L*a*b*</strong> 色空間を使用します<br/><br/></li>
-                            <li>制約の指定には操作しやすい <strong>Hue / Chroma / Lightness*</strong> 色空間を用います<br/><br/></li>
-                        </ol>
-                    </p>
-                    <p>
-                        <em><small>Mike Bostock の <a href="http://bl.ocks.org/4063582" target="_blank">d3.js</a> 例を基にしています</small></em>
-                    </p>
-                </div>
-                <div class="span4">
-                    <div style="text-align: center" id="treemap_rand">
-                        <!-- <img src="res/carto_rgbrand.png"/> -->
-                    </div>
-                    <br/>
-                    <div class="alert alert-error">
-                        <i class="icon-remove"></i> <em><strong>RGB ランダム</strong> - 目が散る色や似通った色が混在し、明るさも不均一</em>
-                    </div>
-                    <button class='btn' onclick="traceRand()"><i class="icon-refresh"></i> ランダム色を再生成</button>
-                </div>
-                <div class="span4">
-                    <div style="text-align: center" id="treemap_iwh">
-                        <!-- <img src="res/carto_goodgen.png"/> -->
-                    </div>
-                    <br/>
-                    <div class="alert alert-success">
-                        <i class="icon-ok"></i> <em><strong>カスタムパレット</strong> - 一貫性のある最適な配色で、知覚上の明るさも揃っています</em>
-                    </div>
-                    <button class='btn' onclick="traceIWH()"><i class="icon-refresh"></i> カスタムパレットを再生成</button>
-                    <br/>
-                    <br/>
-                </div>
-            </div>
-
-
-
-            <div class="row">
-                <div class="span12" style="">
-                    <h1>例</h1>
-                </div>
-            </div>
-            
-            <div class="row">
-                <div class="span12">
-                    <h3 style="margin-top: 20px">上品な配色</h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="span6">
-                    <p>
-                        多くの場合、次のようなシンプルな要件を満たしたいだけです。
-                        <ul>
-                            <li><strong>はっきり区別できる</strong>色（iWantHue が常に担保）</li>
-                            <li><strong>落ち着いた</strong>控えめな色（Chroma を低めに設定）</li>
-                            <li><strong>一貫性のある</strong>明るさ（背景に応じて Lightness の幅を狭く保つ）</li>
-                        </ul>
-                        <em>Fancy</em> プリセットはこれらの性質を満たす汎用パレットを最大 10 色まで生成します。
-                        Chroma と Lightness の幅を絞っているため、扱える色数も 10 色程度に限定されます。
-                    </p>
-                    <br/>
-                </div>
-                <div class="span6">
-                    <h5>色空間</h5>
-                    <div class="row">
-                        <div class="span4" id="fancyLight_selectors"></div>
-                        <div class="span2" id="fancyLight_pre"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="span6"><h5>サンプルパレット</h5><div id="fancyLight_palette"></div></div>
-                <div class="span6"><h5>例</h5><div id="fancyLight_chart"></div></div>
-            </div>
-
-
-            <div class="row">
-                <div class="span12">
-                    <h3>上品（ダーク背景）</h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="span6">
-                    <p>
-                        暗い背景では Lightness の範囲を別に設定する必要があります。それでも Chroma と Lightness の幅を狭く保つという方針は変わりません。
-                    </p>
-                    <p>
-                        一貫性を保つには、背景と程よくコントラストのある Lightness 範囲を選びます。内容を読ませるには十分なコントラストが必要ですが、派手になりすぎないよう背景と近い明るさにとどめます。
-                    </p>
-                    <br/>
-                </div>
-                <div class="span6">
-                    <h5>色空間</h5>
-                    <div class="row">
-                        <div class="span4" id="fancyDark_selectors"></div>
-                        <div class="span2" id="fancyDark_pre"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="span6"><h5>サンプルパレット</h5><div id="fancyDark_palette"></div></div>
-                <div class="span6"><h5>例</h5><div id="fancyDark_chart" class="dark"></div></div>
-            </div>
-
-
-            <div class="row">
-                <div class="span12">
-                    <h3>Tarnish（くすみ）</h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="span6">
-                    <p>
-                        このプリセットはわずかに色味を帯びたグレーを作り出します。Chroma の上限をかなり低く設定することで実現できます。
-                        彩度の高い色で視線が散るのを避けたいときに便利です。
-                    </p>
-                    <p>
-                        <strong>色空間を絞るほど、得られる色数は少なくなります。</strong>
-                        Chroma の幅が狭いので、Lightness は広めに確保して差をつけます。どの色もグレー寄りになるため、明るさで見分ける必要があるからです。
-                    </p>
-                    <br/>
-                </div>
-                <div class="span6">
-                    <h5>色空間</h5>
-                    <div class="row">
-                        <div class="span4" id="tarnish_selectors"></div>
-                        <div class="span2" id="tarnish_pre"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="span6"><h5>サンプルパレット</h5><div id="tarnish_palette"></div></div>
-                <div class="span6"><h5>例</h5><div id="tarnish_chart" style="background-color:#DDD;"></div></div>
-            </div>
-
-
-            <div class="row">
-                <div class="span12">
-                    <h3>Pimp</h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="span6">
-                    <p>
-                       このプリセットでは Chroma を高め、色のインパクトを最大化しています。かなり強烈な色合いになります。
-                       Chroma と Lightness の範囲を広く取っているため、より多くの色を区別できます。
-                    </p>
-                    <p>
-                       青〜紫が多く、緑が少なく黄色がないことに気付くかもしれません。これは人間の知覚特性によるもので、設定した最大 Lightness では黄色が許容されないためです。
-                    </p>
-                    <br/>
-                </div>
-                <div class="span6">
-                    <h5>色空間</h5>
-                    <div class="row">
-                        <div class="span4" id="pimp_selectors"></div>
-                        <div class="span2" id="pimp_pre"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="span6"><h5>サンプルパレット</h5><div id="pimp_palette"></div></div>
-                <div class="span6"><h5>例</h5><div id="pimp_chart" class="intense" style="background-color:#DDD2CC;"></div></div>
-            </div>
-
-
-            <div class="row">
-                <div class="span12">
-                    <h3>Pimp（明るめ）</h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="span6">
-                    <p>
-                       Chroma の範囲はそのままに、Lightness を大幅に明るくしたバリエーションです。
-                       その結果、黄色や緑が増え、紫が減り赤は現れません。これも CIE Lab 色空間を使うことによる副作用です。
-                    </p>
-                    <br/>
-                </div>
-                <div class="span6">
-                    <h5>色空間</h5>
-                    <div class="row">
-                        <div class="span4" id="pimpLighter_selectors"></div>
-                        <div class="span2" id="pimpLighter_pre"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="span6"><h5>サンプルパレット</h5><div id="pimpLighter_palette"></div></div>
-                <div class="span6"><h5>例</h5><div id="pimpLighter_chart" style="background-color:#FFF5CC;"></div></div>
-            </div>
-
-
-
-            <div class="row">
-                <div class="span12">
-                    <h3>特定の色のバリエーション</h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="span6">
-                    <p>
-                       <strong>Hue の範囲を絞ると、同系色のバリエーションが得られます。</strong>
-                       緑系だけを選べば、異なる緑だけで構成されたパレットになります。
-                       バリエーションを確保するには Lightness と Chroma の幅を広く取りますが、Chroma を低くしすぎるとグレーになるので避けます。
-                       また暗色や明色も抑え、全体の調和を保ちます。
-                    </p>
-                    <br/>
-                </div>
-                <div class="span6">
-                    <h5>色空間</h5>
-                    <div class="row">
-                        <div class="span4" id="green_selectors"></div>
-                        <div class="span2" id="green_pre"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="span6"><h5>サンプルパレット</h5><div id="green_palette"></div></div>
-                <div class="span6"><h5>例</h5><div id="green_chart"></div></div>
-            </div>
-
-
-            
-            <div class="row">
-                <div class="span12">
-                    <h3>大きなパレット</h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="span6">
-                    <p>
-                       色空間に十分な余裕があれば、大きなパレットも構築できます。
-                       ここでは白背景に黒文字という前提で暗色を避け、全体の調和を保つために高 Chroma も抑えています。
-                       高 Chroma は色空間の占有が小さいため、パレット全体の制約はそこまで厳しくしていません。
-                    </p>
-                    <br/>
-                </div>
-                <div class="span6">
-                    <h5>色空間</h5>
-                    <div class="row">
-                        <div class="span4" id="large_selectors"></div>
-                        <div class="span2" id="large_pre"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="span6"><h5>サンプルパレット</h5><div id="large_palette"></div></div>
-                <div class="span6"><h5>例</h5><div id="large_chart"></div></div>
-            </div>
-            <div class="row">
-                <div class="span12"><h5>別の例</h5><div id="large_plot" style="height: 500px"></div></div>
-            </div>
-
-
-
-            
-            <div class="row">
-                <div class="span12">
-                    <h3>とんでもなく大きなパレット</h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="span6">
-                    <p>
-                       色空間の広さに対して色数が多すぎると、どうしても似た色が入り込んでしまいます。
-                       とはいえ常に区別しやすい順に並ぶので、先頭の色ほどはっきりと異なるようになっています。
-                    </p>
-                    <p>
-                        <strong>色を作りすぎた場合でも、先頭の色だけを使えば安心</strong>です。そこには十分な差があります。
-                    </p>
-                    <p>
-                        <em>こうした極端なケースでは「hard（Force vector）」設定を選んでください。</em>
-                        k-Means（soft）が失敗するような狭い色空間でも、このアルゴリズムなら色を生成できます。
-                    </p>
-                    <br/>
-                </div>
-                <div class="span6">
-                    <h5>色空間</h5>
-                    <div class="row">
-                        <div class="span4" id="fiftyShades_selectors"></div>
-                        <div class="span2" id="fiftyShades_pre"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="span6"><h5>サンプルパレット</h5><div id="fiftyShades_palette"></div></div>
-                <div class="span6">
-                    <h5>例</h5>
-                    <div id="fiftyShades_chart"></div>
-                    <h5>別の例</h5>
-                    <img src="res/50shades.png"/>
-                </div>
-            </div>
-
-
         </div>
     </div>
 
-<?php include('includes/codebottom.php'); ?>
-
-        <script src="js/libs/d3.v3.min.js"></script>
-
-        <script src="js/background.js"></script>
-        <script src="js/colorspace.js"></script>
-        <script src="js/presets.js"></script>
-        <script src="js/selectors.js"></script>
-        <script src="js/fitting.js"></script>
-        <script src="js/palettegeneration.js"></script>
-        <script src="js/examples.js"></script>
-
-        <script src="js/sandbox.js"></script>
-
-        <script>
 
 
+    <div class="container">
 
-var margin = {top: 20, right: 0, bottom: 0, left: 0},
-    width = $("#treemap_rand").width() - margin.left - margin.right,
-    height = 250 - margin.top - margin.bottom;
 
-var treemap = d3.layout.treemap()
-    .size([width, height])
-    .sticky(true)
-    .value(function(d) { return d.size; })
+        <div class="row">
+            <div class="span12">
+                <h1>仕組み</h1>
+            </div>
+        </div>
 
-function traceRand(){
-    $("#treemap_rand").html('')
 
-    var divRand = d3.select("#treemap_rand").append("div")
-        .style("position", "relative")
-        .style("width", (width + margin.left + margin.right) + "px")
-        .style("height", (height + margin.top + margin.bottom) + "px")
-        .style("left", margin.left + "px")
-        .style("top", margin.top + "px")
-
-    var colorRand = d3.scale.ordinal().range(d3.range(0,20).map(function(i){return chroma.rgb(255*Math.random(),255*Math.random(),255*Math.random()).hex()}));
-
-    d3.json("res/flare.json", function(error, root) {
-      var node = divRand.datum(root).selectAll(".node")
-          .data(treemap.nodes)
-        .enter().append("div")
-          .attr("class", "node")
-          .call(position)
-          .style("background", function(d, i) { return d.children ? colorRand(d.name) : null })
-          .text(function(d) { return d.children ? null : d.name })
-
-      d3.selectAll("input").on("change", function change() {
-        var value = this.value === "count"
-            ? function() { return 1 }
-            : function(d) { return d.size }
-
-        node
-            .data(treemap.value(value).nodes)
-          .transition()
-            .duration(1500)
-            .call(position)
-      })
-    })
-}
-
-traceRand()
-
-function traceIWH(){
-    $('#treemap_iwh').html('')
-    var divIWH = d3.select("#treemap_iwh").append("div")
-        .style("position", "relative")
-        .style("width", (width + margin.left + margin.right) + "px")
-        .style("height", (height + margin.top + margin.bottom) + "px")
-        .style("left", margin.left + "px")
-        .style("top", margin.top + "px")
-
-    var colorIWH = d3.scale.ordinal().range(paletteGenerator.generate(
-      20, // Colors
-      function(color){ // This function filters valid colors
-        var hcl = color.hcl();
-        return hcl[0]>=0 && hcl[0]<=360
-          && hcl[1]>=0 && hcl[1]<=80
-          && hcl[2]>=70 && hcl[2]<=100;
-      },
-      false, // Using Force Vector instead of k-Means
-      50 // Steps (quality)
-    ).map(function(color){return color.hex()}));
-
-    d3.json("res/flare.json", function(error, root) {
-      var node = divIWH.datum(root).selectAll(".node")
-          .data(treemap.nodes)
-        .enter().append("div")
-          .attr("class", "node")
-          .call(position)
-          .style("background", function(d, i) { return d.children ? colorIWH(d.name) : null })
-          .text(function(d) { return d.children ? null : d.name })
-
-      d3.selectAll("input").on("change", function change() {
-        var value = this.value === "count"
-            ? function() { return 1 }
-            : function(d) { return d.size }
-
-        node
-            .data(treemap.value(value).nodes)
-          .transition()
-            .duration(1500)
-            .call(position)
-      })
-    })
-}
-
-traceIWH()
-
-function position() {
-  this.style("left", function(d) { return d.x + "px"; })
-      .style("top", function(d) { return d.y + "px"; })
-      .style("width", function(d) { return Math.max(0, d.dx - 1) + "px"; })
-      .style("height", function(d) { return Math.max(0, d.dy - 1) + "px"; });
-}
+        <div class="row">
+            <div class="span4">
+                <p>
+                <ol>
+                    <li><strong>K-means</strong> または <strong>Force Vector</strong>（反発）アルゴリズムで色を均等に配置します<br /><br /></li>
+                    <li>計算には人間の知覚に沿う <strong>CIE L*a*b*</strong> 色空間を使用します<br /><br /></li>
+                    <li>制約の指定には操作しやすい <strong>Hue / Chroma / Lightness*</strong> 色空間を用います<br /><br /></li>
+                </ol>
+                </p>
+                <p>
+                    <em><small>Mike Bostock の <a href="http://bl.ocks.org/4063582" target="_blank">d3.js</a>
+                            例を基にしています</small></em>
+                </p>
+            </div>
+            <div class="span4">
+                <div style="text-align: center" id="treemap_rand">
+                    <!-- <img src="res/carto_rgbrand.png"/> -->
+                </div>
+                <br />
+                <div class="alert alert-error">
+                    <i class="icon-remove"></i> <em><strong>RGB ランダム</strong> - 目が散る色や似通った色が混在し、明るさも不均一</em>
+                </div>
+                <button class='btn' onclick="traceRand()"><i class="icon-refresh"></i> ランダム色を再生成</button>
+            </div>
+            <div class="span4">
+                <div style="text-align: center" id="treemap_iwh">
+                    <!-- <img src="res/carto_goodgen.png"/> -->
+                </div>
+                <br />
+                <div class="alert alert-success">
+                    <i class="icon-ok"></i> <em><strong>カスタムパレット</strong> - 一貫性のある最適な配色で、知覚上の明るさも揃っています</em>
+                </div>
+                <button class='btn' onclick="traceIWH()"><i class="icon-refresh"></i> カスタムパレットを再生成</button>
+                <br />
+                <br />
+            </div>
+        </div>
 
 
 
-var fancyLight = {
-    colorsCount: 5
-    ,hmin: 0
-    ,hmax: 360
-    ,cmin: 15
-    ,cmax: 40
-    ,lmin: 40
-    ,lmax: 100
-    ,colors: [
-        chroma.hex('#D2D1B1')
-        ,chroma.hex('#C3CBE1')
-        ,chroma.hex('#D4D17F')
-        ,chroma.hex('#EAAFA3')
-        ,chroma.hex('#9BDEBD')
-    ]
-}
-makeSelectors('fancyLight_selectors', fancyLight)
-makePre('fancyLight_pre', fancyLight)
-function update_fancyLight(){
-    makePalette('fancyLight_palette', fancyLight)
-    $('#fancyLight_palette').append(
-        $('<button class="btn"><i class="icon-refresh"></i> 色を再生成</button>')
-            .click(function(){
-                computeColors(fancyLight)
-                update_fancyLight()
-            })
-    )
-    makeDoughnut('fancyLight_chart', fancyLight.colors, 190, 3, {})
-}
-update_fancyLight()
+        <div class="row">
+            <div class="span12" style="">
+                <h1>例</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="span12">
+                <h3 style="margin-top: 20px">上品な配色</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span6">
+                <p>
+                    多くの場合、次のようなシンプルな要件を満たしたいだけです。
+                <ul>
+                    <li><strong>はっきり区別できる</strong>色（iWantHue が常に担保）</li>
+                    <li><strong>落ち着いた</strong>控えめな色（Chroma を低めに設定）</li>
+                    <li><strong>一貫性のある</strong>明るさ（背景に応じて Lightness の幅を狭く保つ）</li>
+                </ul>
+                <em>Fancy</em> プリセットはこれらの性質を満たす汎用パレットを最大 10 色まで生成します。
+                Chroma と Lightness の幅を絞っているため、扱える色数も 10 色程度に限定されます。
+                </p>
+                <br />
+            </div>
+            <div class="span6">
+                <h5>色空間</h5>
+                <div class="row">
+                    <div class="span4" id="fancyLight_selectors"></div>
+                    <div class="span2" id="fancyLight_pre"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span6">
+                <h5>サンプルパレット</h5>
+                <div id="fancyLight_palette"></div>
+            </div>
+            <div class="span6">
+                <h5>例</h5>
+                <div id="fancyLight_chart"></div>
+            </div>
+        </div>
 
 
-var fancyDark = {
-    colorsCount: 5
-    ,hmin: 0
-    ,hmax: 360
-    ,cmin: 8
-    ,cmax: 40
-    ,lmin: 7
-    ,lmax: 40
-    ,colors: [
-        chroma.hex('#6A4E2C')
-        ,chroma.hex('#585163')
-        ,chroma.hex('#325952')
-        ,chroma.hex('#7A4749')
-        ,chroma.hex('#4B5D32')
-    ]
-}
-makeSelectors('fancyDark_selectors', fancyDark)
-makePre('fancyDark_pre', fancyDark)
-function update_fancyDark(){
-    makePalette('fancyDark_palette', fancyDark)
-    $('#fancyDark_palette').append(
-        $('<button class="btn"><i class="icon-refresh"></i> 色を再生成</button>')
-            .click(function(){
-                computeColors(fancyDark)
-                update_fancyDark()
-            })
-    )
-    makeDoughnut('fancyDark_chart', fancyDark.colors, 190, 3, {textColor:'#EEEEEE'})
-}
-update_fancyDark()
+        <div class="row">
+            <div class="span12">
+                <h3>上品（ダーク背景）</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span6">
+                <p>
+                    暗い背景では Lightness の範囲を別に設定する必要があります。それでも Chroma と Lightness の幅を狭く保つという方針は変わりません。
+                </p>
+                <p>
+                    一貫性を保つには、背景と程よくコントラストのある Lightness 範囲を選びます。内容を読ませるには十分なコントラストが必要ですが、派手になりすぎないよう背景と近い明るさにとどめます。
+                </p>
+                <br />
+            </div>
+            <div class="span6">
+                <h5>色空間</h5>
+                <div class="row">
+                    <div class="span4" id="fancyDark_selectors"></div>
+                    <div class="span2" id="fancyDark_pre"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span6">
+                <h5>サンプルパレット</h5>
+                <div id="fancyDark_palette"></div>
+            </div>
+            <div class="span6">
+                <h5>例</h5>
+                <div id="fancyDark_chart" class="dark"></div>
+            </div>
+        </div>
 
 
-var tarnish = {
-    colorsCount: 5
-    ,hmin: 0
-    ,hmax: 360
-    ,cmin: 0
-    ,cmax: 15
-    ,lmin: 30
-    ,lmax: 70
-    ,colors: [
-        chroma.hex('#949C8D')
-        ,chroma.hex('#6E6557')
-        ,chroma.hex('#B8917A')
-        ,chroma.hex('#A69E77')
-        ,chroma.hex('#B9A29A')
-    ]
-}
-makeSelectors('tarnish_selectors', tarnish)
-makePre('tarnish_pre', tarnish)
-function update_tarnish(){
-    makePalette('tarnish_palette', tarnish)
-    $('#tarnish_palette').append(
-        $('<button class="btn"><i class="icon-refresh"></i> 色を再生成</button>')
-            .click(function(){
-                computeColors(tarnish)
-                update_tarnish()
-            })
-    )
-    makeDoughnut('tarnish_chart', tarnish.colors, 190, 3, {})
-}
-update_tarnish()
+        <div class="row">
+            <div class="span12">
+                <h3>Tarnish（くすみ）</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span6">
+                <p>
+                    このプリセットはわずかに色味を帯びたグレーを作り出します。Chroma の上限をかなり低く設定することで実現できます。
+                    彩度の高い色で視線が散るのを避けたいときに便利です。
+                </p>
+                <p>
+                    <strong>色空間を絞るほど、得られる色数は少なくなります。</strong>
+                    Chroma の幅が狭いので、Lightness は広めに確保して差をつけます。どの色もグレー寄りになるため、明るさで見分ける必要があるからです。
+                </p>
+                <br />
+            </div>
+            <div class="span6">
+                <h5>色空間</h5>
+                <div class="row">
+                    <div class="span4" id="tarnish_selectors"></div>
+                    <div class="span2" id="tarnish_pre"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span6">
+                <h5>サンプルパレット</h5>
+                <div id="tarnish_palette"></div>
+            </div>
+            <div class="span6">
+                <h5>例</h5>
+                <div id="tarnish_chart" style="background-color:#DDD;"></div>
+            </div>
+        </div>
 
 
+        <div class="row">
+            <div class="span12">
+                <h3>Pimp</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span6">
+                <p>
+                    このプリセットでは Chroma を高め、色のインパクトを最大化しています。かなり強烈な色合いになります。
+                    Chroma と Lightness の範囲を広く取っているため、より多くの色を区別できます。
+                </p>
+                <p>
+                    青〜紫が多く、緑が少なく黄色がないことに気付くかもしれません。これは人間の知覚特性によるもので、設定した最大 Lightness では黄色が許容されないためです。
+                </p>
+                <br />
+            </div>
+            <div class="span6">
+                <h5>色空間</h5>
+                <div class="row">
+                    <div class="span4" id="pimp_selectors"></div>
+                    <div class="span2" id="pimp_pre"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span6">
+                <h5>サンプルパレット</h5>
+                <div id="pimp_palette"></div>
+            </div>
+            <div class="span6">
+                <h5>例</h5>
+                <div id="pimp_chart" class="intense" style="background-color:#DDD2CC;"></div>
+            </div>
+        </div>
 
 
-var pimp = {
-    colorsCount: 8
-    ,hmin: 0
-    ,hmax: 360
-    ,cmin: 30
-    ,cmax: 100
-    ,lmin: 25
-    ,lmax: 70
-    ,colors: [
-        chroma.hex('#8568D5')
-        ,chroma.hex('#678F39')
-        ,chroma.hex('#C84961')
-        ,chroma.hex('#3C92A8')
-        ,chroma.hex('#C4602E')
-        ,chroma.hex('#BD5296')
-        ,chroma.hex('#D24ED2')
-        ,chroma.hex('#7372AF')
-    ]
-}
-makeSelectors('pimp_selectors', pimp)
-makePre('pimp_pre', pimp)
-function update_pimp(){
-    makePalette('pimp_palette', pimp)
-    $('#pimp_palette').append(
-        $('<button class="btn"><i class="icon-refresh"></i> 色を再生成</button>')
-            .click(function(){
-                computeColors(pimp)
-                update_pimp()
-            })
-    )
-    makeDoughnut('pimp_chart', pimp.colors, 190, 3, {textColor:'#EEEEEE'})
-}
-update_pimp()
-
-
-
-var pimpLighter = {
-    colorsCount: 5
-    ,hmin: 0
-    ,hmax: 360
-    ,cmin: 30
-    ,cmax: 100
-    ,lmin: 55
-    ,lmax: 100
-    ,colors: [
-        chroma.hex('#CADA45')
-        ,chroma.hex('#D4A2E1')
-        ,chroma.hex('#55E0C6')
-        ,chroma.hex('#F0B13C')
-        ,chroma.hex('#75E160')
-    ]
-}
-makeSelectors('pimpLighter_selectors', pimpLighter)
-makePre('pimpLighter_pre', pimpLighter)
-function update_pimpLighter(){
-    makePalette('pimpLighter_palette', pimpLighter)
-    $('#pimpLighter_palette').append(
-        $('<button class="btn"><i class="icon-refresh"></i> 色を再生成</button>')
-            .click(function(){
-                computeColors(pimpLighter)
-                update_pimpLighter()
-            })
-    )
-    makeDoughnut('pimpLighter_chart', pimpLighter.colors, 190, 3, {textColor:'#755'})
-}
-update_pimpLighter()
-
-
-var green = {
-    colorsCount: 5
-    ,hmin: 90
-    ,hmax: 150
-    ,cmin: 10
-    ,cmax: 100
-    ,lmin: 35
-    ,lmax: 100
-}
-function update_green(){
-    green.hmin = Math.round(360 + 360*Math.random())%360
-    green.hmax = Math.round(60 + green.hmin)%360
-    makeSelectors('green_selectors', green)
-    makePre('green_pre', green)
-    computeColors(green)
-    makePalette('green_palette', green)
-    $('#green_palette').append(
-        $('<button class="btn"><i class="icon-refresh"></i> 色を再生成</button>')
-            .click(update_green)
-    )
-    var bgColor = chroma.hcl((green.hmin<green.hmax)?((green.hmin+green.hmax)/2):(((360+green.hmin+green.hmax)/2)%360), 0.3, 1.2)
-    $('#green_chart').css('background-color', bgColor.hex())
-    makeDoughnut('green_chart', green.colors, 190, 3, {textColor:'#000'})
-}
-update_green()
+        <div class="row">
+            <div class="span12">
+                <h3>Pimp（明るめ）</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span6">
+                <p>
+                    Chroma の範囲はそのままに、Lightness を大幅に明るくしたバリエーションです。
+                    その結果、黄色や緑が増え、紫が減り赤は現れません。これも CIE Lab 色空間を使うことによる副作用です。
+                </p>
+                <br />
+            </div>
+            <div class="span6">
+                <h5>色空間</h5>
+                <div class="row">
+                    <div class="span4" id="pimpLighter_selectors"></div>
+                    <div class="span2" id="pimpLighter_pre"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span6">
+                <h5>サンプルパレット</h5>
+                <div id="pimpLighter_palette"></div>
+            </div>
+            <div class="span6">
+                <h5>例</h5>
+                <div id="pimpLighter_chart" style="background-color:#FFF5CC;"></div>
+            </div>
+        </div>
 
 
 
-var large = {
-    colorsCount: 15
-    ,hmin: 0
-    ,hmax: 360
-    ,cmin: 0
-    ,cmax: 85
-    ,lmin: 30
-    ,lmax: 95
-    ,colors: [
-        chroma.hex('#99D78B')
-        ,chroma.hex('#C089D0')
-        ,chroma.hex('#CB6E34')
-        ,chroma.hex('#D4C6BD')
-        ,chroma.hex('#CED745')
-        ,chroma.hex('#7BA5D6')
-        ,chroma.hex('#A37B5D')
-        ,chroma.hex('#79D8C5')
-        ,chroma.hex('#5E8C6D')
-        ,chroma.hex('#78D853')
-        ,chroma.hex('#CDA64B')
-        ,chroma.hex('#D06465')
-        ,chroma.hex('#698838')
-        ,chroma.hex('#BF6B92')
-        ,chroma.hex('#6C7B8D')
-    ]
-}
-makeSelectors('large_selectors', large)
-makePre('large_pre', large)
-function update_large(){
-    makePalette('large_palette', large)
-    $('#large_palette').append(
-        $('<button class="btn"><i class="icon-refresh"></i> 色を再生成</button>')
-            .click(function(){
-                computeColors(large)
-                update_large()
-            })
-    )
-    makeDoughnut('large_chart', large.colors, 285, 2, {doughnutWidth:60})
+        <div class="row">
+            <div class="span12">
+                <h3>特定の色のバリエーション</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span6">
+                <p>
+                    <strong>Hue の範囲を絞ると、同系色のバリエーションが得られます。</strong>
+                    緑系だけを選べば、異なる緑だけで構成されたパレットになります。
+                    バリエーションを確保するには Lightness と Chroma の幅を広く取りますが、Chroma を低くしすぎるとグレーになるので避けます。
+                    また暗色や明色も抑え、全体の調和を保ちます。
+                </p>
+                <br />
+            </div>
+            <div class="span6">
+                <h5>色空間</h5>
+                <div class="row">
+                    <div class="span4" id="green_selectors"></div>
+                    <div class="span2" id="green_pre"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span6">
+                <h5>サンプルパレット</h5>
+                <div id="green_palette"></div>
+            </div>
+            <div class="span6">
+                <h5>例</h5>
+                <div id="green_chart"></div>
+            </div>
+        </div>
 
-    // Large scatterplot
-    ;(function(colors){
-        $("#large_plot").html('')
-        var margin = {top: 20, right: 20, bottom: 30, left: 40}
-            ,width = $("#large_plot").width() - margin.left - margin.right
-            ,height = 500 - margin.top - margin.bottom
 
-        var x = d3.scale.linear()
-            .range([0, width])
 
-        var y = d3.scale.linear()
-            .range([height, 0])
+        <div class="row">
+            <div class="span12">
+                <h3>大きなパレット</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span6">
+                <p>
+                    色空間に十分な余裕があれば、大きなパレットも構築できます。
+                    ここでは白背景に黒文字という前提で暗色を避け、全体の調和を保つために高 Chroma も抑えています。
+                    高 Chroma は色空間の占有が小さいため、パレット全体の制約はそこまで厳しくしていません。
+                </p>
+                <br />
+            </div>
+            <div class="span6">
+                <h5>色空間</h5>
+                <div class="row">
+                    <div class="span4" id="large_selectors"></div>
+                    <div class="span2" id="large_pre"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span6">
+                <h5>サンプルパレット</h5>
+                <div id="large_palette"></div>
+            </div>
+            <div class="span6">
+                <h5>例</h5>
+                <div id="large_chart"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span12">
+                <h5>別の例</h5>
+                <div id="large_plot" style="height: 500px"></div>
+            </div>
+        </div>
 
-        // var color = d3.scale.category10()
-        var color = d3.scale.ordinal()
-            .range(colors.map(function(color){return color.hex()}))
 
-        var xAxis = d3.svg.axis()
-            .scale(x)
-            .orient("bottom")
 
-        var yAxis = d3.svg.axis()
-            .scale(y)
-            .orient("left")
 
-        var svg = d3.select("#large_plot").append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+        <div class="row">
+            <div class="span12">
+                <h3>とんでもなく大きなパレット</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span6">
+                <p>
+                    色空間の広さに対して色数が多すぎると、どうしても似た色が入り込んでしまいます。
+                    とはいえ常に区別しやすい順に並ぶので、先頭の色ほどはっきりと異なるようになっています。
+                </p>
+                <p>
+                    <strong>色を作りすぎた場合でも、先頭の色だけを使えば安心</strong>です。そこには十分な差があります。
+                </p>
+                <p>
+                    <em>こうした極端なケースでは「hard（Force vector）」設定を選んでください。</em>
+                    k-Means（soft）が失敗するような狭い色空間でも、このアルゴリズムなら色を生成できます。
+                </p>
+                <br />
+            </div>
+            <div class="span6">
+                <h5>色空間</h5>
+                <div class="row">
+                    <div class="span4" id="fiftyShades_selectors"></div>
+                    <div class="span2" id="fiftyShades_pre"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span6">
+                <h5>サンプルパレット</h5>
+                <div id="fiftyShades_palette"></div>
+            </div>
+            <div class="span6">
+                <h5>例</h5>
+                <div id="fiftyShades_chart"></div>
+                <h5>別の例</h5>
+                <img src="res/50shades.png" />
+            </div>
+        </div>
 
-        var data = []
-        // Build data
-        colors.forEach(function(color, cat){
-            // Let's build a class.
-            var targetX = 60 + 50 * Math.random()
-                ,targetY = 160 + 30 * Math.random()
-                ,population = 1.5 * (5 + 30 * Math.random())
-                ,xVar = 0.8 * (5 + Math.random()*10)
-                ,yVar = 0.8 * (10 + Math.random()*20)
 
-            var tweakRandomness = function(random){
-                var centered = 2 * (random - 0.5)
-                    ,sign = Math.abs(centered)/centered
-                return sign * Math.abs(centered * centered * centered)
-            }
+    </div>
+    </div>
 
-            for(i=0; i<population; i++){
-               data.push({
-                    cat: cat
-                    ,X: 0.5 * Math.round( 2 * (targetX + xVar * tweakRandomness( Math.random() ) ) )
-                    ,Y: Math.round(targetY + yVar * tweakRandomness(Math.random()))
+    <?php include('includes/codebottom.php'); ?>
+
+    <script src="js/libs/d3.v3.min.js"></script>
+
+    <script src="js/background.js"></script>
+    <script src="js/colorspace.js"></script>
+    <script src="js/presets.js"></script>
+    <script src="js/selectors.js"></script>
+    <script src="js/fitting.js"></script>
+    <script src="js/palettegeneration.js"></script>
+    <script src="js/examples.js"></script>
+
+    <script src="js/sandbox.js"></script>
+
+    <script>
+
+
+
+        var margin = { top: 20, right: 0, bottom: 0, left: 0 },
+            width = $("#treemap_rand").width() - margin.left - margin.right,
+            height = 250 - margin.top - margin.bottom;
+
+        var treemap = d3.layout.treemap()
+            .size([width, height])
+            .sticky(true)
+            .value(function (d) { return d.size; })
+
+        function traceRand() {
+            $("#treemap_rand").html('')
+
+            var divRand = d3.select("#treemap_rand").append("div")
+                .style("position", "relative")
+                .style("width", (width + margin.left + margin.right) + "px")
+                .style("height", (height + margin.top + margin.bottom) + "px")
+                .style("left", margin.left + "px")
+                .style("top", margin.top + "px")
+
+            var colorRand = d3.scale.ordinal().range(d3.range(0, 20).map(function (i) { return chroma.rgb(255 * Math.random(), 255 * Math.random(), 255 * Math.random()).hex() }));
+
+            d3.json("res/flare.json", function (error, root) {
+                var node = divRand.datum(root).selectAll(".node")
+                    .data(treemap.nodes)
+                    .enter().append("div")
+                    .attr("class", "node")
+                    .call(position)
+                    .style("background", function (d, i) { return d.children ? colorRand(d.name) : null })
+                    .text(function (d) { return d.children ? null : d.name })
+
+                d3.selectAll("input").on("change", function change() {
+                    var value = this.value === "count"
+                        ? function () { return 1 }
+                        : function (d) { return d.size }
+
+                    node
+                        .data(treemap.value(value).nodes)
+                        .transition()
+                        .duration(1500)
+                        .call(position)
                 })
-            }
-        })
-
-
-        x.domain(d3.extent(data, function(d) { return d.X; })).nice()
-        y.domain(d3.extent(data, function(d) { return d.Y; })).nice()
-
-        svg.append("g")
-            .attr("class", "x axis")
-            .attr("transform", "translate(0," + height + ")")
-            .call(xAxis)
-        .append("text")
-            .attr("class", "label")
-            .attr("x", width)
-            .attr("y", -6)
-            .style("text-anchor", "end")
-            .text("Weight (kg)")
-
-        svg.append("g")
-            .attr("class", "y axis")
-            .call(yAxis)
-        .append("text")
-            .attr("class", "label")
-            .attr("transform", "rotate(-90)")
-            .attr("y", 6)
-            .attr("dy", ".71em")
-            .style("text-anchor", "end")
-            .text("Height (cm)")
-
-        svg.selectAll(".dot")
-            .data(data)
-        .enter().append("circle")
-            .attr("class", "dot")
-            .attr("r", 4)
-            .attr("cx", function(d) { return x(d.X) })
-            .attr("cy", function(d) { return y(d.Y) })
-            .style("fill", function(d) { return color(d.cat) })
-
-        var legend = svg.selectAll(".legend")
-            .data(color.domain())
-        .enter().append("g")
-            .attr("class", "legend")
-            .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")" })
-
-        legend.append("rect")
-            .attr("x", width - 18)
-            .attr("width", 18)
-            .attr("height", 18)
-            .style("fill", color)
-
-        legend.append("text")
-            .attr("x", width - 24)
-            .attr("y", 9)
-            .attr("dy", ".35em")
-            .style("text-anchor", "end")
-            .text(function(d) { return d })
-
-    })(large.colors)
-}
-update_large()
-
-
-
-
-
-
-var fiftyShades = {
-    colorsCount: 50
-    ,hmin: 0
-    ,hmax: 360
-    ,cmin: 0
-    ,cmax: 3
-    ,lmin: 40
-    ,lmax: 90
-    ,useFV: true
-    ,colors:[
-        chroma.hex('#5C5547')
-        ,chroma.hex('#FFEED9')
-        ,chroma.hex('#B49E86')
-        ,chroma.hex('#D2C8AB')
-        ,chroma.hex('#887A6F')
-        ,chroma.hex('#3F3830')
-        ,chroma.hex('#F7E2BE')
-        ,chroma.hex('#BEAD9E')
-        ,chroma.hex('#E6D1BE')
-        ,chroma.hex('#999078')
-        ,chroma.hex('#7A715D')
-        ,chroma.hex('#75695F')
-        ,chroma.hex('#C2BBA7')
-        ,chroma.hex('#E4CCAE')
-        ,chroma.hex('#E5DBC3')
-        ,chroma.hex('#96887B')
-        ,chroma.hex('#CAB7A0')
-        ,chroma.hex('#B19F8F')
-        ,chroma.hex('#52493F')
-        ,chroma.hex('#BEAC91')
-        ,chroma.hex('#FCE8CC')
-        ,chroma.hex('#F0E6D0')
-        ,chroma.hex('#8E8472')
-        ,chroma.hex('#9B8A77')
-        ,chroma.hex('#DDC7B3')
-        ,chroma.hex('#AA9C86')
-        ,chroma.hex('#837766')
-        ,chroma.hex('#D1C1A9')
-        ,chroma.hex('#DAD2B4')
-        ,chroma.hex('#7D6F61')
-        ,chroma.hex('#8B8276')
-        ,chroma.hex('#DED2BA')
-        ,chroma.hex('#ECDAB7')
-        ,chroma.hex('#A3967E')
-        ,chroma.hex('#625C4D')
-        ,chroma.hex('#AD9888')
-        ,chroma.hex('#554F45')
-        ,chroma.hex('#E8D4B5')
-        ,chroma.hex('#C2AD96')
-        ,chroma.hex('#B6A797')
-        ,chroma.hex('#8A7E6D')
-        ,chroma.hex('#C2B29C')
-        ,chroma.hex('#B4A288')
-        ,chroma.hex('#837864')
-        ,chroma.hex('#AF9E86')
-        ,chroma.hex('#F8E5C7')
-        ,chroma.hex('#B1A193')
-        ,chroma.hex('#978776')
-        ,chroma.hex('#E2CCB0')
-        ,chroma.hex('#D2C0A8')
-    ]
-    //,ultra_precision: true
-}
-makeSelectors('fiftyShades_selectors', fiftyShades)
-makePre('fiftyShades_pre', fiftyShades)
-function update_fiftyShades(){
-    makePalette('fiftyShades_palette', fiftyShades)
-    $('#fiftyShades_palette').append(
-        $('<button class="btn"><i class="icon-refresh"></i> 色を再生成</button>')
-            .click(function(){
-                computeColors(fiftyShades)
-                update_fiftyShades()
             })
-    )
-    makeDoughnut('fiftyShades_chart', fiftyShades.colors, 570, 1, {doughnutWidth:80})
-}
-update_fiftyShades()
+        }
 
-        </script>
-    </body>
+        traceRand()
+
+        function traceIWH() {
+            $('#treemap_iwh').html('')
+            var divIWH = d3.select("#treemap_iwh").append("div")
+                .style("position", "relative")
+                .style("width", (width + margin.left + margin.right) + "px")
+                .style("height", (height + margin.top + margin.bottom) + "px")
+                .style("left", margin.left + "px")
+                .style("top", margin.top + "px")
+
+            var colorIWH = d3.scale.ordinal().range(paletteGenerator.generate(
+                20, // Colors
+                function (color) { // This function filters valid colors
+                    var hcl = color.hcl();
+                    return hcl[0] >= 0 && hcl[0] <= 360
+                        && hcl[1] >= 0 && hcl[1] <= 80
+                        && hcl[2] >= 70 && hcl[2] <= 100;
+                },
+                false, // Using Force Vector instead of k-Means
+                50 // Steps (quality)
+            ).map(function (color) { return color.hex() }));
+
+            d3.json("res/flare.json", function (error, root) {
+                var node = divIWH.datum(root).selectAll(".node")
+                    .data(treemap.nodes)
+                    .enter().append("div")
+                    .attr("class", "node")
+                    .call(position)
+                    .style("background", function (d, i) { return d.children ? colorIWH(d.name) : null })
+                    .text(function (d) { return d.children ? null : d.name })
+
+                d3.selectAll("input").on("change", function change() {
+                    var value = this.value === "count"
+                        ? function () { return 1 }
+                        : function (d) { return d.size }
+
+                    node
+                        .data(treemap.value(value).nodes)
+                        .transition()
+                        .duration(1500)
+                        .call(position)
+                })
+            })
+        }
+
+        traceIWH()
+
+        function position() {
+            this.style("left", function (d) { return d.x + "px"; })
+                .style("top", function (d) { return d.y + "px"; })
+                .style("width", function (d) { return Math.max(0, d.dx - 1) + "px"; })
+                .style("height", function (d) { return Math.max(0, d.dy - 1) + "px"; });
+        }
+
+
+
+        var fancyLight = {
+            colorsCount: 5
+            , hmin: 0
+            , hmax: 360
+            , cmin: 15
+            , cmax: 40
+            , lmin: 40
+            , lmax: 100
+            , colors: [
+                chroma.hex('#D2D1B1')
+                , chroma.hex('#C3CBE1')
+                , chroma.hex('#D4D17F')
+                , chroma.hex('#EAAFA3')
+                , chroma.hex('#9BDEBD')
+            ]
+        }
+        makeSelectors('fancyLight_selectors', fancyLight)
+        makePre('fancyLight_pre', fancyLight)
+        function update_fancyLight() {
+            makePalette('fancyLight_palette', fancyLight)
+            $('#fancyLight_palette').append(
+                $('<button class="btn"><i class="icon-refresh"></i> 色を再生成</button>')
+                    .click(function () {
+                        computeColors(fancyLight)
+                        update_fancyLight()
+                    })
+            )
+            makeDoughnut('fancyLight_chart', fancyLight.colors, 190, 3, {})
+        }
+        update_fancyLight()
+
+
+        var fancyDark = {
+            colorsCount: 5
+            , hmin: 0
+            , hmax: 360
+            , cmin: 8
+            , cmax: 40
+            , lmin: 7
+            , lmax: 40
+            , colors: [
+                chroma.hex('#6A4E2C')
+                , chroma.hex('#585163')
+                , chroma.hex('#325952')
+                , chroma.hex('#7A4749')
+                , chroma.hex('#4B5D32')
+            ]
+        }
+        makeSelectors('fancyDark_selectors', fancyDark)
+        makePre('fancyDark_pre', fancyDark)
+        function update_fancyDark() {
+            makePalette('fancyDark_palette', fancyDark)
+            $('#fancyDark_palette').append(
+                $('<button class="btn"><i class="icon-refresh"></i> 色を再生成</button>')
+                    .click(function () {
+                        computeColors(fancyDark)
+                        update_fancyDark()
+                    })
+            )
+            makeDoughnut('fancyDark_chart', fancyDark.colors, 190, 3, { textColor: '#EEEEEE' })
+        }
+        update_fancyDark()
+
+
+        var tarnish = {
+            colorsCount: 5
+            , hmin: 0
+            , hmax: 360
+            , cmin: 0
+            , cmax: 15
+            , lmin: 30
+            , lmax: 70
+            , colors: [
+                chroma.hex('#949C8D')
+                , chroma.hex('#6E6557')
+                , chroma.hex('#B8917A')
+                , chroma.hex('#A69E77')
+                , chroma.hex('#B9A29A')
+            ]
+        }
+        makeSelectors('tarnish_selectors', tarnish)
+        makePre('tarnish_pre', tarnish)
+        function update_tarnish() {
+            makePalette('tarnish_palette', tarnish)
+            $('#tarnish_palette').append(
+                $('<button class="btn"><i class="icon-refresh"></i> 色を再生成</button>')
+                    .click(function () {
+                        computeColors(tarnish)
+                        update_tarnish()
+                    })
+            )
+            makeDoughnut('tarnish_chart', tarnish.colors, 190, 3, {})
+        }
+        update_tarnish()
+
+
+
+
+        var pimp = {
+            colorsCount: 8
+            , hmin: 0
+            , hmax: 360
+            , cmin: 30
+            , cmax: 100
+            , lmin: 25
+            , lmax: 70
+            , colors: [
+                chroma.hex('#8568D5')
+                , chroma.hex('#678F39')
+                , chroma.hex('#C84961')
+                , chroma.hex('#3C92A8')
+                , chroma.hex('#C4602E')
+                , chroma.hex('#BD5296')
+                , chroma.hex('#D24ED2')
+                , chroma.hex('#7372AF')
+            ]
+        }
+        makeSelectors('pimp_selectors', pimp)
+        makePre('pimp_pre', pimp)
+        function update_pimp() {
+            makePalette('pimp_palette', pimp)
+            $('#pimp_palette').append(
+                $('<button class="btn"><i class="icon-refresh"></i> 色を再生成</button>')
+                    .click(function () {
+                        computeColors(pimp)
+                        update_pimp()
+                    })
+            )
+            makeDoughnut('pimp_chart', pimp.colors, 190, 3, { textColor: '#EEEEEE' })
+        }
+        update_pimp()
+
+
+
+        var pimpLighter = {
+            colorsCount: 5
+            , hmin: 0
+            , hmax: 360
+            , cmin: 30
+            , cmax: 100
+            , lmin: 55
+            , lmax: 100
+            , colors: [
+                chroma.hex('#CADA45')
+                , chroma.hex('#D4A2E1')
+                , chroma.hex('#55E0C6')
+                , chroma.hex('#F0B13C')
+                , chroma.hex('#75E160')
+            ]
+        }
+        makeSelectors('pimpLighter_selectors', pimpLighter)
+        makePre('pimpLighter_pre', pimpLighter)
+        function update_pimpLighter() {
+            makePalette('pimpLighter_palette', pimpLighter)
+            $('#pimpLighter_palette').append(
+                $('<button class="btn"><i class="icon-refresh"></i> 色を再生成</button>')
+                    .click(function () {
+                        computeColors(pimpLighter)
+                        update_pimpLighter()
+                    })
+            )
+            makeDoughnut('pimpLighter_chart', pimpLighter.colors, 190, 3, { textColor: '#755' })
+        }
+        update_pimpLighter()
+
+
+        var green = {
+            colorsCount: 5
+            , hmin: 90
+            , hmax: 150
+            , cmin: 10
+            , cmax: 100
+            , lmin: 35
+            , lmax: 100
+        }
+        function update_green() {
+            green.hmin = Math.round(360 + 360 * Math.random()) % 360
+            green.hmax = Math.round(60 + green.hmin) % 360
+            makeSelectors('green_selectors', green)
+            makePre('green_pre', green)
+            computeColors(green)
+            makePalette('green_palette', green)
+            $('#green_palette').append(
+                $('<button class="btn"><i class="icon-refresh"></i> 色を再生成</button>')
+                    .click(update_green)
+            )
+            var bgColor = chroma.hcl((green.hmin < green.hmax) ? ((green.hmin + green.hmax) / 2) : (((360 + green.hmin + green.hmax) / 2) % 360), 0.3, 1.2)
+            $('#green_chart').css('background-color', bgColor.hex())
+            makeDoughnut('green_chart', green.colors, 190, 3, { textColor: '#000' })
+        }
+        update_green()
+
+
+
+        var large = {
+            colorsCount: 15
+            , hmin: 0
+            , hmax: 360
+            , cmin: 0
+            , cmax: 85
+            , lmin: 30
+            , lmax: 95
+            , colors: [
+                chroma.hex('#99D78B')
+                , chroma.hex('#C089D0')
+                , chroma.hex('#CB6E34')
+                , chroma.hex('#D4C6BD')
+                , chroma.hex('#CED745')
+                , chroma.hex('#7BA5D6')
+                , chroma.hex('#A37B5D')
+                , chroma.hex('#79D8C5')
+                , chroma.hex('#5E8C6D')
+                , chroma.hex('#78D853')
+                , chroma.hex('#CDA64B')
+                , chroma.hex('#D06465')
+                , chroma.hex('#698838')
+                , chroma.hex('#BF6B92')
+                , chroma.hex('#6C7B8D')
+            ]
+        }
+        makeSelectors('large_selectors', large)
+        makePre('large_pre', large)
+        function update_large() {
+            makePalette('large_palette', large)
+            $('#large_palette').append(
+                $('<button class="btn"><i class="icon-refresh"></i> 色を再生成</button>')
+                    .click(function () {
+                        computeColors(large)
+                        update_large()
+                    })
+            )
+            makeDoughnut('large_chart', large.colors, 285, 2, { doughnutWidth: 60 })
+
+                // Large scatterplot
+                ; (function (colors) {
+                    $("#large_plot").html('')
+                    var margin = { top: 20, right: 20, bottom: 30, left: 40 }
+                        , width = $("#large_plot").width() - margin.left - margin.right
+                        , height = 500 - margin.top - margin.bottom
+
+                    var x = d3.scale.linear()
+                        .range([0, width])
+
+                    var y = d3.scale.linear()
+                        .range([height, 0])
+
+                    // var color = d3.scale.category10()
+                    var color = d3.scale.ordinal()
+                        .range(colors.map(function (color) { return color.hex() }))
+
+                    var xAxis = d3.svg.axis()
+                        .scale(x)
+                        .orient("bottom")
+
+                    var yAxis = d3.svg.axis()
+                        .scale(y)
+                        .orient("left")
+
+                    var svg = d3.select("#large_plot").append("svg")
+                        .attr("width", width + margin.left + margin.right)
+                        .attr("height", height + margin.top + margin.bottom)
+                        .append("g")
+                        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+
+                    var data = []
+                    // Build data
+                    colors.forEach(function (color, cat) {
+                        // Let's build a class.
+                        var targetX = 60 + 50 * Math.random()
+                            , targetY = 160 + 30 * Math.random()
+                            , population = 1.5 * (5 + 30 * Math.random())
+                            , xVar = 0.8 * (5 + Math.random() * 10)
+                            , yVar = 0.8 * (10 + Math.random() * 20)
+
+                        var tweakRandomness = function (random) {
+                            var centered = 2 * (random - 0.5)
+                                , sign = Math.abs(centered) / centered
+                            return sign * Math.abs(centered * centered * centered)
+                        }
+
+                        for (i = 0; i < population; i++) {
+                            data.push({
+                                cat: cat
+                                , X: 0.5 * Math.round(2 * (targetX + xVar * tweakRandomness(Math.random())))
+                                , Y: Math.round(targetY + yVar * tweakRandomness(Math.random()))
+                            })
+                        }
+                    })
+
+
+                    x.domain(d3.extent(data, function (d) { return d.X; })).nice()
+                    y.domain(d3.extent(data, function (d) { return d.Y; })).nice()
+
+                    svg.append("g")
+                        .attr("class", "x axis")
+                        .attr("transform", "translate(0," + height + ")")
+                        .call(xAxis)
+                        .append("text")
+                        .attr("class", "label")
+                        .attr("x", width)
+                        .attr("y", -6)
+                        .style("text-anchor", "end")
+                        .text("Weight (kg)")
+
+                    svg.append("g")
+                        .attr("class", "y axis")
+                        .call(yAxis)
+                        .append("text")
+                        .attr("class", "label")
+                        .attr("transform", "rotate(-90)")
+                        .attr("y", 6)
+                        .attr("dy", ".71em")
+                        .style("text-anchor", "end")
+                        .text("Height (cm)")
+
+                    svg.selectAll(".dot")
+                        .data(data)
+                        .enter().append("circle")
+                        .attr("class", "dot")
+                        .attr("r", 4)
+                        .attr("cx", function (d) { return x(d.X) })
+                        .attr("cy", function (d) { return y(d.Y) })
+                        .style("fill", function (d) { return color(d.cat) })
+
+                    var legend = svg.selectAll(".legend")
+                        .data(color.domain())
+                        .enter().append("g")
+                        .attr("class", "legend")
+                        .attr("transform", function (d, i) { return "translate(0," + i * 20 + ")" })
+
+                    legend.append("rect")
+                        .attr("x", width - 18)
+                        .attr("width", 18)
+                        .attr("height", 18)
+                        .style("fill", color)
+
+                    legend.append("text")
+                        .attr("x", width - 24)
+                        .attr("y", 9)
+                        .attr("dy", ".35em")
+                        .style("text-anchor", "end")
+                        .text(function (d) { return d })
+
+                })(large.colors)
+        }
+        update_large()
+
+
+
+
+
+
+        var fiftyShades = {
+            colorsCount: 50
+            , hmin: 0
+            , hmax: 360
+            , cmin: 0
+            , cmax: 3
+            , lmin: 40
+            , lmax: 90
+            , useFV: true
+            , colors: [
+                chroma.hex('#5C5547')
+                , chroma.hex('#FFEED9')
+                , chroma.hex('#B49E86')
+                , chroma.hex('#D2C8AB')
+                , chroma.hex('#887A6F')
+                , chroma.hex('#3F3830')
+                , chroma.hex('#F7E2BE')
+                , chroma.hex('#BEAD9E')
+                , chroma.hex('#E6D1BE')
+                , chroma.hex('#999078')
+                , chroma.hex('#7A715D')
+                , chroma.hex('#75695F')
+                , chroma.hex('#C2BBA7')
+                , chroma.hex('#E4CCAE')
+                , chroma.hex('#E5DBC3')
+                , chroma.hex('#96887B')
+                , chroma.hex('#CAB7A0')
+                , chroma.hex('#B19F8F')
+                , chroma.hex('#52493F')
+                , chroma.hex('#BEAC91')
+                , chroma.hex('#FCE8CC')
+                , chroma.hex('#F0E6D0')
+                , chroma.hex('#8E8472')
+                , chroma.hex('#9B8A77')
+                , chroma.hex('#DDC7B3')
+                , chroma.hex('#AA9C86')
+                , chroma.hex('#837766')
+                , chroma.hex('#D1C1A9')
+                , chroma.hex('#DAD2B4')
+                , chroma.hex('#7D6F61')
+                , chroma.hex('#8B8276')
+                , chroma.hex('#DED2BA')
+                , chroma.hex('#ECDAB7')
+                , chroma.hex('#A3967E')
+                , chroma.hex('#625C4D')
+                , chroma.hex('#AD9888')
+                , chroma.hex('#554F45')
+                , chroma.hex('#E8D4B5')
+                , chroma.hex('#C2AD96')
+                , chroma.hex('#B6A797')
+                , chroma.hex('#8A7E6D')
+                , chroma.hex('#C2B29C')
+                , chroma.hex('#B4A288')
+                , chroma.hex('#837864')
+                , chroma.hex('#AF9E86')
+                , chroma.hex('#F8E5C7')
+                , chroma.hex('#B1A193')
+                , chroma.hex('#978776')
+                , chroma.hex('#E2CCB0')
+                , chroma.hex('#D2C0A8')
+            ]
+            //,ultra_precision: true
+        }
+        makeSelectors('fiftyShades_selectors', fiftyShades)
+        makePre('fiftyShades_pre', fiftyShades)
+        function update_fiftyShades() {
+            makePalette('fiftyShades_palette', fiftyShades)
+            $('#fiftyShades_palette').append(
+                $('<button class="btn"><i class="icon-refresh"></i> 色を再生成</button>')
+                    .click(function () {
+                        computeColors(fiftyShades)
+                        update_fiftyShades()
+                    })
+            )
+            makeDoughnut('fiftyShades_chart', fiftyShades.colors, 570, 1, { doughnutWidth: 80 })
+        }
+        update_fiftyShades()
+
+    </script>
+</body>
+
 </html>

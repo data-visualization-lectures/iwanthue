@@ -2,460 +2,514 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>iWantHue</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
+<!--[if gt IE 8]><!-->
+<html class="no-js"> <!--<![endif]-->
 
-<?php include('includes/codetop.php') ?>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>iWantHue</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
 
-        <style>
-            body {
-                padding-top: 60px;
-                padding-bottom: 40px;
-            }
-        </style>
-        
-    </head>
-    <body>
-        <!--[if lt IE 7]>
+    <?php include('includes/codetop.php') ?>
+
+    <style>
+        body {
+            padding-bottom: 40px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!--[if lt IE 7]>
             <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
         <![endif]-->
 
-<?php include('includes/header.php') ?>
+    <?php include('includes/header.php') ?>
 
+    <div class="container">
+
+        <!-- Main hero unit for a primary marketing message or call to action -->
+        <div class="splash-unit row">
+            <div class="span7">
+                <div class="image">
+                    <a href="index.php"><img src="res/header.png" /></a>
+                </div>
+                <div class="title">
+                    i want hue
+                </div>
+            </div>
+            <div class="span5">
+                <div class="abstract">
+                    <p><strong>データサイエンティストのための色。</strong> 最適に区別可能な色のパレットを生成・調整します。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="workbench">
         <div class="container">
-
-            <!-- Main hero unit for a primary marketing message or call to action -->
-            <div class="splash-unit row">
-                <div class="span7">
-                    <div class="image">
-                        <a href="index.php"><img src="res/header.png"/></a>
-                    </div>
-                    <div class="title">
-                        i want hue
-                    </div>
+            <div class="row">
+                <div class="span9 spacetitle">
+                    <h3>カラー・スペース</h3>
+                </div>
+                <div class="span3 spacetitle">
+                    <h3>パレット</h3>
+                </div>
+            </div>
+            <div class="row unselectable">
+                <div class="span4">
+                    <select id="presets" onchange="updateSettings()">
+                        <option>Presets...</option>
+                    </select>
+                    <table id="selectorsTable" style="width: 100%;">
+                        <tr>
+                            <td>
+                                <div class="input-append input-prepend"><span title="Hue" class="add-on">H</span><input
+                                        id="hmin" type="text" value="0" style="width:30px;" /></div>
+                            </td>
+                            <td style="width: 100%;">
+                                <div id="hueSelector"></div>
+                            </td>
+                            <td>
+                                <div class="input-prepend"><input id="hmax" type="text" value="360"
+                                        style="width:30px;" /></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="input-append input-prepend"><span title="Chroma (from gray to colorfull)"
+                                        class="add-on">C</span><input id="cmin" type="text" value="0"
+                                        style="width:30px;" /></div>
+                            </td>
+                            <td>
+                                <div id="chromaSelector"></div>
+                            </td>
+                            <td>
+                                <div class="input-prepend"><input id="cmax" type="text" value="10"
+                                        style="width:30px;" /></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="input-append input-prepend"><span title="Lightness"
+                                        class="add-on">L</span><input id="lmin" type="text" value="0"
+                                        style="width:30px;" /></div>
+                            </td>
+                            <td>
+                                <div id="lightnessSelector"></div>
+                            </td>
+                            <td>
+                                <div class="input-prepend"><input id="lmax" type="text" value="10"
+                                        style="width:30px;" /></div>
+                            </td>
+                        </tr>
+                    </table>
+                    <br />
+                    <label class="checkbox">
+                        <input type="checkbox" id="colorblindFriendly" onchange="setting_toggle()" />
+                        <strong>色覚異常</strong>への配慮を改善（処理が遅くなります）
+                    </label>
+                    <label class="checkbox">
+                        <input type="checkbox" id="darkBackground" /> 暗い背景
+                    </label>
                 </div>
                 <div class="span5">
-                    <div class="abstract">
-                        <p><strong>データサイエンティストのための色。</strong> 最適に区別可能な色のパレットを生成・調整します。</p>
+                    <div id="carto">...</div>
+                </div>
+                <div class="span3">
+
+                    <div class="row">
+                        <div class="input-append span1">
+                            <input id="colorsCount" type="text" value="5" style="width:20px;" />
+                            <span class="add-on">colors</span>
+                        </div>
+                        <div class="span2">
+                            <select id="algo" class="span2">
+                                <option value="kmeans" selected=true>soft (k-Means)</option>
+                                <option value="forcevector">hard (Force vector)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button class="btn" id="reduceToPalette" style="width: 100%" onclick="reduceToPalette();"><i
+                            class="icon-hand-right"></i> パレットを作る</button>
+
+                    <div id="palette_visual">
+                    </div>
+
+                    <div id="palette_visual_sort">
+                        <small>Sort by</small>
+                        <button class="btn btn-small btn-link" onclick="sortPalette('difference')">diff</button>
+                        <button class="btn btn-small btn-link" onclick="sortPalette('hue')">hue</button>
+                        <button class="btn btn-small btn-link" onclick="sortPalette('chroma')">chroma</button>
+                        <button class="btn btn-small btn-link" onclick="sortPalette('lightness')">lightness</button>
+                        <button class="btn btn-small btn-link" onclick="sortPalette('random')">random</button>
+                    </div>
+
+                    <div class="unselectable">
+                        <div id="refine" style="/*display:none;*/">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        
-        <div  id="workbench">
-            <div class="container">
-                <div class="row">
-                    <div class="span9 spacetitle">
-                        <h3>カラー・スペース</h3>
-                    </div>
-                    <div class="span3 spacetitle">
-                        <h3>パレット</h3>
-                    </div>
+    </div>
+    <div class="container" style="display: none" id="resultColors_container">
+        <div class="row">
+            <div class="span6">
+                <h3>Colors</h3>
+                <div id="resultColors">
+                    <span class="muted">パレットを作成してください</span>
                 </div>
-                <div class="row unselectable">
-                    <div class="span4">
-                        <select id="presets" onchange="updateSettings()"><option>Presets...</option></select>
-                        <table id="selectorsTable" style="width: 100%;">
-                            <tr>
-                                <td>
-                                    <div class="input-append input-prepend"><span title="Hue" class="add-on">H</span><input id="hmin" type="text" value="0" style="width:30px;"/></div>
-                                </td>
-                                <td style="width: 100%;"><div id="hueSelector"></div></td>
-                                <td>
-                                    <div class="input-prepend"><input id="hmax" type="text" value="360" style="width:30px;"/></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="input-append input-prepend"><span title="Chroma (from gray to colorfull)" class="add-on">C</span><input id="cmin" type="text" value="0" style="width:30px;"/></div>
-                                </td>
-                                <td><div id="chromaSelector"></div></td>
-                                <td>
-                                    <div class="input-prepend"><input id="cmax" type="text" value="10" style="width:30px;"/></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="input-append input-prepend"><span title="Lightness" class="add-on">L</span><input id="lmin" type="text" value="0" style="width:30px;"/></div>
-                                </td>
-                                <td><div id="lightnessSelector"></div></td>
-                                <td>
-                                    <div class="input-prepend"><input id="lmax" type="text" value="10" style="width:30px;"/></div>
-                                </td>
-                            </tr>
-                        </table>
-                        <br/>
-                        <label class="checkbox">
-                            <input type="checkbox" id="colorblindFriendly" onchange="setting_toggle()"/> <strong>色覚異常</strong>への配慮を改善（処理が遅くなります）
-                        </label>
-                        <label class="checkbox">
-                            <input type="checkbox" id="darkBackground"/> 暗い背景
-                        </label>
-                    </div>
-                    <div class="span5">
-                        <div id="carto">...</div>
+                <div id="additionalInfo">
+                </div>
+            </div>
+            <div class="span6">
+                <div class="row">
+                    <div class="span3">
+                        <h3>JSON</h3>
+                        <h5>16進数 json</h5>
+                        <div id="resultColors_hexjson">
+                            <span class="muted">パレットを作成してください</span>
+                        </div>
+                        <h5>RGB json</h5>
+                        <div id="resultColors_rgbjson">
+                            <span class="muted">パレットを作成してください</span>
+                        </div>
+                        <h5>HCL json</h5>
+                        <div id="resultColors_hcljson">
+                            <span class="muted">パレットを作成してください</span>
+                        </div>
+                        <h5>LAB json</h5>
+                        <div id="resultColors_labjson">
+                            <span class="muted">パレットを作成してください</span>
+                        </div>
                     </div>
                     <div class="span3">
-
-                       <div class="row">
-                            <div class="input-append span1">
-                                <input id="colorsCount" type="text" value="5" style="width:20px;"/>
-                                <span class="add-on">colors</span>
-                            </div>
-                            <div class="span2">
-                                <select id="algo" class="span2">
-                                    <option value="kmeans" selected=true>soft (k-Means)</option>
-                                    <option value="forcevector" >hard (Force vector)</option>
-                                </select>
-                            </div>
+                        <h3>CSS</h3>
+                        <h5>HEX list for CSS</h5>
+                        <div id="resultColors_hexlist">
+                            <span class="muted">パレットを作成してください</span>
                         </div>
-
-                        <button class="btn" id="reduceToPalette" style="width: 100%" onclick="reduceToPalette();"><i class="icon-hand-right"></i> パレットを作る</button>
-                        
-                        <div id="palette_visual">
+                        <h5>RGB list for CSS</h5>
+                        <div id="resultColors_rgblist">
+                            <span class="muted">パレットを作成してください</span>
                         </div>
-
-                        <div id="palette_visual_sort">
-                            <small>Sort by</small>
-                            <button class="btn btn-small btn-link" onclick="sortPalette('difference')">diff</button>
-                            <button class="btn btn-small btn-link" onclick="sortPalette('hue')">hue</button>
-                            <button class="btn btn-small btn-link" onclick="sortPalette('chroma')">chroma</button>
-                            <button class="btn btn-small btn-link" onclick="sortPalette('lightness')">lightness</button>
-                            <button class="btn btn-small btn-link" onclick="sortPalette('random')">random</button>
-                        </div>
-
-                        <div class="unselectable">
-                            <div id="refine" style="/*display:none;*/">
-                            </div>                  
-                        </div>                  
                     </div>
+                </div>
+
+                <h3>Javascript</h3>
+                <h5>この設定でパレットを生成するスクリプト</h5>
+                <div id="resultColors_jsGeneration">
+                    <span class="muted">パレットを作成してください</span>
                 </div>
             </div>
         </div>
-        <div class="container" style="display: none" id="resultColors_container">
-            <div class="row">
-                <div class="span6">
-                    <h3>Colors</h3>
-                    <div id="resultColors">
-                        <span class="muted">パレットを作成してください</span>
-                    </div>
-                    <div id="additionalInfo">
-                    </div>
-                </div>
-                <div class="span6">
-                    <div class="row">
-                        <div class="span3">
-                            <h3>JSON</h3>
-                            <h5>16進数 json</h5>
-                            <div id="resultColors_hexjson">
-                                <span class="muted">パレットを作成してください</span>
-                            </div>
-                            <h5>RGB json</h5>
-                            <div id="resultColors_rgbjson">
-                                <span class="muted">パレットを作成してください</span>
-                            </div>
-                            <h5>HCL json</h5>
-                            <div id="resultColors_hcljson">
-                                <span class="muted">パレットを作成してください</span>
-                            </div>
-                            <h5>LAB json</h5>
-                            <div id="resultColors_labjson">
-                                <span class="muted">パレットを作成してください</span>
-                            </div>
-                        </div>
-                        <div class="span3">
-                            <h3>CSS</h3>
-                            <h5>HEX list for CSS</h5>
-                            <div id="resultColors_hexlist">
-                                <span class="muted">パレットを作成してください</span>
-                            </div>
-                            <h5>RGB list for CSS</h5>
-                            <div id="resultColors_rgblist">
-                                <span class="muted">パレットを作成してください</span>
-                            </div>
-                        </div>
-                    </div>
+    </div>
 
-                    <h3>Javascript</h3>
-                    <h5>この設定でパレットを生成するスクリプト</h5>
-                    <div id="resultColors_jsGeneration">
-                        <span class="muted">パレットを作成してください</span>
-                    </div>
-                </div>
-            </div>
+
+    <?php include('includes/footer.php') ?>
+
+
+    <!-- Color Picker Modal -->
+    <div id="colorPicker_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">カラー・ピッカー</h3>
         </div>
-
-        
-<?php include('includes/footer.php') ?>
-
-
-        <!-- Color Picker Modal -->
-        <div id="colorPicker_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">カラー・ピッカー</h3>
-            </div>
-            <div class="modal-body">
-                <table>
-                    <tr>
-                        <td>
-                            <div id="colorpicker_abContainer" class="unselectable"></div>
-                        </td>
-                        <td>
-                            <table>
-                                <tr><td style="padding-left: 20px">
+        <div class="modal-body">
+            <table>
+                <tr>
+                    <td>
+                        <div id="colorpicker_abContainer" class="unselectable"></div>
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td style="padding-left: 20px">
                                     <table>
                                         <tr>
                                             <td>
-                                                <div class="input-append input-prepend"><span title="Hue" class="add-on">H</span><input id="colorpicker_hInput" type="text" value="0" style="width:36px;"/></div>
+                                                <div class="input-append input-prepend"><span title="Hue"
+                                                        class="add-on">H</span><input id="colorpicker_hInput"
+                                                        type="text" value="0" style="width:36px;" /></div>
                                             </td>
                                             <td>
                                                 <div id="colorpicker_hContainer" class="unselectable"></div>
                                             </td>
-                                        </tr><tr>
+                                        </tr>
+                                        <tr>
                                             <td>
-                                                <div class="input-append input-prepend"><span title="Chroma (from gray to colorfull)" class="add-on">C</span><input id="colorpicker_cInput" type="text" value="0" style="width:36px;"/></div>
+                                                <div class="input-append input-prepend"><span
+                                                        title="Chroma (from gray to colorfull)"
+                                                        class="add-on">C</span><input id="colorpicker_cInput"
+                                                        type="text" value="0" style="width:36px;" /></div>
                                             </td>
                                             <td>
                                                 <div id="colorpicker_cContainer" class="unselectable"></div>
                                             </td>
-                                        </tr><tr>
+                                        </tr>
+                                        <tr>
                                             <td>
-                                                <div class="input-append input-prepend"><span title="Lightness" class="add-on">L</span><input id="colorpicker_lInput" type="text" value="0" style="width:36px;"/></div>
+                                                <div class="input-append input-prepend"><span title="Lightness"
+                                                        class="add-on">L</span><input id="colorpicker_lInput"
+                                                        type="text" value="0" style="width:36px;" /></div>
                                             </td>
                                             <td>
                                                 <div id="colorpicker_lContainer" class="unselectable"></div>
                                             </td>
-                                        </tr><tr>
+                                        </tr>
+                                        <tr>
                                     </table>
-                                </td></tr><tr><td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
                                     <table>
                                         <tr>
-                                            <td><div class="input-append input-prepend"><input id="colorpicker_aInput" type="text" value="0" style="width:36px;"/><span title="a* color axis, from Red to Green" class="add-on">A</span></div></td>
-                                            <td><div class="input-append input-prepend"><input id="colorpicker_bInput" type="text" value="0" style="width:36px;"/><span title="b* color axis, from Blue to Yellow" class="add-on">B</span></div></td>
+                                            <td>
+                                                <div class="input-append input-prepend"><input id="colorpicker_aInput"
+                                                        type="text" value="0" style="width:36px;" /><span
+                                                        title="a* color axis, from Red to Green" class="add-on">A</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-append input-prepend"><input id="colorpicker_bInput"
+                                                        type="text" value="0" style="width:36px;" /><span
+                                                        title="b* color axis, from Blue to Yellow"
+                                                        class="add-on">B</span></div>
+                                            </td>
                                         </tr>
                                     </table>
-                                </td></tr>
-                            </table>
-                        </td>
-                        <td>
-                            <table>
-                                <tr><td>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td>
                                     <div id="colorpicker_renderContainer"></div>
-                                </td></tr><tr><td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
                                     <div style="height: 38px" class="pull-right">
-                                        <div class="input-prepend"><span class="add-on">Hex</span><input id="colorpicker_hexInput" type="text" value="#" style="width:60px;"/></div>
+                                        <div class="input-prepend"><span class="add-on">Hex</span><input
+                                                id="colorpicker_hexInput" type="text" value="#" style="width:60px;" />
+                                        </div>
                                     </div>
-                                </td></tr>
-                            </table>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-                <button class="btn btn-primary" id="colorPicker_pickButton">Pick color</button>
-            </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
         </div>
-<?php include('includes/codebottom.php'); ?>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+            <button class="btn btn-primary" id="colorPicker_pickButton">Pick color</button>
+        </div>
+    </div>
+    <?php include('includes/codebottom.php'); ?>
 
-        <script src="js/libs/prettify.js"></script>
+    <script src="js/libs/prettify.js"></script>
 
-        <script src="js/libs/FileSaver.js"></script>
+    <script src="js/libs/FileSaver.js"></script>
 
-        <script src="js/libs/sigma.min.js"></script>
-        <script src="js/libs/sigma.layout.forceAtlas2.min.js"></script>
+    <script src="js/libs/sigma.min.js"></script>
+    <script src="js/libs/sigma.layout.forceAtlas2.min.js"></script>
 
-        <script src="js/background.js"></script>
-        <script src="js/colorspace.js"></script>
-        <script src="js/presets.js"></script>
-        <script src="js/selectors.js"></script>
-        <script src="js/fitting.js"></script>
-        <script src="js/palettegeneration.js"></script>
-        <script src="js/colorpicker.js"></script>
+    <script src="js/background.js"></script>
+    <script src="js/colorspace.js"></script>
+    <script src="js/presets.js"></script>
+    <script src="js/selectors.js"></script>
+    <script src="js/fitting.js"></script>
+    <script src="js/palettegeneration.js"></script>
+    <script src="js/colorpicker.js"></script>
 
-        <script src="js/sandbox.js"></script>
+    <script src="js/sandbox.js"></script>
 
-        <script>
+    <script>
 
-$(document).ready(function(){
-    // Init selectors fields
-    $('#hmin').val(0);
-    $('#hmax').val(360);
-    $('#cmin').val(0);
-    $('#cmax').val(3);
-    $('#lmin').val(0);
-    $('#lmax').val(1.5);
-    $('#colorsCount').val(5);
+        $(document).ready(function () {
+            // Init selectors fields
+            $('#hmin').val(0);
+            $('#hmax').val(360);
+            $('#cmin').val(0);
+            $('#cmax').val(3);
+            $('#lmin').val(0);
+            $('#lmax').val(1.5);
+            $('#colorsCount').val(5);
 
-    initSelectors()
-    colorpicker.init()
-    updateColorSpace()
-    initVisualPalette()
-    initPresets(1)
-});
+            initSelectors()
+            colorpicker.init()
+            updateColorSpace()
+            initVisualPalette()
+            initPresets(1)
+        });
 
-// Init the color samples once for all
-console.log("Initializing color sampling...")
-var colorSamples = []
-var lstep = 3
-var astep = 8
-var bstep = 8
-var colorsIndex = {}
-for(l=0; l<=100; l+=lstep){
-    for(a=0; a<=100; a+=astep){
-        for(b=0; b<=100; b+=bstep){
-            sampleColor( [l, +a, +b] )
-            sampleColor( [l, -a, +b] )
-            sampleColor( [l, +a, -b] )
-            sampleColor( [l, -a, -b] )
+        // Init the color samples once for all
+        console.log("Initializing color sampling...")
+        var colorSamples = []
+        var lstep = 3
+        var astep = 8
+        var bstep = 8
+        var colorsIndex = {}
+        for (l = 0; l <= 100; l += lstep) {
+            for (a = 0; a <= 100; a += astep) {
+                for (b = 0; b <= 100; b += bstep) {
+                    sampleColor([l, +a, +b])
+                    sampleColor([l, -a, +b])
+                    sampleColor([l, +a, -b])
+                    sampleColor([l, -a, -b])
+                }
+            }
         }
-    }
-}
-function sampleColor(lab) {
-    // Test if color exists in lab space
-    if (paletteGenerator.validateLab(lab)) {
-        var color = chroma.lab(lab)
-        // Test if the color does not exist already (there are weird boundaries to the CIE Labs space)
-        if (colorsIndex[color.hex()]) {
-            // Color already exists
-        } else {
-            colorSamples.push({color:color, hex:color.hex(), lab:color.lab(), hcl:color.hcl(), rgb:color.rgb()})
-            colorsIndex[color.hex()] = true
+        function sampleColor(lab) {
+            // Test if color exists in lab space
+            if (paletteGenerator.validateLab(lab)) {
+                var color = chroma.lab(lab)
+                // Test if the color does not exist already (there are weird boundaries to the CIE Labs space)
+                if (colorsIndex[color.hex()]) {
+                    // Color already exists
+                } else {
+                    colorSamples.push({ color: color, hex: color.hex(), lab: color.lab(), hcl: color.hcl(), rgb: color.rgb() })
+                    colorsIndex[color.hex()] = true
+                }
+            }
         }
-    }
-}
-console.log("...done")
+        console.log("...done")
 
-/// PALETTE GENERATION
-$('#colorsCount').change(function(){
-    initVisualPalette()
-})
+        /// PALETTE GENERATION
+        $('#colorsCount').change(function () {
+            initVisualPalette()
+        })
 
-/// COLOR SPACE
-$('#hmin, #hmax, #cmin, #cmax, #lmin, #lmax').change(function(){
-    var width = $("#hueSelector").width();
-    
-    selectorsState.hue.min = parseFloat($('#hmin').val())/360;
-    selectorsState.hue.max = parseFloat($('#hmax').val())/360;
-    selectorsState.chroma.min = parseFloat($('#cmin').val())/maxChroma;
-    selectorsState.chroma.max = parseFloat($('#cmax').val())/maxChroma;
-    selectorsState.lightness.min = parseFloat($('#lmin').val())/maxLightness;
-    selectorsState.lightness.max = parseFloat($('#lmax').val())/maxLightness;
+        /// COLOR SPACE
+        $('#hmin, #hmax, #cmin, #cmax, #lmin, #lmax').change(function () {
+            var width = $("#hueSelector").width();
 
-    // Avoid null ranges
-    if (selectorsState.hue.max - selectorsState.hue.min < 1/360) {
-        selectorsState.hue.max = selectorsState.hue.min + 1/360
-    }
-    if (selectorsState.chroma.max - selectorsState.chroma.min < .2/maxChroma) {
-        selectorsState.chroma.max = selectorsState.chroma.min + .2/maxChroma
-        $('#cmax').val(selectorsState.chroma.max * maxChroma)
-    }
-    if (selectorsState.lightness.max - selectorsState.lightness.min < .1/maxLightness) {
-        selectorsState.lightness.max = selectorsState.lightness.min + .1/maxLightness
-        $('#lmax').val(selectorsState.lightness.max * maxLightness)
-    }
+            selectorsState.hue.min = parseFloat($('#hmin').val()) / 360;
+            selectorsState.hue.max = parseFloat($('#hmax').val()) / 360;
+            selectorsState.chroma.min = parseFloat($('#cmin').val()) / maxChroma;
+            selectorsState.chroma.max = parseFloat($('#cmax').val()) / maxChroma;
+            selectorsState.lightness.min = parseFloat($('#lmin').val()) / maxLightness;
+            selectorsState.lightness.max = parseFloat($('#lmax').val()) / maxLightness;
 
-    updateSelectors();
-    updateColorSpace();
-})
+            // Avoid null ranges
+            if (selectorsState.hue.max - selectorsState.hue.min < 1 / 360) {
+                selectorsState.hue.max = selectorsState.hue.min + 1 / 360
+            }
+            if (selectorsState.chroma.max - selectorsState.chroma.min < .2 / maxChroma) {
+                selectorsState.chroma.max = selectorsState.chroma.min + .2 / maxChroma
+                $('#cmax').val(selectorsState.chroma.max * maxChroma)
+            }
+            if (selectorsState.lightness.max - selectorsState.lightness.min < .1 / maxLightness) {
+                selectorsState.lightness.max = selectorsState.lightness.min + .1 / maxLightness
+                $('#lmax').val(selectorsState.lightness.max * maxLightness)
+            }
 
-// Colors network
-var s;
-var forceStopTimers = [];
-var initSigma = function(){
-    // Clean old sigma instances if needed
-    for(sid in sigma.instances()){
-        var sInstance = sigma.instances()[sid]
-        sInstance.stopForceAtlas2()
-        sInstance.graph.clear()
-        sInstance.kill()
-    }
-    $('#carto').empty()
-    forceStopTimers.forEach(function(t){
-        clearTimeout(t)
-    })
+            updateSelectors();
+            updateColorSpace();
+        })
 
-    // INIT SIGMA
-    s = new sigma({
-      container: 'carto'
-      ,settings: {
-        // Labels:
-        font: "'Arial', sans-serif;",
-        defaultLabelColor: '#333',
-        defaultLabelSize: 16,
-        defaultLabelBGColor: '#fff',
-        defaultLabelHoverColor: '#000',
-        labelThreshold: 100,
-        
-        // Edges
-        defaultEdgeType: 'line',
-        drawEdges: false,
+        // Colors network
+        var s;
+        var forceStopTimers = [];
+        var initSigma = function () {
+            // Clean old sigma instances if needed
+            for (sid in sigma.instances()) {
+                var sInstance = sigma.instances()[sid]
+                sInstance.stopForceAtlas2()
+                sInstance.graph.clear()
+                sInstance.kill()
+            }
+            $('#carto').empty()
+            forceStopTimers.forEach(function (t) {
+                clearTimeout(t)
+            })
 
-        maxNodeSize: 8,
+            // INIT SIGMA
+            s = new sigma({
+                container: 'carto'
+                , settings: {
+                    // Labels:
+                    font: "'Arial', sans-serif;",
+                    defaultLabelColor: '#333',
+                    defaultLabelSize: 16,
+                    defaultLabelBGColor: '#fff',
+                    defaultLabelHoverColor: '#000',
+                    labelThreshold: 100,
 
-        mouseEnabled: false,
-        blockScroll: true,
-        minRatio: 1,
-        maxRatio: 1
-      }
-    });
-    
-    // Mouse actions
-    s.bind('overnodes',function(e){
-        // Cursor: pointer for hovered nodes
-        $('#carto').addClass("nodehovered");    // Actually, the whole canvas has the property
-    });
-    s.bind('outnodes',function(e){
-        // Remove the pointer cursor on node out
-        $('#carto').removeClass("nodehovered");
-    });
-}
+                    // Edges
+                    defaultEdgeType: 'line',
+                    drawEdges: false,
 
-// Init network viz (sigma)
-initSigma();
+                    maxNodeSize: 8,
 
-// Dynamic resize update
-window.onresize = function(){
-    resizeWidget();
-}
+                    mouseEnabled: false,
+                    blockScroll: true,
+                    minRatio: 1,
+                    maxRatio: 1
+                }
+            });
 
-// Resize graph
-var resizeWidget = function(){
-    // s.refresh();
-    s.render();
-    updateSelectors();
-}
+            // Mouse actions
+            s.bind('overnodes', function (e) {
+                // Cursor: pointer for hovered nodes
+                $('#carto').addClass("nodehovered");    // Actually, the whole canvas has the property
+            });
+            s.bind('outnodes', function (e) {
+                // Remove the pointer cursor on node out
+                $('#carto').removeClass("nodehovered");
+            });
+        }
 
-// Background
-$('#darkBackground').click(function(){
-    updateBackground();
-});
+        // Init network viz (sigma)
+        initSigma();
 
-// Presets
-presets.forEach(function(preset, i){
-    $('#presets').append('<option value="'+i+'">'+preset.name+'</option>');
-});
+        // Dynamic resize update
+        window.onresize = function () {
+            resizeWidget();
+        }
 
-// No selection on certain parts of the interface
-$('.unselectable').attr('unselectable', 'on')
-   .css({
-       '-moz-user-select':'none',
-       '-webkit-user-select':'none',
-       'user-select':'none',
-       '-ms-user-select':'none'
-   })
-   .each(function() {
-       this.onselectstart = function() { return false; };
-   });
+        // Resize graph
+        var resizeWidget = function () {
+            // s.refresh();
+            s.render();
+            updateSelectors();
+        }
 
-        </script>
+        // Background
+        $('#darkBackground').click(function () {
+            updateBackground();
+        });
 
-    </body>
+        // Presets
+        presets.forEach(function (preset, i) {
+            $('#presets').append('<option value="' + i + '">' + preset.name + '</option>');
+        });
+
+        // No selection on certain parts of the interface
+        $('.unselectable').attr('unselectable', 'on')
+            .css({
+                '-moz-user-select': 'none',
+                '-webkit-user-select': 'none',
+                'user-select': 'none',
+                '-ms-user-select': 'none'
+            })
+            .each(function () {
+                this.onselectstart = function () { return false; };
+            });
+
+    </script>
+
+</body>
+
 </html>
