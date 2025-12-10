@@ -2,15 +2,17 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>iWantHue - 理論</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
+<!--[if gt IE 8]><!-->
+<html class="no-js"> <!--<![endif]-->
 
-		<link rel="stylesheet" href="/css/bootstrap.min.css">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>iWantHue - 理論</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+    		<link rel="stylesheet" href="/css/bootstrap.min.css">
         <link rel="stylesheet" href="/css/bootstrap-responsive.min.css">
         <link rel="stylesheet" href="/css/prettify.css">
 
@@ -30,750 +32,869 @@
         </script>
 
 
-        <style>
-            body {
-                padding-top: 60px;
-                padding-bottom: 40px;
-            }
-            /* Specific styles */
-            .example div{
-                margin-bottom: 1px;
-                padding-left: 2px;
-            }
-        </style>
-        
-    </head>
-    <body>
-        <!--[if lt IE 7]>
+    <style>
+        body {
+            padding-bottom: 40px;
+        }
+
+        /* Specific styles */
+        .example div {
+            margin-bottom: 1px;
+            padding-left: 2px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!--[if lt IE 7]>
             <p class="chromeframe">ご利用のブラウザは古いため、このサイトを正しく表示できません。<a href="http://browsehappy.com/">最新ブラウザへ更新する</a>か、<a href="http://www.google.com/chromeframe/?redirect=true">Google Chrome Frame をインストール</a>してください。</p>
         <![endif]-->
 
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="navbar-inner">
+    <div class="navbar navbar-inverse navbar-static-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="/">I want hue</a>
+            <div class="nav-collapse collapse">
+                <ul class="nav">
+                    <li><a href="/tutorial/">チュートリアル</a></li>
+                    <li><a href="/examples/">例</a></li>
+                    <li><a href="/theory/">理論</a></li>
+                    <li><a href="/experiment/">実験</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Old version <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/palettes/">Generate</a></li>
+                            <li><a href="/corrector/">Correct</a></li>
+                            <li><a href="/completion/">Complete</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="pull-right">
+                </div>
+
+            </div><!--/.nav-collapse -->
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+
+        <!-- Main hero unit for a primary marketing message or call to action -->
+        <div class="splash-unit row">
+            <div class="span7">
+                <div class="image">
+                    <a href="/"><img src="/res/header.png" /></a>
+                </div>
+                <div class="title">
+                    i want hue
+                </div>
+            </div>
+            <div class="span5">
+                <div class="abstract">
+                    <p><strong>データサイエンティストのための色。</strong> 最適に区別できる色のパレットを生成し、調整します。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="hero-unit">
+            <div class="row">
+                <div class="span4">
+                    <h1>コンセプト:</h1>
+                </div>
+                <div class="span6" style="padding-top: 14px;">
+                    <p>
+                        色を<strong>知覚的に一貫した</strong>空間で<strong>均等に</strong>分配し、
+                        <br /><strong>扱いやすい</strong>設定で制約をかけながら、<strong>高品質なカスタムパレット</strong>を生成する。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row textblock">
+            <div class="span12">
+                <p class="lead">
+                    ランダムな色を作る最良の方法は何か？──ここからすべてが始まりました。
+                </p>
+            </div>
+        </div>
+        <div class="row textblock">
+            <div class="span6">
+                <p>
+                    色を表記する一般的な方法はいくつかあります。
+                <ul>
+                    <li>CSS で広く使われている<strong>16進数表記</strong>（例: #FF0000）。RGB の各値を16進数にしたものです。</li>
+                    <li>
+                        <strong>RGB</strong> は Red / Green / Blue の略で、色を分類するひとつの「色空間」です。
+                        モニターが色光を出す 3 つのチャネルに対応し、0〜255 の数値で表されます。
+                        [0,&nbsp;0,&nbsp;0] は黒、[255,&nbsp;255,&nbsp;255] は白になります。
+                    </li>
+                    <li>
+                        <strong>HSV</strong>（Hue, Saturation, Value）やその変種である <b>HSL</b> は、色を人間の感覚に近い形で扱える色空間です。
+                        私たちが「青」「赤」などと呼ぶのは主に Hue（色相）で、RGB と違いこの要素だけを直接扱える利点があります。
+                    </li>
+                </ul>
+                </p>
+                <p>
+                    <strong>多くのライブラリ（たとえば <em>d3.js</em>）は、これらの表記を相互に変換できます。</strong>
+                    したがって乱数で色を生成するとき、RGB でも HSV でも構いません。
+                    直感的には HSV/HSL の方が人間の感覚に近いので良さそうに思えますし、ネットでもそういう意見を見かけます。
+                    しかし本当にそうかを確かめるため、<strong>乱数生成を観察できるツール</strong>を作りました。以下がその結果です。
+                </p>
+            </div>
+            <div class="span6">
+                <div style="text-align: center">
+                    <br />
+                    <br />
+                    <img src="/res/rgb.png" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row textblock">
+            <div class="span12">
+                <h1>HSL でのランダムカラー</h1>
+            </div>
+        </div>
+        <div class="row textblock">
+            <div class="span6">
+                <p>
+                    下図は HSL でランダムに生成した 12 色のパレットです。<i class="icon-hand-right"></i>
+                </p>
+                <p>
+                    特に暗い色など、明らかに似た色が含まれています。12 色しか生成していないのに取り違えが起きかねず、可視化には不向きです。
+                    データ可視化では色を明確に区別できることが最優先になります。
+                </p>
+            </div>
+            <div class="span6">
+                <ul class="inlinePalette">
+                    <li style="background-color: #451228">
+                        <p>#451228</p>
+                    </li>
+                    <li style="background-color: #13D907">
+                        <p>#13D907</p>
+                    </li>
+                    <li style="background-color: #F9F4FC">
+                        <p>#F9F4FC</p>
+                    </li>
+                    <li style="background-color: #41039B">
+                        <p>#41039B</p>
+                    </li>
+                    <li style="background-color: #47544E">
+                        <p>#47544E</p>
+                    </li>
+                    <li style="background-color: #122B53">
+                        <p>#122B53</p>
+                    </li>
+                    <li style="background-color: #59DA63">
+                        <p>#59DA63</p>
+                    </li>
+                    <li style="background-color: #7B1386">
+                        <p>#7B1386</p>
+                    </li>
+                    <li style="background-color: #4B381C">
+                        <p>#4B381C</p>
+                    </li>
+                    <li style="background-color: #CDBCD0">
+                        <p>#CDBCD0</p>
+                    </li>
+                    <li style="background-color: #EAEAEA">
+                        <p>#EAEAEA</p>
+                    </li>
+                    <li style="background-color: #B1CDE4">
+                        <p>#B1CDE4</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row textblock">
+            <div class="span6">
+                <br />
+                <p>
+                    これら 12 色を HSL 空間に配置するとこうなります。<i class="icon-hand-right"></i>
+                </p>
+                <p>
+                    分布自体は均等に見えますが、似た色が出るのは偶然ではなく HSL 空間の性質に起因します。
+                    <em>Hue×Lightness</em> の投影をみると、左上と右上がどちらも黒になっています。
+                    空間上では離れているのに、知覚上は同じに見えてしまうのです。明度が低い色は色相に関わらず同じに見えますし、明度が高い場合や彩度が低い場合も同様です。
+                </p>
+            </div>
+            <div class="span6">
+                <img src="/res/hslgen12.png" />
+            </div>
+        </div>
+
+        <div class="row textblock">
+            <div class="span12">
+                <h1>RGB でのランダムカラー</h1>
+            </div>
+        </div>
+        <div class="row textblock">
+            <div class="span6">
+                <p>
+                    こちらは RGB でランダムに生成した 12 色のパレットです。<i class="icon-hand-right"></i>
+                </p>
+                <p>
+                    先ほどより明らかに良く、似た色も少ないのが分かります。RGB 空間の方が性質が良いのです。
+                </p>
+            </div>
+            <div class="span6">
+                <ul class="inlinePalette">
+                    <li style="background-color: #DBA714">
+                        <p>#DBA714</p>
+                    </li>
+                    <li style="background-color: #391FEA">
+                        <p>#391FEA</p>
+                    </li>
+                    <li style="background-color: #46385C">
+                        <p>#46385C</p>
+                    </li>
+                    <li style="background-color: #E5154B">
+                        <p>#E5154B</p>
+                    </li>
+                    <li style="background-color: #3E9A71">
+                        <p>#3E9A71</p>
+                    </li>
+                    <li style="background-color: #3495F5">
+                        <p>#3495F5</p>
+                    </li>
+                    <li style="background-color: #57510C">
+                        <p>#57510C</p>
+                    </li>
+                    <li style="background-color: #D9B182">
+                        <p>#D9B182</p>
+                    </li>
+                    <li style="background-color: #8625B8">
+                        <p>#8625B8</p>
+                    </li>
+                    <li style="background-color: #83CA5D">
+                        <p>#83CA5D</p>
+                    </li>
+                    <li style="background-color: #6252A1">
+                        <p>#6252A1</p>
+                    </li>
+                    <li style="background-color: #DB5E3A">
+                        <p>#DB5E3A</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row textblock">
+            <div class="span6">
+                <br />
+                <p>
+                    このパレットを HSL 空間に投影するとこうなります。<i class="icon-hand-right"></i>
+                </p>
+                <p>
+                    色は暗い領域や極端に明るい領域、グレー領域には偏っていません。
+                    それらは私たちが色の違いを<em>見分けやすい</em>領域に集まる傾向があります。
+                    直感的にも、知覚的に多様な色を得るにはこうなってほしいと感じるはずです。
+                </p>
+                <p>
+                    <strong>どの色空間を使うかで、乱数の分布は大きく変わります。</strong>
+                </p>
+            </div>
+            <div class="span6">
+                <img src="/res/rgbgen12.png" />
+            </div>
+        </div>
+
+        <div class="row textblock">
+            <div class="span12">
+                <p class="lead">
+                    では、ランダムな色を生成するのに最適な色空間はどれでしょうか？
+                </p>
+            </div>
+        </div>
+
+        <div class="row textblock">
+            <div class="span12">
+                <h1>L*a*b* 色空間</h1>
+            </div>
+        </div>
+        <div class="row textblock">
+            <div class="span6">
+                <p>
+                    <a href="http://en.wikipedia.org/wiki/Lab_color_space">CIE L*a*b*</a>
+                    色空間は人が知覚できる色をほぼ網羅し、知覚的に一様になるよう設計されています。
+                    つまり、この空間での距離は知覚上の距離として扱え、近ければ見た目も似て、離れていれば違って見えるのです。<strong>求めていた特性がここにあります。</strong>
+                </p>
+                <p>
+                    ただしこの色空間には「穴」があります。実在する色に対応する座標は一部で、その他は空白です。
+                    少し扱いが難しくなりますが、十分対処できます。
+                </p>
+                <p>
+                    形状は右図の通りです。<i class="icon-hand-right"></i>
+                </p>
+                <p>
+                    この色空間の優れている点は、黄色が明るく見え、紫が暗く見えるといった人の感覚を反映していることです。
+                    明度を示す値に * が付いているのはそのためで、バイアスのない明るさを意味します。
+                    また、暗色やグレーよりも彩度の高い色に広い領域を割り当てています。とても暗い色はすべて似た見た目になるので、暗色の領域は狭くなっています。
+                </p>
+            </div>
+            <div class="span6">
+                <img style="margin-right:50px;" src="/res/axb.png" />
+                <img src="/res/Lxa.png" />
+            </div>
+        </div>
+
+        <div class="row textblock">
+            <div class="span6">
+                <br />
+                <p>
+                    <strong>以降の分布評価では、この CIE L*a*b* 色空間を基準として使用します。</strong>
+                </p>
+                <p>
+                    この空間で 1 万色をランダム生成すると、右図のような分布になります。&nbsp;<i class="icon-hand-right"></i>
+                </p>
+                <p>
+                    これを基準に、他の色空間でのランダム分布と比較してみましょう。
+                </p>
+            </div>
+            <div class="span6">
+                <img src="/res/ab_Lab_proba.png" />
+            </div>
+        </div>
+
+        <div class="row textblock">
+            <div class="span6">
+                <br />
+                <p>
+                    <strong>HSL のランダム色を CIE L*a*b* で表示</strong>&nbsp;<i class="icon-hand-right"></i>
+                </p>
+                <p>
+                    HSL のランダム色が中央に集中している様子がよく分かります。
+                    この領域は暗色・グレー・非常に明るい色、すなわち彩度が低い色に対応しており、最初の例で似た色ばかりになった理由が視覚化されています。
+                </p>
+            </div>
+            <div class="span6">
+                <img src="/res/ab_HSL_proba.png" />
+            </div>
+        </div>
+
+        <div class="row textblock">
+            <div class="span6">
+                <br />
+                <p>
+                    <strong>RGB のランダム色を CIE L*a*b* で表示</strong>&nbsp;<i class="icon-hand-right"></i>
+                </p>
+                <p>
+                    分布は基準に非常に近く、CIE L*a*b* で直接生成した場合ほどではないにせよ、RGB のランダム色も十分満足できる結果になります。
+                </p>
+                <p>
+                    <strong>手軽なジェネレーターが必要なら、RGB のランダム色を選びましょう。期待できる最良の結果と大差ありません。</strong>
+                </p>
+            </div>
+            <div class="span6">
+                <img src="/res/ab_RGB_proba.png" />
+            </div>
+        </div>
+
+        <div class="row textblock">
+            <div class="span12">
+                <h1>色を均等に配置する</h1>
+                <p class="lead">
+                    次のステップは、似た色が生まれないよう互いの位置関係で色を配置することです。
+                    ここでは <strong>k-Means</strong> と <strong>Force Vector</strong>（反発ベクトル）の 2 つのアルゴリズムを使います。
+                </p>
+            </div>
+        </div>
+
+        <div class="row textblock">
+            <div class="span5">
+                <h3>Force Vector：反発による配置</h3>
+                <p>
+                    Force Vector はもっとも単純で、すべての色がお互いを押しのけ合い、可能な限り離れるようにします。
+                    RGB 空間（立方体）で 8 色を生成して反発させると、各色は自然と角に移動していきます。
+                </p>
+                <p>
+                    <em>RGB Force Vector による 8 色パレット</em>&nbsp;<i class="icon-hand-right"></i>
+                </p>
+                <p>
+                    結果として黒と白、3 原色、3 補色が得られます。
+                </p>
+            </div>
+            <div class="span3">
+                <img src="/res/rgb-8fv.png" />
+            </div>
+            <div class="span4">
+                <br />
+                <ul class="inlinePalette">
+                    <li style="background-color: #00FF00">
+                        <p>#00FF00</p>
+                    </li>
+                    <li style="background-color: #0000FF">
+                        <p>#0000FF</p>
+                    </li>
+                    <li style="background-color: #FF0000">
+                        <p>#FF0000</p>
+                    </li>
+                    <li style="background-color: #FFFFFF">
+                        <p>#FFFFFF</p>
+                    </li>
+                    <li style="background-color: #000000">
+                        <p>#000000</p>
+                    </li>
+                    <li style="background-color: #FFFF00">
+                        <p>#FFFF00</p>
+                    </li>
+                    <li style="background-color: #FF00FF">
+                        <p>#FF00FF</p>
+                    </li>
+                    <li style="background-color: #00FFFF">
+                        <p>#00FFFF</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row textblock">
+            <div class="span5">
+                <br />
+                <p>
+                    同じアルゴリズムを CIE L*a*b* 空間で使うと、空間の形状がゆがんでいるため異なる結果になりますが、それでも互いによく離れた色が得られます。
+                </p>
+                <p>
+                    <em>L*a*b* Force Vector による 8 色パレット</em>&nbsp;<i class="icon-hand-right"></i>
+                </p>
+            </div>
+            <div class="span3">
+                <img src="/res/lab-8fv.png" />
+            </div>
+            <div class="span4">
+                <br />
+                <ul class="inlinePalette">
+                    <li style="background-color: #A09C04">
+                        <p>#A09C04</p>
+                    </li>
+                    <li style="background-color: #F161FE">
+                        <p>#F161FE</p>
+                    </li>
+                    <li style="background-color: #27B0CC">
+                        <p>#27B0CC</p>
+                    </li>
+                    <li style="background-color: #FA231D">
+                        <p>#FA231D</p>
+                    </li>
+                    <li style="background-color: #04103B">
+                        <p>#04103B</p>
+                    </li>
+                    <li style="background-color: #FA918F">
+                        <p>#FA918F</p>
+                    </li>
+                    <li style="background-color: #1A5A18">
+                        <p>#1A5A18</p>
+                    </li>
+                    <li style="background-color: #963700">
+                        <p>#963700</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row textblock">
+            <div class="span5">
+                <h3>k-Means クラスタリング</h3>
+                <p>
+                    色を均等に配置する別の方法は、色空間をクラスタリングすることです。
+                    ここでは <a href="http://en.wikipedia.org/wiki/Kmeans">k-Means</a> アルゴリズムを用い、色空間を <em>k</em>
+                    個の領域に分割し、それぞれの中心点をパレットとして採用します。
+                </p>
+                <p>
+                    <em>RGB k-Means による 8 色パレット</em>&nbsp;<i class="icon-hand-right"></i>
+                </p>
+                <p>
+                    RGB キューブを 8 分割すると 8 色が得られますが、色は必ずしも頂点には配置されません。
+                    これが Force Vector との大きな違いで、<strong>k-Means は Force Vector ほど色同士を離しません。</strong>
+                </p>
+            </div>
+            <div class="span3">
+                <img src="/res/rgb-8km.png" />
+            </div>
+            <div class="span4">
+                <br />
+                <ul class="inlinePalette">
+                    <li style="background-color: #BE3CBE">
+                        <p>#BE3CBE</p>
+                    </li>
+                    <li style="background-color: #3CBE3C">
+                        <p>#3CBE3C</p>
+                    </li>
+                    <li style="background-color: #3C3C3C">
+                        <p>#3C3C3C</p>
+                    </li>
+                    <li style="background-color: #BE3C3C">
+                        <p>#BE3C3C</p>
+                    </li>
+                    <li style="background-color: #3CBEBE">
+                        <p>#3CBEBE</p>
+                    </li>
+                    <li style="background-color: #BEBE3C">
+                        <p>#BEBE3C</p>
+                    </li>
+                    <li style="background-color: #3C3CBE">
+                        <p>#3C3CBE</p>
+                    </li>
+                    <li style="background-color: #BEBEBE">
+                        <p>#BEBEBE</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row textblock">
+            <div class="span5">
+                <br />
+                <p>
+                    こちらも CIE L*a*b* 空間では形状が異なるため、別の結果になります。
+                </p>
+                <p>
+                    <em>L*a*b* k-Means による 8 色パレット</em>&nbsp;<i class="icon-hand-right"></i>
+                </p>
+            </div>
+            <div class="span3">
+                <img src="/res/lab-8km.png" />
+            </div>
+            <div class="span4">
+                <br />
+                <ul class="inlinePalette">
+                    <li style="background-color: #C7743B">
+                        <p>#C7743B</p>
+                    </li>
+                    <li style="background-color: #9B4DCA">
+                        <p>#9B4DCA</p>
+                    </li>
+                    <li style="background-color: #93C4A2">
+                        <p>#93C4A2</p>
+                    </li>
+                    <li style="background-color: #513363">
+                        <p>#513363</p>
+                    </li>
+                    <li style="background-color: #94C64D">
+                        <p>#94C64D</p>
+                    </li>
+                    <li style="background-color: #514C34">
+                        <p>#514C34</p>
+                    </li>
+                    <li style="background-color: #C45271">
+                        <p>#C45271</p>
+                    </li>
+                    <li style="background-color: #969CC6">
+                        <p>#969CC6</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row textblock">
+            <div class="span12">
+                <h1>パレットを意図的に操る</h1>
+                <p class="lead">
+                    次のステップは、生成される色に制約をかけて種類をコントロールすることです。
+                    たとえば彩度を抑え、派手すぎる色を避けたい場合などが典型です。
+                </p>
+            </div>
+        </div>
+
+        <div class="row textblock">
+            <div class="span6">
+                <h3>HCL 色空間</h3>
+                <p>
+                    RGB が画面が色を<em>生成する</em>仕組みに、CIE L*a*b* が私たちが色を<em>知覚する</em>仕組みに対応しているなら、HCL
+                    は色をどう<em>考える</em>かに対応しています。
+                    HSL に似ていますが、知覚バイアスを除いています。CIE L*a*b* をベースにしつつ、色相を独立した次元として扱う発想です。
+                    そのため HCL では通常の <u>H</u>ue、バイアスのない彩度である <u>C</u>hroma、そして L*a*b* の（バイアスのない）<u>L</u>ightness* を使います。
+                </p>
+            </div>
+            <div class="span6">
+                <div class="alert alert-info">
+                    <p>
+                        この巧妙な手法は Gregor Aisch によって（再）発見されました。<a
+                            href="http://vis4.net/blog/posts/avoid-equidistant-hsv-colors/">このブログ記事</a>で詳しく説明されています。
+                        ぜひ一読してください。なお、私がこのツールで多用した <a href="https://github.com/gka/chroma.js">Chroma.js</a> も彼が開発したものです。
+                    </p>
+                    <p>
+                        <strong><em>HCL</em> という用語についての注意</strong>: この色空間は当初、CSL（chroma / saturation /
+                        lightness）と呼ばれていました。
+                        上記の記事では「CSL」と表現されていますが、現在の Chroma.js と同様に、ここで言う <strong>HCL</strong> を指しています。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row textblock">
+            <div class="span6">
+                <br />
+                <p>
+                    HCL 色空間は CIE L*a*b* よりもさらにねじれており、彩度の低い色が一か所にまとまっているわけではありませんが、色空間に制約をかけるには最適です。
+                </p>
+                <p>
+                    バイアスのない明度の効果がよく分かります。黄色は明るすぎず、藍は暗すぎません。全体がとても滑らかに見えるはずです。
+                </p>
+                <p>
+                    Hue・Chroma・Lightness* の範囲を指定するだけで、L*a*b* 色空間を<strong>限定</strong>できます。
+                    任意の L*a*b* の色を HCL に変換し、指定範囲に収まっているかテストするだけです。
+                    Force Vector は色が境界外へ押し出されるのを防ぎ、k-Means はクラスタリング対象となるサンプリングをその範囲に絞り込むため、処理も速くなります。
+                </p>
+                <p>
+                    つまり、計算処理では L*a*b* を用い、ユーザーが色域を絞るために HCL を扱う、という役割分担です。
+                </p>
+            </div>
+            <div class="span6">
+                <img src="/res/hxL.png" />
+            </div>
+        </div>
+
+        <div class="row textblock">
+            <div class="span6">
+                <h3>Hue・Chroma・Lightness の範囲指定</h3>
+                <p>
+                    以下はパレット作成に使える色サブスペースの例です。
+                    色空間がねじれているため、Chroma を変えると Hue や Lightness* にも影響が出る点に注意してください。
+                </p>
+            </div>
+        </div>
+
+        <div class="row textblock">
+            <div class="span5">
+                <p>
+                    <strong>Hue 200°〜250°</strong>&nbsp;<i class="icon-hand-right"></i>
+                </p>
+                <p>
+                    やや青寄りの 170 色が得られます。Chroma や Lightness* を制限していないため、黒・灰・白も混ざります。
+                </p>
+                <p>
+                    色相を限定すると、L*a*b* 空間をパイの一切れのように切り取るイメージになります。
+                </p>
+                <img src="/res/hue-200-250.png" />
+            </div>
+            <div class="span7">
+                <img src="/res/hue-200-250 screenshot.png" />
+            </div>
+        </div>
+
+        <div class="row textblock">
+            <div class="span5">
+                <p>
+                    <strong>Hue 100°〜250°</strong>&nbsp;<i class="icon-hand-right"></i>
+                </p>
+                <p>
+                    青〜緑系の 577 色が抽出されます。範囲を広げれば色数も増えます。
+                </p>
+                <p>
+                    色空間を大きく切り出したような形で、下部は暗く、上部は明るく、中心はグレー、外周は高彩度です。
+                </p>
+                <p>
+                    ちなみに CIE L*a*b* 全体をサンプリングすると 1,782 色になります。
+                </p>
+                <img src="/res/hue-100-250.png" />
+            </div>
+            <div class="span7">
+                <img src="/res/hue-100-250 screenshot.png" />
+            </div>
+        </div>
+
+        <div class="row textblock">
+            <div class="span5">
+                <p>
+                    <strong>Chroma 0〜0.3</strong>&nbsp;<i class="icon-hand-right"></i>
+                </p>
+                <p>
+                    低彩度の 66 色です。わずかに緑やオレンジ寄りになりますが、これはそれらの色相が低彩度に見えやすいためです。
+                </p>
+                <p>
+                    Chroma を低く限定すると、色空間の中心付近だけを残す形になります。
+                </p>
+                <img src="/res/chroma-0-0.3.png" />
+            </div>
+            <div class="span7">
+                <img src="/res/chroma-0-0.3 screenshot.png" />
+            </div>
+        </div>
+
+        <div class="row textblock">
+            <div class="span5">
+                <p>
+                    <strong>Chroma 1〜1.2</strong>&nbsp;<i class="icon-hand-right"></i>
+                </p>
+                <p>
+                    彩度の高い 215 色です。
+                </p>
+                <p>
+                    Chroma の幅を狭くするとボウル状の形になります。Chroma が低いほど小さく、高いほど大きいボウルになります。
+                </p>
+                <img src="/res/chroma-1-1.2.png" />
+            </div>
+            <div class="span7">
+                <img src="/res/chroma-1-1.2 screenshot.png" />
+            </div>
+        </div>
+
+        <div class="row textblock">
+            <div class="span5">
+                <p>
+                    <strong>Chroma 2 以上</strong>&nbsp;<i class="icon-hand-right"></i>
+                </p>
+                <p>
+                    非常に高彩度な 363 色です。ごく一部の緑を除き、青から紫にかけての色のみがこの彩度で知覚されます。
+                </p>
+                <p>
+                    高い Chroma を選ぶと、色空間に大きな穴を開けたような形になりますが、空間の形が均一でないため特定の色相だけが残ります。
+                </p>
+                <img src="/res/chroma-2-10.png" />
+            </div>
+            <div class="span7">
+                <img src="/res/chroma-2-10 screenshot.png" />
+            </div>
+        </div>
+
+        <div class="row textblock">
+            <div class="span5">
+                <p>
+                    <strong>Lightness* 1.2 以上</strong>&nbsp;<i class="icon-hand-right"></i>
+                </p>
+                <p>
+                    ごく明るい 196 色です。黄色系が多いのは、この色相が特に明るく知覚されるからです。
+                </p>
+                <p>
+                    Lightness* を指定すると、色空間を水平にスライスするイメージになります。
+                </p>
+                <img src="/res/lightness-1.2-10.png" />
+            </div>
+            <div class="span7">
+                <img src="/res/lightness-1.2-10 screenshot.png" />
+            </div>
+        </div>
+
+        <div class="row textblock">
+            <div class="span12">
+                <h1>カスタム色空間を活用する</h1>
+                <p>
+                    データサイエンティストとして次のような要件があります。
+                <ul>
+                    <li><strong>注意をそらす派手な色を避ける</strong></li>
+                    <li><strong>全体の一貫性を保つ</strong></li>
+                    <li>必要に応じて特定要素を<strong>目立たせたり抑制</strong>したりできること</li>
+                </ul>
+                そして当然ながら、<strong>互いに区別しやすい色</strong>が必要です。
+                </p>
+                <br />
+                <p>
+                    パレットを制御できれば、次のような工夫が可能です。
+                <ul>
+                    <li>派手さを抑えるには <b>Chroma の上限</b>を設定します。</li>
+                    <li>一貫性を保つには <b>Lightness* の範囲を狭く</b>するのが効果的です。</li>
+                    <li><b>Hue を限定</b>する手法も有効ですが、必要な色数に依存します。</li>
+                    <li>目立たせたくない場合は Chroma を下げ、<b>背景に近い Lightness*</b> を選びます。</li>
+                </ul>
+                </p>
+            </div>
+        </div>
+
+        <div class="row textblock">
+            <div class="span5">
+                <p>
+                    少数の色を扱うときのおすすめ設定例です。&nbsp;<i class="icon-hand-right"></i>
+                </p>
+                <p>
+                    <strong>Chroma &lt; 0.3</strong> かつ <strong>Lightness* &gt; 1.2</strong>：ごく柔らかな 19 色。
+                    <br />
+                    <img src="/res/custom19.png" />
+                </p>
+            </div>
+            <div class="span7">
+                <div id="ex1" class="example">
+                    <div style="width:80%;">A.1.</div>
+                    <div style="width:74%;">A.2.</div>
+                    <div style="width:66%;">B.1.</div>
+                    <div style="width:42%;">B.2.</div>
+                    <div style="width:37%;">B.3.</div>
+                    <div style="width:41%;">C.1.</div>
+                    <div style="width:32%;">C.2.</div>
+                    <div style="width:25%;">C.3.</div>
+                </div>
+                <br />
+                <p>
+                    <button class="btn" onclick="example1()">色を再生成</button>
+                </p>
+                <p class="text-info">
+                    同じ色が同時に現れることはありません。
+                </p>
+            </div>
+        </div>
+
+        <div class="row textblock">
+            <div class="span5">
+                <p>
+                    要素の一部だけを強調したい場合の例です。&nbsp;<i class="icon-hand-right"></i>
+                </p>
+                <p>
+                    基本は同じ色空間を使い、強調したい要素だけ次の条件にします。
+                </p>
+                <p>
+                    <strong>0.4 &lt; Chroma &lt; 0.6</strong> かつ <strong>0.8 &lt; Lightness* &lt; 1</strong>：32 色。
+                    <br />
+                    <img src="/res/custom32.png" />
+                </p>
+            </div>
+            <div class="span7">
+                <div id="ex2" class="example">
+                    <div style="width:80%;">A.</div>
+                    <div style="width:74%;">B.</div>
+                    <div class="exergue" style="width:66%; color:#FFF;">Top Moumoute</div>
+                    <div style="width:42%;">C.</div>
+                    <div style="width:41%;">D.</div>
+                    <div style="width:37%;">E.</div>
+                </div>
+                <br />
+                <p>
+                    <button class="btn" onclick="example2()">色を再生成</button>
+                </p>
+            </div>
+        </div>
+
+        <div class="row textblock">
+            <div class="span5">
+                <p>
+                    背景が暗い場合は次のような色空間を用います。
+                </p>
+                <p>
+                    <strong>Chroma &lt; 0.4</strong> かつ <strong>0.6 &lt; Lightness* &lt; 0.8</strong>：14 色。
+                    <br />
+                    <img src="/res/custom14.png" />
+                </p>
+                <p>
+                    <strong>0.4 &lt; Chroma &lt; 0.8</strong> かつ <strong>1 &lt; Lightness* &lt; 1.2</strong>：76 色。
+                    <br />
+                    <img src="/res/custom76.png" />
+                </p>
+            </div>
+            <div class="span7">
+                <div id="ex3" class="example" style="background-color: #666; padding: 20px; color:#FFF;">
+                    <div style="width:80%;">A.</div>
+                    <div style="width:74%;">B.</div>
+                    <div class="exergue" style="width:66%; color:#000;">Top Moumoute</div>
+                    <div style="width:42%;">C.</div>
+                    <div style="width:41%;">D.</div>
+                    <div style="width:37%;">E.</div>
+                </div>
+                <br />
+                <p>
+                    <button class="btn" onclick="example3()">色を再生成</button>
+                </p>
+            </div>
+        </div>
                 <div class="container">
-                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </a>
-                    <a class="brand" href="/">I want hue</a>
-                    <div class="nav-collapse collapse">
-                        <ul class="nav">
-                            <li><a href="/tutorial/">チュートリアル</a></li>
-                            <li><a href="/examples/">例</a></li>
-                            <li><a href="/theory/">理論</a></li>
-                            <li><a href="/experiment/">実験</a></li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Old version <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="/palettes/">Generate</a></li>
-                                    <li><a href="/corrector/">Correct</a></li>
-                                    <li><a href="/completion/">Complete</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <div class="pull-right">
-                        </div>
-
-                    </div><!--/.nav-collapse -->
-                </div>
-            </div>
-        </div>
-
-
-        <div class="container">
-
-            <!-- Main hero unit for a primary marketing message or call to action -->
-            <div class="splash-unit row">
-                <div class="span7">
-                    <div class="image">
-                        <a href="/"><img src="/res/header.png"/></a>
-                    </div>
-                    <div class="title">
-                        i want hue
-                    </div>
-                </div>
-                <div class="span5">
-                    <div class="abstract">
-                        <p><strong>データサイエンティストのための色。</strong> 最適に区別できる色のパレットを生成し、調整します。</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        
-        <div class="container">
-            <div class="hero-unit">
-                <div class="row">
-                    <div class="span4"><h1>コンセプト:</h1></div>
-                    <div class="span6" style="padding-top: 14px;">
-                        <p>
-                            色を<strong>知覚的に一貫した</strong>空間で<strong>均等に</strong>分配し、
-                            <br/><strong>扱いやすい</strong>設定で制約をかけながら、<strong>高品質なカスタムパレット</strong>を生成する。
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row textblock">
-                <div class="span12">
-                    <p class="lead">
-                            ランダムな色を作る最良の方法は何か？──ここからすべてが始まりました。
-                    </p>
-                </div>
-            </div>
-            <div class="row textblock">
-                <div class="span6">
-                    <p>
-                        色を表記する一般的な方法はいくつかあります。
-                        <ul>
-                            <li>CSS で広く使われている<strong>16進数表記</strong>（例: #FF0000）。RGB の各値を16進数にしたものです。</li>
-                            <li>
-                                <strong>RGB</strong> は Red / Green / Blue の略で、色を分類するひとつの「色空間」です。
-                                モニターが色光を出す 3 つのチャネルに対応し、0〜255 の数値で表されます。
-                                [0,&nbsp;0,&nbsp;0] は黒、[255,&nbsp;255,&nbsp;255] は白になります。 
-                            </li>
-                            <li>
-                                <strong>HSV</strong>（Hue, Saturation, Value）やその変種である <b>HSL</b> は、色を人間の感覚に近い形で扱える色空間です。
-                                私たちが「青」「赤」などと呼ぶのは主に Hue（色相）で、RGB と違いこの要素だけを直接扱える利点があります。
-                            </li>
-                        </ul>
-                    </p>
-                    <p>
-                        <strong>多くのライブラリ（たとえば <em>d3.js</em>）は、これらの表記を相互に変換できます。</strong>
-                        したがって乱数で色を生成するとき、RGB でも HSV でも構いません。
-                        直感的には HSV/HSL の方が人間の感覚に近いので良さそうに思えますし、ネットでもそういう意見を見かけます。
-                        しかし本当にそうかを確かめるため、<strong>乱数生成を観察できるツール</strong>を作りました。以下がその結果です。
-                    </p>
-                </div>
-                <div class="span6">
-                    <div style="text-align: center">
-                        <br/>
-                        <br/>
-                        <img src="/res/rgb.png"/>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row textblock">
-                <div class="span12">
-                    <h1>HSL でのランダムカラー</h1>
-                </div>
-            </div>
-            <div class="row textblock">
-                <div class="span6">
-                    <p>
-                        下図は HSL でランダムに生成した 12 色のパレットです。<i class="icon-hand-right"></i>
-                    </p>
-                    <p>
-                        特に暗い色など、明らかに似た色が含まれています。12 色しか生成していないのに取り違えが起きかねず、可視化には不向きです。
-                        データ可視化では色を明確に区別できることが最優先になります。
-                    </p>
-                </div>
-                <div class="span6">
-                    <ul class="inlinePalette">
-                        <li style="background-color: #451228"><p>#451228</p></li>
-                        <li style="background-color: #13D907"><p>#13D907</p></li>
-                        <li style="background-color: #F9F4FC"><p>#F9F4FC</p></li>
-                        <li style="background-color: #41039B"><p>#41039B</p></li>
-                        <li style="background-color: #47544E"><p>#47544E</p></li>
-                        <li style="background-color: #122B53"><p>#122B53</p></li>
-                        <li style="background-color: #59DA63"><p>#59DA63</p></li>
-                        <li style="background-color: #7B1386"><p>#7B1386</p></li>
-                        <li style="background-color: #4B381C"><p>#4B381C</p></li>
-                        <li style="background-color: #CDBCD0"><p>#CDBCD0</p></li>
-                        <li style="background-color: #EAEAEA"><p>#EAEAEA</p></li>
-                        <li style="background-color: #B1CDE4"><p>#B1CDE4</p></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="row textblock">
-                <div class="span6">
-                    <br/>
-                    <p>
-                        これら 12 色を HSL 空間に配置するとこうなります。<i class="icon-hand-right"></i>
-                    </p>
-                    <p>
-                        分布自体は均等に見えますが、似た色が出るのは偶然ではなく HSL 空間の性質に起因します。
-                        <em>Hue×Lightness</em> の投影をみると、左上と右上がどちらも黒になっています。
-                        空間上では離れているのに、知覚上は同じに見えてしまうのです。明度が低い色は色相に関わらず同じに見えますし、明度が高い場合や彩度が低い場合も同様です。
-                    </p>
-                </div>
-                <div class="span6">
-                    <img src="/res/hslgen12.png"/>
-                </div>
-            </div>
-
-            <div class="row textblock">
-                <div class="span12">
-                    <h1>RGB でのランダムカラー</h1>
-                </div>
-            </div>
-            <div class="row textblock">
-                <div class="span6">
-                    <p>
-                        こちらは RGB でランダムに生成した 12 色のパレットです。<i class="icon-hand-right"></i>
-                    </p>
-                    <p>
-                        先ほどより明らかに良く、似た色も少ないのが分かります。RGB 空間の方が性質が良いのです。
-                    </p>
-                </div>
-                <div class="span6">
-                    <ul class="inlinePalette">
-                        <li style="background-color: #DBA714"><p>#DBA714</p></li>
-                        <li style="background-color: #391FEA"><p>#391FEA</p></li>
-                        <li style="background-color: #46385C"><p>#46385C</p></li>
-                        <li style="background-color: #E5154B"><p>#E5154B</p></li>
-                        <li style="background-color: #3E9A71"><p>#3E9A71</p></li>
-                        <li style="background-color: #3495F5"><p>#3495F5</p></li>
-                        <li style="background-color: #57510C"><p>#57510C</p></li>
-                        <li style="background-color: #D9B182"><p>#D9B182</p></li>
-                        <li style="background-color: #8625B8"><p>#8625B8</p></li>
-                        <li style="background-color: #83CA5D"><p>#83CA5D</p></li>
-                        <li style="background-color: #6252A1"><p>#6252A1</p></li>
-                        <li style="background-color: #DB5E3A"><p>#DB5E3A</p></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="row textblock">
-                <div class="span6">
-                    <br/>
-                    <p>
-                        このパレットを HSL 空間に投影するとこうなります。<i class="icon-hand-right"></i>
-                    </p>
-                    <p>
-                        色は暗い領域や極端に明るい領域、グレー領域には偏っていません。
-                        それらは私たちが色の違いを<em>見分けやすい</em>領域に集まる傾向があります。
-                        直感的にも、知覚的に多様な色を得るにはこうなってほしいと感じるはずです。
-                    </p>
-                    <p>
-                        <strong>どの色空間を使うかで、乱数の分布は大きく変わります。</strong>
-                    </p>
-                </div>
-                <div class="span6">
-                    <img src="/res/rgbgen12.png"/>
-                </div>
-            </div>
-
-            <div class="row textblock">
-                <div class="span12">
-                    <p class="lead">
-                        では、ランダムな色を生成するのに最適な色空間はどれでしょうか？
-                    </p>
-                </div>
-            </div>
-
-            <div class="row textblock">
-                <div class="span12">
-                    <h1>L*a*b* 色空間</h1>
-                </div>
-            </div>
-            <div class="row textblock">
-                <div class="span6">
-                    <p>
-                        <a href="http://en.wikipedia.org/wiki/Lab_color_space">CIE L*a*b*</a> 色空間は人が知覚できる色をほぼ網羅し、知覚的に一様になるよう設計されています。
-                        つまり、この空間での距離は知覚上の距離として扱え、近ければ見た目も似て、離れていれば違って見えるのです。<strong>求めていた特性がここにあります。</strong>
-                    </p>
-                    <p>
-                        ただしこの色空間には「穴」があります。実在する色に対応する座標は一部で、その他は空白です。
-                        少し扱いが難しくなりますが、十分対処できます。
-                    </p>
-                    <p>
-                        形状は右図の通りです。<i class="icon-hand-right"></i>
-                    </p>
-                    <p>
-                        この色空間の優れている点は、黄色が明るく見え、紫が暗く見えるといった人の感覚を反映していることです。
-                        明度を示す値に * が付いているのはそのためで、バイアスのない明るさを意味します。
-                        また、暗色やグレーよりも彩度の高い色に広い領域を割り当てています。とても暗い色はすべて似た見た目になるので、暗色の領域は狭くなっています。
-                    </p>
-                </div>
-                <div class="span6">
-                    <img style="margin-right:50px;" src="/res/axb.png"/>
-                    <img src="/res/Lxa.png"/>
-                </div>
-            </div>
-
-            <div class="row textblock">
-                <div class="span6">
-                    <br/>
-                    <p>
-                        <strong>以降の分布評価では、この CIE L*a*b* 色空間を基準として使用します。</strong>
-                    </p>
-                    <p>
-                        この空間で 1 万色をランダム生成すると、右図のような分布になります。&nbsp;<i class="icon-hand-right"></i>
-                    </p>
-                    <p>
-                        これを基準に、他の色空間でのランダム分布と比較してみましょう。
-                    </p>
-                </div>
-                <div class="span6">
-                    <img src="/res/ab_Lab_proba.png"/>
-                </div>
-            </div>
-
-            <div class="row textblock">
-                <div class="span6">
-                    <br/>
-                    <p>
-                        <strong>HSL のランダム色を CIE L*a*b* で表示</strong>&nbsp;<i class="icon-hand-right"></i>
-                    </p>
-                    <p>
-                        HSL のランダム色が中央に集中している様子がよく分かります。
-                        この領域は暗色・グレー・非常に明るい色、すなわち彩度が低い色に対応しており、最初の例で似た色ばかりになった理由が視覚化されています。
-                    </p>
-                </div>
-                <div class="span6">
-                    <img src="/res/ab_HSL_proba.png"/>
-                </div>
-            </div>
-
-            <div class="row textblock">
-                <div class="span6">
-                    <br/>
-                    <p>
-                        <strong>RGB のランダム色を CIE L*a*b* で表示</strong>&nbsp;<i class="icon-hand-right"></i>
-                    </p>
-                    <p>
-                        分布は基準に非常に近く、CIE L*a*b* で直接生成した場合ほどではないにせよ、RGB のランダム色も十分満足できる結果になります。
-                    </p>
-                    <p>
-                        <strong>手軽なジェネレーターが必要なら、RGB のランダム色を選びましょう。期待できる最良の結果と大差ありません。</strong>
-                    </p>
-                </div>
-                <div class="span6">
-                    <img src="/res/ab_RGB_proba.png"/>
-                </div>
-            </div>
-
-            <div class="row textblock">
-                <div class="span12">
-                    <h1>色を均等に配置する</h1>
-                    <p class="lead">
-                        次のステップは、似た色が生まれないよう互いの位置関係で色を配置することです。
-                        ここでは <strong>k-Means</strong> と <strong>Force Vector</strong>（反発ベクトル）の 2 つのアルゴリズムを使います。
-                    </p>
-                </div>
-            </div>
-
-            <div class="row textblock">
-                <div class="span5">
-                    <h3>Force Vector：反発による配置</h3>
-                    <p>
-                        Force Vector はもっとも単純で、すべての色がお互いを押しのけ合い、可能な限り離れるようにします。
-                        RGB 空間（立方体）で 8 色を生成して反発させると、各色は自然と角に移動していきます。
-                    </p>
-                    <p>
-                        <em>RGB Force Vector による 8 色パレット</em>&nbsp;<i class="icon-hand-right"></i>
-                    </p>
-                    <p>
-                        結果として黒と白、3 原色、3 補色が得られます。
-                    </p>
-                </div>
-                <div class="span3">
-                    <img src="/res/rgb-8fv.png"/>
-                </div>
-                <div class="span4">
-                    <br/>
-                    <ul class="inlinePalette">
-                        <li style="background-color: #00FF00"><p>#00FF00</p></li>
-                        <li style="background-color: #0000FF"><p>#0000FF</p></li>
-                        <li style="background-color: #FF0000"><p>#FF0000</p></li>
-                        <li style="background-color: #FFFFFF"><p>#FFFFFF</p></li>
-                        <li style="background-color: #000000"><p>#000000</p></li>
-                        <li style="background-color: #FFFF00"><p>#FFFF00</p></li>
-                        <li style="background-color: #FF00FF"><p>#FF00FF</p></li>
-                        <li style="background-color: #00FFFF"><p>#00FFFF</p></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="row textblock">
-                <div class="span5">
-                    <br/>
-                    <p>
-                        同じアルゴリズムを CIE L*a*b* 空間で使うと、空間の形状がゆがんでいるため異なる結果になりますが、それでも互いによく離れた色が得られます。
-                    </p>
-                    <p>
-                        <em>L*a*b* Force Vector による 8 色パレット</em>&nbsp;<i class="icon-hand-right"></i>
-                    </p>
-                </div>
-                <div class="span3">
-                    <img src="/res/lab-8fv.png"/>
-                </div>
-                <div class="span4">
-                    <br/>
-                    <ul class="inlinePalette">
-                        <li style="background-color: #A09C04"><p>#A09C04</p></li>
-                        <li style="background-color: #F161FE"><p>#F161FE</p></li>
-                        <li style="background-color: #27B0CC"><p>#27B0CC</p></li>
-                        <li style="background-color: #FA231D"><p>#FA231D</p></li>
-                        <li style="background-color: #04103B"><p>#04103B</p></li>
-                        <li style="background-color: #FA918F"><p>#FA918F</p></li>
-                        <li style="background-color: #1A5A18"><p>#1A5A18</p></li>
-                        <li style="background-color: #963700"><p>#963700</p></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="row textblock">
-                <div class="span5">
-                    <h3>k-Means クラスタリング</h3>
-                    <p>
-                        色を均等に配置する別の方法は、色空間をクラスタリングすることです。
-                        ここでは <a href="http://en.wikipedia.org/wiki/Kmeans">k-Means</a> アルゴリズムを用い、色空間を <em>k</em> 個の領域に分割し、それぞれの中心点をパレットとして採用します。
-                    </p>
-                    <p>
-                        <em>RGB k-Means による 8 色パレット</em>&nbsp;<i class="icon-hand-right"></i>
-                    </p>
-                    <p>
-                        RGB キューブを 8 分割すると 8 色が得られますが、色は必ずしも頂点には配置されません。
-                        これが Force Vector との大きな違いで、<strong>k-Means は Force Vector ほど色同士を離しません。</strong>
-                    </p>
-                </div>
-                <div class="span3">
-                    <img src="/res/rgb-8km.png"/>
-                </div>
-                <div class="span4">
-                    <br/>
-                    <ul class="inlinePalette">
-                        <li style="background-color: #BE3CBE"><p>#BE3CBE</p></li>
-                        <li style="background-color: #3CBE3C"><p>#3CBE3C</p></li>
-                        <li style="background-color: #3C3C3C"><p>#3C3C3C</p></li>
-                        <li style="background-color: #BE3C3C"><p>#BE3C3C</p></li>
-                        <li style="background-color: #3CBEBE"><p>#3CBEBE</p></li>
-                        <li style="background-color: #BEBE3C"><p>#BEBE3C</p></li>
-                        <li style="background-color: #3C3CBE"><p>#3C3CBE</p></li>
-                        <li style="background-color: #BEBEBE"><p>#BEBEBE</p></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="row textblock">
-                <div class="span5">
-                    <br/>
-                    <p>
-                        こちらも CIE L*a*b* 空間では形状が異なるため、別の結果になります。
-                    </p>
-                    <p>
-                        <em>L*a*b* k-Means による 8 色パレット</em>&nbsp;<i class="icon-hand-right"></i>
-                    </p>
-                </div>
-                <div class="span3">
-                    <img src="/res/lab-8km.png"/>
-                </div>
-                <div class="span4">
-                    <br/>
-                    <ul class="inlinePalette">
-                        <li style="background-color: #C7743B"><p>#C7743B</p></li>
-                        <li style="background-color: #9B4DCA"><p>#9B4DCA</p></li>
-                        <li style="background-color: #93C4A2"><p>#93C4A2</p></li>
-                        <li style="background-color: #513363"><p>#513363</p></li>
-                        <li style="background-color: #94C64D"><p>#94C64D</p></li>
-                        <li style="background-color: #514C34"><p>#514C34</p></li>
-                        <li style="background-color: #C45271"><p>#C45271</p></li>
-                        <li style="background-color: #969CC6"><p>#969CC6</p></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="row textblock">
-                <div class="span12">
-                    <h1>パレットを意図的に操る</h1>
-                    <p class="lead">
-                        次のステップは、生成される色に制約をかけて種類をコントロールすることです。
-                        たとえば彩度を抑え、派手すぎる色を避けたい場合などが典型です。
-                    </p>
-                </div>
-            </div>
-
-            <div class="row textblock">
-                <div class="span6">
-                    <h3>HCL 色空間</h3>
-                    <p>
-                        RGB が画面が色を<em>生成する</em>仕組みに、CIE L*a*b* が私たちが色を<em>知覚する</em>仕組みに対応しているなら、HCL は色をどう<em>考える</em>かに対応しています。
-                        HSL に似ていますが、知覚バイアスを除いています。CIE L*a*b* をベースにしつつ、色相を独立した次元として扱う発想です。
-                        そのため HCL では通常の <u>H</u>ue、バイアスのない彩度である <u>C</u>hroma、そして L*a*b* の（バイアスのない）<u>L</u>ightness* を使います。
-                    </p>
-                </div>
-                <div class="span6">
-                    <div class="alert alert-info">
-                        <p>
-                            この巧妙な手法は Gregor Aisch によって（再）発見されました。<a href="http://vis4.net/blog/posts/avoid-equidistant-hsv-colors/">このブログ記事</a>で詳しく説明されています。
-                            ぜひ一読してください。なお、私がこのツールで多用した <a href="https://github.com/gka/chroma.js">Chroma.js</a> も彼が開発したものです。
-                        </p>
-                        <p>
-                            <strong><em>HCL</em> という用語についての注意</strong>: この色空間は当初、CSL（chroma / saturation / lightness）と呼ばれていました。
-                            上記の記事では「CSL」と表現されていますが、現在の Chroma.js と同様に、ここで言う <strong>HCL</strong> を指しています。
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row textblock">
-                <div class="span6">
-                    <br/>
-                    <p>
-                        HCL 色空間は CIE L*a*b* よりもさらにねじれており、彩度の低い色が一か所にまとまっているわけではありませんが、色空間に制約をかけるには最適です。
-                    </p>
-                    <p>
-                        バイアスのない明度の効果がよく分かります。黄色は明るすぎず、藍は暗すぎません。全体がとても滑らかに見えるはずです。
-                    </p>
-                    <p>
-                        Hue・Chroma・Lightness* の範囲を指定するだけで、L*a*b* 色空間を<strong>限定</strong>できます。
-                        任意の L*a*b* の色を HCL に変換し、指定範囲に収まっているかテストするだけです。
-                        Force Vector は色が境界外へ押し出されるのを防ぎ、k-Means はクラスタリング対象となるサンプリングをその範囲に絞り込むため、処理も速くなります。
-                    </p>
-                    <p>
-                        つまり、計算処理では L*a*b* を用い、ユーザーが色域を絞るために HCL を扱う、という役割分担です。
-                    </p>
-                </div>
-                <div class="span6">
-                    <img src="/res/hxL.png"/>
-                </div>
-            </div>
-
-            <div class="row textblock">
-                <div class="span6">
-                    <h3>Hue・Chroma・Lightness の範囲指定</h3>
-                    <p>
-                        以下はパレット作成に使える色サブスペースの例です。
-                        色空間がねじれているため、Chroma を変えると Hue や Lightness* にも影響が出る点に注意してください。
-                    </p>
-                </div>
-            </div>
-
-            <div class="row textblock">
-                <div class="span5">
-                    <p>
-                        <strong>Hue 200°〜250°</strong>&nbsp;<i class="icon-hand-right"></i>
-                    </p>
-                    <p>
-                        やや青寄りの 170 色が得られます。Chroma や Lightness* を制限していないため、黒・灰・白も混ざります。
-                    </p>
-                    <p>
-                        色相を限定すると、L*a*b* 空間をパイの一切れのように切り取るイメージになります。
-                    </p>
-                    <img src="/res/hue-200-250.png"/>
-                </div>
-                <div class="span7">
-                    <img src="/res/hue-200-250 screenshot.png"/>
-                </div>
-            </div>
-
-            <div class="row textblock">
-                <div class="span5">
-                    <p>
-                        <strong>Hue 100°〜250°</strong>&nbsp;<i class="icon-hand-right"></i>
-                    </p>
-                    <p>
-                        青〜緑系の 577 色が抽出されます。範囲を広げれば色数も増えます。
-                    </p>
-                    <p>
-                        色空間を大きく切り出したような形で、下部は暗く、上部は明るく、中心はグレー、外周は高彩度です。
-                    </p>
-                    <p>
-                        ちなみに CIE L*a*b* 全体をサンプリングすると 1,782 色になります。
-                    </p>
-                    <img src="/res/hue-100-250.png"/>
-                </div>
-                <div class="span7">
-                    <img src="/res/hue-100-250 screenshot.png"/>
-                </div>
-            </div>
-
-            <div class="row textblock">
-                <div class="span5">
-                    <p>
-                        <strong>Chroma 0〜0.3</strong>&nbsp;<i class="icon-hand-right"></i>
-                    </p>
-                    <p>
-                        低彩度の 66 色です。わずかに緑やオレンジ寄りになりますが、これはそれらの色相が低彩度に見えやすいためです。
-                    </p>
-                    <p>
-                        Chroma を低く限定すると、色空間の中心付近だけを残す形になります。
-                    </p>
-                    <img src="/res/chroma-0-0.3.png"/>
-                </div>
-                <div class="span7">
-                    <img src="/res/chroma-0-0.3 screenshot.png"/>
-                </div>
-            </div>
-
-            <div class="row textblock">
-                <div class="span5">
-                    <p>
-                        <strong>Chroma 1〜1.2</strong>&nbsp;<i class="icon-hand-right"></i>
-                    </p>
-                    <p>
-                        彩度の高い 215 色です。
-                    </p>
-                    <p>
-                        Chroma の幅を狭くするとボウル状の形になります。Chroma が低いほど小さく、高いほど大きいボウルになります。
-                    </p>
-                    <img src="/res/chroma-1-1.2.png"/>
-                </div>
-                <div class="span7">
-                    <img src="/res/chroma-1-1.2 screenshot.png"/>
-                </div>
-            </div>
-
-            <div class="row textblock">
-                <div class="span5">
-                    <p>
-                        <strong>Chroma 2 以上</strong>&nbsp;<i class="icon-hand-right"></i>
-                    </p>
-                    <p>
-                        非常に高彩度な 363 色です。ごく一部の緑を除き、青から紫にかけての色のみがこの彩度で知覚されます。
-                    </p>
-                    <p>
-                        高い Chroma を選ぶと、色空間に大きな穴を開けたような形になりますが、空間の形が均一でないため特定の色相だけが残ります。
-                    </p>
-                    <img src="/res/chroma-2-10.png"/>
-                </div>
-                <div class="span7">
-                    <img src="/res/chroma-2-10 screenshot.png"/>
-                </div>
-            </div>
-
-            <div class="row textblock">
-                <div class="span5">
-                    <p>
-                        <strong>Lightness* 1.2 以上</strong>&nbsp;<i class="icon-hand-right"></i>
-                    </p>
-                    <p>
-                        ごく明るい 196 色です。黄色系が多いのは、この色相が特に明るく知覚されるからです。
-                    </p>
-                    <p>
-                        Lightness* を指定すると、色空間を水平にスライスするイメージになります。
-                    </p>
-                    <img src="/res/lightness-1.2-10.png"/>
-                </div>
-                <div class="span7">
-                    <img src="/res/lightness-1.2-10 screenshot.png"/>
-                </div>
-            </div>
-
-            <div class="row textblock">
-                <div class="span12">
-                    <h1>カスタム色空間を活用する</h1>
-                    <p>
-                        データサイエンティストとして次のような要件があります。
-                        <ul>
-                            <li><strong>注意をそらす派手な色を避ける</strong></li>
-                            <li><strong>全体の一貫性を保つ</strong></li>
-                            <li>必要に応じて特定要素を<strong>目立たせたり抑制</strong>したりできること</li>
-                        </ul>
-                        そして当然ながら、<strong>互いに区別しやすい色</strong>が必要です。
-                    </p>
-                    <br/>
-                    <p>
-                        パレットを制御できれば、次のような工夫が可能です。
-                        <ul>
-                            <li>派手さを抑えるには <b>Chroma の上限</b>を設定します。</li>
-                            <li>一貫性を保つには <b>Lightness* の範囲を狭く</b>するのが効果的です。</li>
-                            <li><b>Hue を限定</b>する手法も有効ですが、必要な色数に依存します。</li>
-                            <li>目立たせたくない場合は Chroma を下げ、<b>背景に近い Lightness*</b> を選びます。</li>
-                        </ul>
-                    </p>
-                </div>
-            </div>
-                
-            <div class="row textblock">
-                <div class="span5">
-                    <p>
-                        少数の色を扱うときのおすすめ設定例です。&nbsp;<i class="icon-hand-right"></i>
-                    </p>
-                    <p>
-                        <strong>Chroma &lt; 0.3</strong> かつ <strong>Lightness* &gt; 1.2</strong>：ごく柔らかな 19 色。
-                        <br/>
-                        <img src="/res/custom19.png"/>
-                    </p>
-                </div>
-                <div class="span7">
-                    <div id="ex1" class="example">
-                        <div style="width:80%;">A.1.</div>
-                        <div style="width:74%;">A.2.</div>
-                        <div style="width:66%;">B.1.</div>
-                        <div style="width:42%;">B.2.</div>
-                        <div style="width:37%;">B.3.</div>
-                        <div style="width:41%;">C.1.</div>
-                        <div style="width:32%;">C.2.</div>
-                        <div style="width:25%;">C.3.</div>
-                    </div>
-                    <br/>
-                    <p>
-                        <button class="btn" onclick="example1()">色を再生成</button>
-                    </p>
-                    <p class="text-info">
-                        同じ色が同時に現れることはありません。
-                    </p>
-                </div>
-            </div>
-                
-            <div class="row textblock">
-                <div class="span5">
-                    <p>
-                        要素の一部だけを強調したい場合の例です。&nbsp;<i class="icon-hand-right"></i>
-                    </p>
-                    <p>
-                        基本は同じ色空間を使い、強調したい要素だけ次の条件にします。
-                    </p>
-                    <p>
-                        <strong>0.4 &lt; Chroma &lt; 0.6</strong> かつ <strong>0.8 &lt; Lightness* &lt; 1</strong>：32 色。
-                        <br/>
-                        <img src="/res/custom32.png"/>
-                    </p>
-                </div>
-                <div class="span7">
-                    <div id="ex2" class="example">
-                        <div style="width:80%;">A.</div>
-                        <div style="width:74%;">B.</div>
-                        <div class="exergue" style="width:66%; color:#FFF;">Top Moumoute</div>
-                        <div style="width:42%;">C.</div>
-                        <div style="width:41%;">D.</div>
-                        <div style="width:37%;">E.</div>
-                    </div>
-                    <br/>
-                    <p>
-                        <button class="btn" onclick="example2()">色を再生成</button>
-                    </p>
-                </div>
-            </div>
-
-            <div class="row textblock">
-                <div class="span5">
-                    <p>
-                        背景が暗い場合は次のような色空間を用います。
-                    </p>
-                    <p>
-                        <strong>Chroma &lt; 0.4</strong> かつ <strong>0.6 &lt; Lightness* &lt; 0.8</strong>：14 色。
-                        <br/>
-                        <img src="/res/custom14.png"/>
-                    </p>
-                    <p>
-                        <strong>0.4 &lt; Chroma &lt; 0.8</strong> かつ <strong>1 &lt; Lightness* &lt; 1.2</strong>：76 色。
-                        <br/>
-                        <img src="/res/custom76.png"/>
-                    </p>
-                </div>
-                <div class="span7">
-                    <div id="ex3" class="example" style="background-color: #666; padding: 20px; color:#FFF;">
-                        <div style="width:80%;">A.</div>
-                        <div style="width:74%;">B.</div>
-                        <div class="exergue" style="width:66%; color:#000;">Top Moumoute</div>
-                        <div style="width:42%;">C.</div>
-                        <div style="width:41%;">D.</div>
-                        <div style="width:37%;">E.</div>
-                    </div>
-                    <br/>
-                    <p>
-                        <button class="btn" onclick="example3()">色を再生成</button>
-                    </p>
-                </div>
-            </div>
-        <div class="container">
 
             <hr>
 
@@ -832,8 +953,8 @@
             </footer>
         </div>
 
-        </div>
-
+    </div>
+    
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="/js/libs/jquery-1.8.0.min.js"><\/script>')</script>
 
@@ -862,102 +983,103 @@
 <!-- End Matomo Code -->
 
 
-        <script src="/js/libs/chroma.js"></script>
-        <script src="/js/libs/chroma.palette-gen.js"></script>
+    <script src="/js/libs/chroma.js"></script>
+    <script src="/js/libs/chroma.palette-gen.js"></script>
 
-        <script src="/js/background.js"></script>
-        <script src="/js/colorspace.js"></script>
-        <script src="/js/presets.js"></script>
-        <script src="/js/selectors.js"></script>
-        <script src="/js/fitting.js"></script>
-        <script src="/js/palettegeneration.js"></script>
-        <script src="/js/colorpicker.js"></script>
+    <script src="/js/background.js"></script>
+    <script src="/js/colorspace.js"></script>
+    <script src="/js/presets.js"></script>
+    <script src="/js/selectors.js"></script>
+    <script src="/js/fitting.js"></script>
+    <script src="/js/palettegeneration.js"></script>
+    <script src="/js/colorpicker.js"></script>
 
-        <script src="/js/sandbox.js"></script>
+    <script src="/js/sandbox.js"></script>
 
-<script>
-// Examples
+    <script>
+        // Examples
 
-// 1
-function example1(){
-    var ex1_colors = paletteGenerator.generate(3, function(color){
-        var hcl = color.hcl();
-        return hcl[1]<=0.3 && hcl[2]>=1.2;
-    },false,10);
-    ex1_colors = paletteGenerator.diffSort(ex1_colors);
+        // 1
+        function example1() {
+            var ex1_colors = paletteGenerator.generate(3, function (color) {
+                var hcl = color.hcl();
+                return hcl[1] <= 0.3 && hcl[2] >= 1.2;
+            }, false, 10);
+            ex1_colors = paletteGenerator.diffSort(ex1_colors);
 
-    $('#ex1 div').each(function(i,element){
-        $(element).css('background-color', ex1_colors[Math.round(i/3)%3].hex());
-    });
-}
-example1();
-
-// 2
-function example2(){
-    var ex2_colors = paletteGenerator.generate(6, function(color){
-        var hcl = color.hcl();
-        return hcl[1]<=0.3 && hcl[2]>=1.2;
-    },false,10);
-    ex2_colors = paletteGenerator.diffSort(ex2_colors);
-    
-    var exergue = paletteGenerator.generate(3, function(color){
-        var hcl = color.hcl();
-        return hcl[0]>=0 && hcl[0]<=360 && hcl[1]>=0.4 && hcl[1]<=0.6 && hcl[2]>=0.8 && hcl[2]<=1;
-    },false,10)[0];
-    
-    $('#ex2 div').each(function(i,element){
-        if($(element).hasClass('exergue')){
-            $(element).css('background-color', exergue.hex());
-        } else {
-            $(element).css('background-color', ex2_colors[i].hex());
+            $('#ex1 div').each(function (i, element) {
+                $(element).css('background-color', ex1_colors[Math.round(i / 3) % 3].hex());
+            });
         }
-    });
-}
-example2();
+        example1();
 
-// 3
-function example3(){
-    var ex3_colors = paletteGenerator.generate(6, function(color){
-        var hcl = color.hcl();
-        return hcl[0]>=0 && hcl[0]<=360 && hcl[1]>=0 && hcl[1]<=0.4 && hcl[2]>=0.6 && hcl[2]<=0.8;
-    },false,10);
-    ex3_colors = paletteGenerator.diffSort(ex3_colors);
-    
-    var exergue = paletteGenerator.generate(3, function(color){
-        var hcl = color.hcl();
-        return hcl[0]>=0 && hcl[0]<=360 && hcl[1]>=0.4 && hcl[1]<=0.8 && hcl[2]>=1 && hcl[2]<=1.2;
-    },false,10)[0];
-    
-    $('#ex3 div').each(function(i,element){
-        if($(element).hasClass('exergue')){
-            $(element).css('background-color', exergue.hex());
-        } else {
-            $(element).css('background-color', ex3_colors[i].hex());
+        // 2
+        function example2() {
+            var ex2_colors = paletteGenerator.generate(6, function (color) {
+                var hcl = color.hcl();
+                return hcl[1] <= 0.3 && hcl[2] >= 1.2;
+            }, false, 10);
+            ex2_colors = paletteGenerator.diffSort(ex2_colors);
+
+            var exergue = paletteGenerator.generate(3, function (color) {
+                var hcl = color.hcl();
+                return hcl[0] >= 0 && hcl[0] <= 360 && hcl[1] >= 0.4 && hcl[1] <= 0.6 && hcl[2] >= 0.8 && hcl[2] <= 1;
+            }, false, 10)[0];
+
+            $('#ex2 div').each(function (i, element) {
+                if ($(element).hasClass('exergue')) {
+                    $(element).css('background-color', exergue.hex());
+                } else {
+                    $(element).css('background-color', ex2_colors[i].hex());
+                }
+            });
         }
-    });
-}
-example3();
-</script>
+        example2();
+
+        // 3
+        function example3() {
+            var ex3_colors = paletteGenerator.generate(6, function (color) {
+                var hcl = color.hcl();
+                return hcl[0] >= 0 && hcl[0] <= 360 && hcl[1] >= 0 && hcl[1] <= 0.4 && hcl[2] >= 0.6 && hcl[2] <= 0.8;
+            }, false, 10);
+            ex3_colors = paletteGenerator.diffSort(ex3_colors);
+
+            var exergue = paletteGenerator.generate(3, function (color) {
+                var hcl = color.hcl();
+                return hcl[0] >= 0 && hcl[0] <= 360 && hcl[1] >= 0.4 && hcl[1] <= 0.8 && hcl[2] >= 1 && hcl[2] <= 1.2;
+            }, false, 10)[0];
+
+            $('#ex3 div').each(function (i, element) {
+                if ($(element).hasClass('exergue')) {
+                    $(element).css('background-color', exergue.hex());
+                } else {
+                    $(element).css('background-color', ex3_colors[i].hex());
+                }
+            });
+        }
+        example3();
+    </script>
 
 
-<script>
-// Generate colors (as Chroma.js objects)
-var colors = paletteGenerator.generate(4, function(color){
-    var hcl = color.hcl();
-    return hcl[0]>=0 && hcl[0]<=360 && hcl[1]>=0 && hcl[1]<=0.25 && hcl[2]>=1.2 && hcl[2]<=10;
-},false,20);
+    <script>
+        // Generate colors (as Chroma.js objects)
+        var colors = paletteGenerator.generate(4, function (color) {
+            var hcl = color.hcl();
+            return hcl[0] >= 0 && hcl[0] <= 360 && hcl[1] >= 0 && hcl[1] <= 0.25 && hcl[2] >= 1.2 && hcl[2] <= 10;
+        }, false, 20);
 
-$('.sectionblock').each(function(i,block){
-    $(block).css('background-color', colors[i]);
-});
+        $('.sectionblock').each(function (i, block) {
+            $(block).css('background-color', colors[i]);
+        });
 
-var conceptcolor = paletteGenerator.generate(1, function(color){
-    var hcl = color.hcl();
-    return hcl[0]>=0 && hcl[0]<=360 && hcl[1]>=0.6 && hcl[1]<=10 && hcl[2]>=0.2 && hcl[2]<=0.8;
-},false,0)[0];
+        var conceptcolor = paletteGenerator.generate(1, function (color) {
+            var hcl = color.hcl();
+            return hcl[0] >= 0 && hcl[0] <= 360 && hcl[1] >= 0.6 && hcl[1] <= 10 && hcl[2] >= 0.2 && hcl[2] <= 0.8;
+        }, false, 0)[0];
 
-$('#concept').css('color', conceptcolor);
+        $('#concept').css('color', conceptcolor);
 
-</script>
-    </body>
+    </script>
+</body>
+
 </html>
