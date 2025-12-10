@@ -307,22 +307,31 @@ async function verifyUserAccess(session) {
 // Controller: メイン処理 (変更なしのエントリーポイント名)
 // =========================================================================
 
+
 async function initDatavizToolAuth() {
+  console.log("[dataviz-auth-client] Initializing...");
   if (!supabase) {
     console.error("[dataviz-auth-client] Supabase client missing.");
     return;
   }
+  console.log("[dataviz-auth-client] Supabase client found.");
 
   // 1. UIの初期化・表示
   const headerUI = new DatavizGlobalHeader();
   // DOMContentLoadedを待つ
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => headerUI.mount());
+    console.log("[dataviz-auth-client] Waiting for DOMContentLoaded...");
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log("[dataviz-auth-client] DOMContentLoaded fired. Mounting header...");
+        headerUI.mount();
+    });
   } else {
+    console.log("[dataviz-auth-client] Document ready. Mounting header...");
     headerUI.mount();
   }
 
   let isCheckDone = false;
+
 
   const handleSession = async (session) => {
     // UIをローディング状態に
